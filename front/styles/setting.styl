@@ -1,0 +1,40 @@
+@import "mixin"
+.setting
+	.profile
+		display flex
+		align-items center
+		height h(90)
+		background-color #fff
+		.avator
+			margin-left w(15)
+			width w(60)
+			height @width
+			bg("/test.jpeg")
+			background-size 100% 100%
+			border-radius 50%
+			color transparent
+			&::-webkit-file-upload-button
+				font-size 0
+				background-color currentColor
+				color currentColor
+				border-width 0
+		.basis
+			margin-left w(20)
+			display flex
+			flex-direction column
+			justify-content center
+			flex 1
+			strong
+				color #333
+				font-size h(15)
+			span
+				margin-top h(10)
+				font-size h(13)
+				color #ccc
+		icon
+			margin-right w(5)
+	.out
+		margin-top h(10)
+		display flex
+		justify-content center
+		color #333

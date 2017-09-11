@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/icon.css" />
+		<link rel="stylesheet" href="/css/core.css" />
+		<style>
+			.out{
+				margin-top: 2vh;
+				display: block;
+				width: 100vw;
+				background-color: #fff;
+				border-top: 1px solid #ddd;
+				border-bottom: 1px solid #ddd;
+				text-align: center;
+				line-height: 6vh;
+			}
+		</style>
+		<title>设置</title>
+	</head>
+	<body>
+		<header>
+			<a class="icon back" id="btnBack"></a>
+			<strong>设置</strong>
+			<a class="icon"></a>
+		</header>
+		<section>
+			<a class="entrance">
+				<strong>个人资料</strong>
+				<icon class="go" />
+			</a>
+			<a class="entrance" href="/me/reset">
+				<strong>修改密码</strong>
+				<icon class="go" />
+			</a>
+			<a class="entrance">版本号：V0.0.1</a>
+		</section>
+		<a class="out" href="/me/out">退出</a>
+		<script>
+			btnBack.addEventListener("click", () => {
+				history.back();
+			});
+		</script>
+	</body>
+</html>

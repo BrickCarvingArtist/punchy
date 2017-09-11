@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/icon.css" />
+		<link rel="stylesheet" href="/css/core.css" />
+		<style>
+			.main{
+				height: 80vh;
+				overflow-y: scroll;
+			}
+			ul{
+				margin: 10px;
+			}
+			li{
+				margin-top: 10px;
+				padding: 10px 20px;
+				background-color: #fff;
+				list-style: none;
+			}
+			.pagination{
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			.pagination a{
+				margin: 10px;
+				padding: 5px 10px;
+				border: 1px solid #ccc;
+				border-radius: 2px;
+				cursor: pointer;
+			}
+			.pagination a:hover, .pagination a.current{
+				background-color: #3af;
+				color: white;
+			}
+		</style>
+		<title>我的文章</title>
+	</head>
+	<body>
+		<header>
+			<a class="icon back" id="btnBack"></a>
+			<strong>我的文章</strong>
+			<a class="icon add" href="/article/0/edit"></a>
+		</header>
+		<div class="main">
+			<ul class="list"></ul>
+			<nav class="pagination"></nav>
+		</div>
+		<footer>
+			<a href="/">首页</a>
+			<a href="/discover">发现</a>
+			<a href="/me">个人中心</a>
+		</footer>
+		<script src="/js/core.js"></script>
+		<script src="/js/pagination.js"></script>
+		<script>
+			btnBack.addEventListener("click", () => {
+				history.back();
+			});
+			(async () => {
+				const list = document.querySelector(".list");
+				new Pagination({
+					el: document.querySelector(".pagination"),
+					action: "/article/list",
+					pageSize: {
+						key: "pageSize",
+						value: 5
+					},
+					pageIndex: {
+						key: "pageIndex"
+					},
+					getTotal({data}){
+						return data.count;
+					},
+					render({data}){
+						list.innerHTML = "";
+						const container = document.createDocumentFragment();
+						data.rows.forEach(item => {
+							container.appendChild(createItem(item));
+						});
+						list.appendChild(container);
+					}
+				});
+			})();
+			function createItem({id, title, description, updated_at, viewed_times}){
+				const item = document.createElement("li"),
+					pre = document.createElement("pre"),
+					remove = document.createElement("a");
+				pre.innerText = description;
+				item.innerHTML = `<h2><a href="/article/${id}">${title}</a></h2><p><time>更新时间：${Time.toDash(updated_at)}</time><span>阅读量(${viewed_times})</span></p><a href="/article/${id}/edit">编辑</a>`;
+				item.appendChild(pre);
+				remove.innerText = "删除";
+				remove.addEventListener("click", async () => {
+					const {code} = await (await fetch(`/article/${id}`, {
+						method: "DELETE"
+					})).json();
+					code || location.reload();
+				});
+				item.appendChild(remove);
+				return item;
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/icon.css" />
+		<link rel="stylesheet" href="/css/core.css" />
+		<style>
+			.lottery{
+				width: 280px;
+				height: 280px;
+			}
+			.lottery .case{
+				position: relative;
+				float: left;
+				width: 80px;
+				height: 80px;
+				text-align: center;
+			}
+			.lottery .case:not(:nth-of-type(3n)){
+				margin-right: 20px;
+			}
+			.lottery .case:first-of-type, .lottery .case:nth-of-type(2), .lottery .case:nth-of-type(3), .lottery .case:nth-of-type(4), .lottery .case:nth-of-type(5), .lottery .case:nth-of-type(6){
+				margin-bottom: 20px;
+			}
+			.lottery .case .frontEnd{
+				position: absolute;
+				width: 80px;
+				height: 80px;
+				background-color: #cccccc;
+				backface-visibility: hidden;
+				transition: transform 1.25s;
+			}
+			.lottery .case.rotate .frontEnd{
+				transform: rotateY(-180deg);
+			}
+			.lottery .case .backEnd{
+				position: absolute;
+				width: 80px;
+				height: 80px;
+				background-color: #0af;
+				backface-visibility: hidden;
+				transform: rotateY(-180deg);
+				transition: transform 1.25s;
+				line-height: 80px;
+			}
+			.lottery .case.rotate .backEnd{
+				transform: rotateY(0);
+			}
+		</style>
+		<title>九宫格翻牌</title>
+	</head>
+	<body>
+		<header>
+			<a class="icon back" id="btnBack"></a>
+			<strong>九宫格翻牌</strong>
+			<icon></icon>
+		</header>
+		<div class="lottery"></div>
+		<script src="/js/lottery_flip.js"></script>
+		<script>
+			btnBack.addEventListener("click", () => {
+				history.back();
+			});
+			new LotteryFlip({
+				el: document.querySelector(".lottery"),
+				async getPrizes(){
+					const {data} = await (await fetch("/lottery/prizes")).json();
+					return data;
+				},
+				action: "/lottery",
+				method: "post"
+			});
+		</script>
+	</body>
+</html>

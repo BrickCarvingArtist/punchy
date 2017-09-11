@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/icon.css" />
+		<link rel="stylesheet" href="/css/core.css" />
+		<style>
+			article{
+				background-color: #fff;
+			}
+			article textarea{
+				width: 100vw;
+				height: 80vh;
+			}
+		</style>
+		<title>文章详情</title>
+	</head>
+	<body>
+		<header>
+			<a class="icon back" id="btnBack"></a>
+			<strong>文章详情</strong>
+			<a class="icon"></a>
+		</header>
+		<article id="article"></article>
+		<script src="/js/core.js"></script>
+		<script>
+			btnBack.addEventListener("click", () => {
+				history.back();
+			});
+			(async () => {
+				const {data} = await (await fetch("/article/category")).json();
+				renderDetails(data, (await (await fetch(`${location.pathname}/detail`)).json()).data);
+			})();
+			function getLabels(labels, sup_label, sub_label){
+				const sup_l = labels[sup_label];
+				return `<a>${sup_l.sup}</a>/<a>${sup_l.sub[sub_label]}</a>`;
+			}
+			function renderDetails(data, {title, author, updated_at, sup_label, sub_label, content}){
+				article.innerHTML = 
+`<h1>${title}</h1>
+<p>
+	<span>
+		${getLabels(data, sup_label, sub_label)}
+	</span>
+	<time">更新时间：${Time.toDash(updated_at)}</time>
+</p>
+<textarea>${content}</textarea>`;
+			}
+		</script>
+	</body>
+</html>

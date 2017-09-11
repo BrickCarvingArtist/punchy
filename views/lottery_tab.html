@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/icon.css" />
+		<link rel="stylesheet" href="/css/core.css" />
+		<style>
+			.lottery{
+				position: relative;
+				width: 280px;
+				height: 280px;
+			}
+			.lottery .case{
+				position: absolute;
+				width: 80px;
+				height: 80px;
+				border-width: 1px;
+				border-style: solid;
+				border-color: #ccc;
+				text-align: center;
+				line-height: 80px;
+			}
+			.lottery .case.current{
+				border-color: #f00;
+			}
+			.lottery .case.win{
+				animation: blink 2s forwards;
+			}
+			@keyframes blink{
+				10%{
+					border-color: #f00;
+				}
+				20%{
+					border-color: #fff;
+				}
+				30%{
+					border-color: #f00;
+				}
+				40%{
+					border-color: #fff;
+				}
+				50%{
+					border-color: #f00;
+				}
+				60%{
+					border-color: #fff;
+				}
+				70%{
+					border-color: #f00;
+				}
+				80%{
+					border-color: #fff;
+				}
+				to{
+					border-color: #f00;
+				}
+			}
+			.lottery.clockwise .case:nth-of-type(2), .lottery.counterclockwise .case:last-of-type{
+				top: 0;
+				left: 100px;
+			}
+			.lottery.clockwise .case:nth-of-type(3), .lottery.counterclockwise .case:nth-of-type(7){
+				top: 0;
+				left: 200px;
+			}
+			.lottery.clockwise .case:nth-of-type(4), .lottery.counterclockwise .case:nth-of-type(6){
+				top: 100px;
+				left: 200px;
+			}
+			.lottery.clockwise .case:nth-of-type(5), .lottery.counterclockwise .case:nth-of-type(5){
+				top: 200px;
+				left: 200px;
+			}
+			.lottery.clockwise .case:nth-of-type(6), .lottery.counterclockwise .case:nth-of-type(4){
+				top: 200px;
+				left: 100px;
+			}
+			.lottery.clockwise .case:nth-of-type(7), .lottery.counterclockwise .case:nth-of-type(3){
+				top: 200px;
+				left: 0;
+			}
+			.lottery.clockwise .case:last-of-type, .lottery.counterclockwise .case:nth-of-type(2){
+				top: 100px;
+				left: 0;
+			}
+			.lottery button{
+				position: absolute;
+				top: 100px;
+				left: 100px;
+				width: 80px;
+				height: 80px;
+				background-color: transparent;
+				border: 1px solid #ccc;
+				outline-width: 0;
+				font-size: 20px;
+				cursor: pointer;
+			}
+		</style>
+		<title>九宫格抽奖</title>
+	</head>
+	<body>
+		<header>
+			<a class="icon back" id="btnBack"></a>
+			<strong>九宫格抽奖</strong>
+			<icon></icon>
+		</header>
+		<div class="lottery"></div>
+		<script src="/js/lottery_tab.js"></script>
+		<script>
+			btnBack.addEventListener("click", () => {
+				history.back();
+			});
+			const lottery = new LotteryTab({
+				el: document.querySelector(".lottery"),
+				clockwise: 1,
+				async getPrizes(){
+					const {data} = await (await fetch("/lottery/prizes")).json();
+					data[0].position = [0, 3, 6];
+					data[1].position = [2, 5];
+					data[2].position = [1, 7];
+					data[3].position = [4];
+					return data;
+				},
+				action: "/lottery",
+				method: "post"
+			});
+		</script>
+	</body>
+</html>

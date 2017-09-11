@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/icon.css" />
+		<link rel="stylesheet" href="/css/core.css" />
+		<style>
+			[name="title"]{
+				padding: 0 5vw;
+				width: 100vw;
+				height: 8vh;
+				border-color: transparent;
+				font-size: 3vh;
+			}
+			hr{
+				margin: 0 3vw;
+				border: none;
+				border-bottom: 1px solid #eee;
+			}
+			.nestedSelect{
+				display: flex;
+				padding: 0 5vw;
+			}
+			.nestedSelect select{
+				flex: 1;
+				height: 6vh;
+				border: none;
+				font-size: 2vh;
+			}
+			[name="content"]{
+				padding: 5vw;
+				width: 100vw;
+				height: 60vh;
+				border: none;
+				font-size: 2.5vh;
+			}
+		</style>
+		<title>修改文章</title>
+	</head>
+	<body>
+		<header>
+			<icon class="back" id="btnBack"></icon>
+			<strong>编辑</strong>
+			<icon class="sure" id="btn"></icon>
+		</header>
+		<form action="/article" data-method="PUT">
+			<input name="title" placeholder="请输入标题" />
+			<hr />
+			<div class="nestedSelect"></div>
+			<hr />
+			<textarea name="content" placeholder="请输入正文"></textarea>
+		</form>
+		<script src="/js/core.js"></script>
+		<script src="/js/linked_select.js"></script>
+		<script>
+			btnBack.addEventListener("click", () => {
+				history.back();
+			});
+			;(async () => {
+				const linkedSelect = new LinkedSelect({
+					el: document.querySelector(".nestedSelect"),
+					settings: (await (await fetch("/article/category")).json()).data
+				});
+				const id = +location.pathname.split("/")[2];
+				const form = document.forms[0];
+				if(id){
+					const {data} = await (await fetch(`/article/${id}/detail`)).json();
+					const {title, content, created_at, updated_at, sup_label, sub_label} = data;
+					if(title){
+						form.dataset.method = "PATCH";
+						form.action = `/article/${id}`;
+						document.title = title;
+						form.querySelector("[name=title]").value = title;
+						linkedSelect.setVals([sup_label, sub_label]);
+						form.querySelector("[name=content]").value = content;
+					}
+				}
+				btn.addEventListener("click", async () => {
+					const {
+						slt0,
+						slt1
+					} = document.forms[0].serialize("object");
+					if(~slt0 && ~slt1){
+						const {code} = await (await fetch(form.action, {
+							method: form.dataset.method,
+							headers: {
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							body: document.forms[0].serialize(),
+							credentials: "include"
+						})).json();
+						code || (location.pathname = "article");
+					}
+				});
+			})();
+		</script>
+	</body>
+</html>

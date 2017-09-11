@@ -1,0 +1,91 @@
+@import "./reset"
+@import "./icon"
+@import "./mixin"
+body
+	padding-top h(20)
+	background-color #000
+main
+	position relative
+	width w(375)
+	height h(647)
+	overflow hidden
+	background-color #f3f3f3
+.page
+	overflow-y scroll
+	&.with-footer
+		height h(602)
+	&.without-footer
+		height h(552)
+form
+	display flex
+	flex-direction column
+	align-items center
+	> label
+		line-height h(50)
+		font-size h(16)
+		color #666
+a
+	&.small
+		font-size h(12)
+div
+	&.row
+		padding h(10) w(20)
+fieldset
+	padding 0 w(20)
+	width 100%
+	border-width 1px 0
+	border-color #e3e3e3;
+input
+	&.full
+		padding 0 w(15)
+		width 100%
+		height h(45)
+		background-color #fff
+		font-size h(15)
+		&:not(:last-of-type)
+			border-bottom-color #e3e3e3
+button
+	font-size h(15)
+	&.full
+		width w(335)
+		height h(40)
+	&.below_input
+		margin-top h(20)
+button
+.anchor
+	&.bottom
+		position fixed
+		bottom 0
+		width w(375)
+		height h(40)
+		border-radius 0
+		text-align center
+		line-height h(40)
+		font-size h(15)
+	&.blue
+		background-color #06f
+		color #fff
+a
+	&.entrance
+		position relative
+		display flex
+		align-items center
+		height h(45)
+		background-color #fff
+		&:not(:last-of-type)
+			&:after
+				position absolute
+				right 0
+				bottom 0
+				height h(1)
+				background-color #e3e3e3
+				content ""
+	&.with-icon
+		&:not(:last-of-type)
+			&:after
+				width w(325)
+	&.without-icon
+		padding-left w(15)
+		&:not(:last-of-type)
+			&:after
+				width w(360)

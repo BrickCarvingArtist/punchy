@@ -1,0 +1,77 @@
+@import "mixin"
+.article-editor
+	background-color #fff
+	input
+		&.full
+			height h(50)
+			font-size h(17)
+	textarea
+		margin 0 w(15)
+		width w(345)
+		height h(500)
+		padding-top h(8)
+		background-color #fff
+		border-top 1px solid #e3e3e3
+		font-size h(15)
+		line-height h(22)
+	footer
+		display flex
+		justify-content space-between
+		padding 0 w(15)
+		&.without-result
+			flex-direction row-reverse
+		output
+			padding h(3) w(10)
+			background-color #f3f3f3
+			border-radius h(13.5)
+			font-size h(15)
+			color #999
+		.category
+			display flex
+			align-items center
+			color #639efe
+			icon
+				margin-left w(5)
+.category
+	section
+		&:not(.expand)
+			height h(45)
+			overflow hidden
+		&.expand
+			overflow visible
+	section
+		&:not(.expand)
+			h1
+				border-bottom 1px solid #e3e3e3
+	h1
+		position relative
+		margin-left w(15)
+		display flex
+		width w(360)
+		height h(45)
+		background-color #fff
+		align-items center
+		justify-content space-between
+		line-height @height
+		font-size h(15)
+		color #333
+		&:after
+			position absolute
+			left w(-15)
+			width w(15)
+			height h(45)
+			background #fff
+			content ""
+		icon
+			margin-right w(15)
+	p
+		position relative
+		margin-left w(15)
+		width w(360)
+		height h(45)
+		background #f3f3f3
+		line-height h(45)
+		font-size h(15)
+		color #999
+		&:not(:last-child)
+			border-bottom 1px solid #e3e3e3

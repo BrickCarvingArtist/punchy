@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/icon.css" />
+		<link rel="stylesheet" href="/css/core.css" />
+		<style>
+			h1{
+				text-align: center;
+				color: #f00;
+			}
+		</style>
+		<title>404</title>
+	</head>
+	<body>
+		<header>
+			<a class="icon back" id="btnBack"></a>
+			<strong>404</strong>
+			<a class="icon"></a>
+		</header>
+		<h1>这是一个404页面，别搞事</h1>
+		<svg width="100%" height="100%" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink">
+			<image xlink:href="/404.jpg" x="0" y="0" height="50" width="50" />
+		</svg>
+		<footer>
+			<a href="/">首页</a>
+			<a href="/discover">发现</a>
+			<a href="/me">个人中心</a>
+		</footer>
+		<script>
+			btnBack.addEventListener("click", () => {
+				history.back();
+			});
+		</script>
+	</body>
+</html>

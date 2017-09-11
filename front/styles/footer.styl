@@ -1,0 +1,25 @@
+@import "./mixin";
+main
+	> footer
+		position absolute
+		bottom 0
+		display flex
+		justify-content space-around
+		align-items center
+		width w(375)
+		height h(50)
+		background-color #fff
+		border-top 1px solid #e3e3e3
+		&:not(.fixed)
+			display none
+		a
+			display flex
+			flex-direction column
+			align-items center
+			strong
+				margin-top h(1.5)
+				font-size h(10)
+			&:not(.active)
+				color #999
+			&.active
+				color #639efe

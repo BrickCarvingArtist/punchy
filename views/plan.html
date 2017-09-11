@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link rel="stylesheet" href="/css/reset.css" />
+		<link rel="stylesheet" href="/css/icon.css" />
+		<link rel="stylesheet" href="/css/core.css" />
+		<style>
+			todo{
+				color: #00f;
+			}
+			bug{
+				color: #f00;
+			}
+		</style>
+		<title>Punchy开发计划</title>
+	</head>
+	<body>
+		<header>
+			<a class="icon back" id="btnBack"></a>
+			<strong>Punchy开发计划</strong>
+			<a class="icon"></a>
+		</header>
+		<article>
+			<pre>
+
+				组件
+
+一.错误弹窗
+
+二.缺省图画
+
+三.404
+
+				用户系统
+
+一.注册
+	1.手机号
+	2.密码
+	3.重复密码
+
+二.登录
+	1.手机号
+	2.密码
+
+三.忘记（修改）密码
+	1.手机号（已登录代填，不可编辑，未登录可编辑）
+	2.密保问题（未登录开放行为校验）
+	3.新密码
+
+				主系统
+
+一.主页
+	1.搜索（根据文章名、作者）
+	2.发表文章
+	3.文章列表
+		a.筛选条件
+			*.更新时间:一（天、周、月、年内）、其他
+		b.列表（全部随机、以更新时间排序）
+			*.作者、头像【链接作者的文章列表】
+			*.标题【链接文章详情】
+			*.封面（首张图片，如果有）【链接文章详情】
+			*.更新时间
+			*.阅读量
+			*.评论量【链接至文章详情内评论区】
+	4.文章详情
+		a.标题
+		b.作者
+		c.更新时间
+		d.内容
+		e.评论区（总条数）
+			*.作者、头像
+			*.内容
+			*.发表时间
+			*.删除（作者开放、本人开放）
+			*.编辑回复
+		f.收藏、取消收藏（本人不开放）
+		g.点赞、取消点赞（本人不开放）
+		h.编辑（本人开放）
+		i.删除（本人开放）
+		j.语音播报
+
+二.类目
+	1.一、二级类目联动查找相关文章
+
+三.个人中心
+	1.个人信息
+		a.手机号
+		b.用户名
+		c.头像
+	2.账户信息
+		a.修改密码
+		b.实名认证
+	3.我的文章
+		a.搜索（根据文章名）
+		b.筛选条件（同一.3.a）
+		c.文章列表（同一.3.b、不随机）
+	4.我的收藏
+		a.搜索（根据文章名）
+		b.筛选条件（同一.3.a）
+		c.文章列表（同一.3.b、不随机）
+
+四.发现
+	1.同开发配套系统.一
+	2.同开发配套系统.二
+	3.同开发配套系统.四
+	4.同开发配套系统.五		
+
+				开发配套系统
+
+一.开发计划
+
+二.接口中心
+
+三.自动化测试
+
+四.数据可视化
+	1.访问记录
+		a.总访问量
+		b.模块访问量
+		c.时间访问量
+	2.用户记录
+		a.注册量
+	3.文章记录
+		a.总量
+		b.模块总量
+
+五.工具箱
+	1.组件库
+	2.标准文档
+	3.电子书
+			</pre>
+		</article>
+		<script>
+			btnBack.addEventListener("click", () => {
+				history.back();
+			});
+		</script>
+	</body>
+</html>
