@@ -9,7 +9,7 @@ export const setAvator = file => (async () => {
 		} = await (await fetch(`${server_name}/api/avator`, {
 			method: "PATCH",
 			credentials: "include",
-			// body: file
+			body: file
 		})).json();
 		if(code){
 			return {

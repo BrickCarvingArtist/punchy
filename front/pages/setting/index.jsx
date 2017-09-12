@@ -5,6 +5,7 @@ import {Link, Switch} from "react-router-dom";
 import classNames from "classnames";
 import {parse} from "querystring";
 import {basis} from "../../actions";
+import {setAvator} from "../../actions/setting";
 import {RouteWithSubRoutes} from "../../utils";
 import {server_name, auth_server} from "../../configs";
 import Profile from "./Profile";
@@ -12,6 +13,7 @@ process.title === "node" || require("../../styles/setting");
 @connect(({core, me}) => ({
 	name: me.name
 }), dispatch => bindActionCreators(basis, dispatch))
+@connect()
 class Setting extends Component{
 	static defaultProps = {
 		entrances: [
