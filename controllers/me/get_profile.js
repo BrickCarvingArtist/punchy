@@ -1,8 +1,9 @@
 import fetch from "isomorphic-fetch";
 import {error} from "../../utils";
+import {AUTH_SERVER} from "../../configs";
 export default () => async ctx => {
 	try{
-		ctx.body = await (await fetch("https://auth.ikindness.cn/api/profile", {
+		ctx.body = await (await fetch(`${AUTH_SERVER}/api/profile`, {
 			headers: {
 				Authorization: `Bearer ${ctx.cookies.get("sso_token")}`
 			}

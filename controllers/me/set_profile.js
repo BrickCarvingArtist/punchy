@@ -1,16 +1,21 @@
 import fetch from "isomorphic-fetch";
+import {AUTH_SERVER} from "../../configs";
+import {error} from "../../utils";
 export default () => async ctx => {
-	const {name} = ctx.request.body;
 	try{
-		return ctx.body = await (await fetch("https://auth.ikindness.cn/api/profile", {
+		return ctx.body = await (await fetch(`${AUTH_SERVER}/api/profile`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
 				Authorization: `Bearer ${ctx.cookies.get("sso_token")}`
 			},
-			body: `user=${name}`
+			body: `user=${ctx.request.body.name}`
 		})).json();
 	}catch(e){
-		console.log(e);
+		ctx.body = error({
+			code: 5000200200,
+			ctx,
+			e
+		});
 	}
 };
