@@ -37,13 +37,13 @@ export const insert = article => (async () => {
 		};
 	}
 })();
-export const update = (id, article) => (async () => {
+export const update = article => (async () => {
 	try{
 		const {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/${id}`, {
+		} = await (await fetch(`${server_name}/api/article`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"

@@ -1,16 +1,10 @@
-import Sequelize from "sequelize";
-import {resolve} from "path";
-import {SERVER, DB} from "../configs";
-import {formatSQLAddress, error} from "../utils";
-import {verifyToken, page} from "./middlewares";
+import {sequelize} from "../services";
+import {SERVER} from "../configs";
+import {error} from "../utils";
+import {crossDomain, verifyToken, page} from "./middlewares";
 import article from "./article";
 import lottery from "./lottery";
 import me from "./me";
-import {crossDomain} from "./middlewares";
-export const sequelize = new Sequelize(...formatSQLAddress(DB));
-const imports = modelPath => sequelize.import(resolve(__dirname, modelPath));
-export const Article = imports("../models/article");
-export const View = imports("../models/view");
 export default async app => {
 	try{
 		await sequelize.authenticate();

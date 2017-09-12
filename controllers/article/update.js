@@ -1,14 +1,11 @@
-import {pick} from "lodash";
-import {Article} from "../";
 import {success, error} from "../../utils";
-import {validate_labels} from "../utils";
+import {validate_labels} from "./utils";
+import {update} from "../../services/article";
 export default () => async ctx => {
-	const {body} = ctx.request,
-		{
-			sup_label,
-			sub_label
-		} = body,
-		{id} = ctx.params;
+	const {
+		sup_label,
+		sub_label
+	} = ctx.request.body;
 	let code;
 	if(code = validate_labels(sup_label, sub_label)){
 		return ctx.body = error({
@@ -16,28 +13,11 @@ export default () => async ctx => {
 			ctx
 		});
 	}
-	if((await Article.findOne({
-		where: {
-			id
-		},
-		attributes: ["author"]
-	})).author !== ctx.state.tel){
-		return ctx.body = error({
-			code: 5000100500,
-			ctx
-		});
-	}
 	try{
-		ctx.body = success(pick((await Article.update(body, {
-			where: {
-				id
-			},
-			limit: 1,
-			individualHooks: true
-		}))[1][0], ["id", "title", "sup_label", "sub_label", "content"]));
+		ctx.body = success(await update(ctx.request.body));
 	}catch(e){
 		ctx.body = error({
-			code: 5000100501,
+			code: e.code || 5000100501,
 			ctx,
 			e
 		});

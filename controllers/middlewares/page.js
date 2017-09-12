@@ -1,4 +1,3 @@
-import Koa from "koa";
 import {resolve} from "path";
 import React from "react";
 import ReactDOMServer from "react-dom/server";

@@ -1,7 +1,6 @@
-import {pick} from "lodash";
-import {Article} from "../";
 import {success, error} from "../../utils";
-import {validate_labels} from "../utils";
+import {validate_labels} from "./utils";
+import {insert} from "../../services/article";
 export default () => async ctx => {
 	const {
 		sup_label,
@@ -14,12 +13,11 @@ export default () => async ctx => {
 			ctx
 		});
 	}
-	try{
-		const {body} = ctx.request;
-		ctx.body = success(pick(await Article.create({
-			...body,
-			author: ctx.state.tel,
-		}), ["id", "title", "sup_label", "sub_label", "content"]));
+	try{	
+		ctx.body = success(await insert({
+			...ctx.request.body,
+			author: ctx.state.tel
+		}));
 	}catch(e){
 		ctx.body = error({
 			code: 5000100401,

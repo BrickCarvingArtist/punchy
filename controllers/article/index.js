@@ -82,8 +82,12 @@ export default () => {
 		]
 	}), insert())
 	// 改接口
-	.patch("/:id", authorize(), body(), validate({
+	.patch("/", authorize(), body(), validate({
 		body: [
+			{
+				name: "id",
+				comment: "文章id"
+			},
 			{
 				name: "title",
 				comment: "文章标题",

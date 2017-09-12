@@ -41,7 +41,10 @@ class Editor extends Component{
 				if(!this.validate(article)){
 					return;
 				}
-				let {ok} = +id ? dispatch(await update(id, article)) : dispatch(await insert(article));
+				let {ok} = +id ? dispatch(await update({
+					id,
+					...article
+				})) : dispatch(await insert(article));
 				if(ok){
 					clearDraft(id);
 					history.goBack();
