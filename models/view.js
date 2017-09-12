@@ -1,4 +1,4 @@
-export default (sequelize, {INTEGER, STRING, TEXT}) => sequelize.define("article_views", {
+export default (sequelize, {INTEGER, STRING, TEXT}) => sequelize.define("article_view", {
 	id: {
 		type: INTEGER,
 		primaryKey: true,
@@ -20,5 +20,6 @@ export default (sequelize, {INTEGER, STRING, TEXT}) => sequelize.define("article
 	timestamps: true,
 	createdAt: "viewed_at",
 	updatedAt: false,
-	underscored: true
+	underscored: true,
+	paranoid: true
 });

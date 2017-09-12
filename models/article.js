@@ -1,4 +1,4 @@
-export default (sequelize, {INTEGER, STRING, TEXT}) => sequelize.define("articles", {
+export default (sequelize, {INTEGER, STRING, TEXT}) => sequelize.define("article", {
 	id: {
 		type: INTEGER,
 		primaryKey: true,
@@ -33,6 +33,7 @@ export default (sequelize, {INTEGER, STRING, TEXT}) => sequelize.define("article
 	}
 }, {
 	underscored: true,
+	paranoid: true,
 	hooks: {
 		beforeCreate(article){
 			article.description = article.content.substring(0, 100);

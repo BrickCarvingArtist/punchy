@@ -5,7 +5,7 @@ export default () => async ctx => {
 		ctx.redirect("/");
 	}catch(e){
 		ctx.body = error({
-			code: 5000200300,
+			code: 5000200400,
 			ctx,
 			e
 		});
