@@ -11,7 +11,8 @@ import {server_name, auth_server} from "../../configs";
 import Profile from "./Profile";
 process.title === "node" || require("../../styles/setting");
 @connect(({core, me}) => ({
-	name: me.name
+	name: me.name,
+	avator: me.avator
 }), dispatch => bindActionCreators(basis, dispatch))
 @connect()
 class Setting extends Component{
@@ -56,7 +57,8 @@ class Setting extends Component{
 		const {
 			location,
 			entrances,
-			name
+			name,
+			avator
 		} = this.props;
 		return (
 			<div className="page setting with-footer">
@@ -64,6 +66,10 @@ class Setting extends Component{
 					<input className="avator" type="file" accept="image/*" capture onChange={this.handleAvator} onClick={
 						e => {
 							e.stopPropagation();
+						}
+					} style={
+						{
+							backgroundImage: `url("${avator}")`
 						}
 					} />
 					<div className="basis">

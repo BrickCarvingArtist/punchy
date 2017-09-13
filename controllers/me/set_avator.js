@@ -22,7 +22,7 @@ export default () => async ctx => {
 					Authorization: `Bearer ${ctx.cookies.get("sso_token")}`
 				},
 				body: stringify({
-					avator: url
+					avator: url.replace("http", "https")
 				})
 			})).json();
 		}catch(e){
