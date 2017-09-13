@@ -57,7 +57,9 @@ export const getDetail = id => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/${id}`)).json();
+		} = await (await fetch(`${server_name}/api/article/${id}`, {
+			credentials: "include"
+		})).json();
 		if(code){
 			return {
 				type: "DIALOG_MESSAGE",

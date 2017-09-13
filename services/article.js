@@ -1,13 +1,13 @@
 import {pick} from "lodash";
 import {sequelize, Article, View} from "./";
 import {filter} from "./utils";
-View.belongsTo(Article, {
-	foreignKey: "article_id",
-	targetKey: "id"
-});
 Article.hasMany(View, {
 	foreignKey: "article_id",
 	sourceKey: "id"
+});
+View.belongsTo(Article, {
+	foreignKey: "article_id",
+	targetKey: "id"
 });
 export const fetch = async ({index, size, sup_label, sub_label, from, to}) => (await Article.findAll({
 	where: filter({

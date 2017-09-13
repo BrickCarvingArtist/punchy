@@ -10,6 +10,7 @@ import remove from "./remove";
 import detail from "./detail";
 import validate from "../middlewares/validate";
 import authorize from "../middlewares/authorize";
+import statistic from "../middlewares/statistic";
 export default () => {
 	return new Router({
 		prefix: "/api/article"
@@ -135,6 +136,10 @@ export default () => {
 				alias: "number"
 			}
 		]
-	}), detail())
+	}), statistic("collectArticleView", ctx => ({
+		article_id: ctx.params.id,
+		user_id: ctx.state.tel,
+		ip: ctx.ip
+	})), detail())
 	.routes();
 };
