@@ -8,6 +8,9 @@ import list from "./list";
 import update from "./update";
 import remove from "./remove";
 import detail from "./detail";
+import addFavorite from "./add_favorite";
+import saySix from "./say_six";
+import getRelation from "./get_relation";
 import validate from "../middlewares/validate";
 import authorize from "../middlewares/authorize";
 import statistic from "../middlewares/statistic";
@@ -133,7 +136,8 @@ export default () => {
 		params: [
 			{
 				name: "id",
-				alias: "number"
+				alias: "number",
+				comment: "文章id"
 			}
 		]
 	}), statistic("collectArticleView", ctx => ({
@@ -141,5 +145,35 @@ export default () => {
 		user_id: ctx.state.tel,
 		ip: ctx.ip
 	})), detail())
+	// 收藏
+	.patch("/favorite", authorize(), body(), validate({
+		body: [
+			{
+				name: "article_id",
+				alias: "number",
+				comment: "文章id"
+			}
+		]
+	}), addFavorite())
+	// 点赞
+	.patch("/say_six", authorize(), body(), validate({
+		body: [
+			{
+				name: "article_id",
+				alias: "number",
+				comment: "文章id"
+			}
+		]
+	}), saySix())
+	// 查收藏点赞评论等记录
+	// .get("/relation/:id", validate({
+	// 	params: [
+	// 		{
+	// 			name: "id",
+	// 			alias: "number",
+	// 			comment: "文章id"
+	// 		}
+	// 	]
+	// }), getRelation())
 	.routes();
 };
