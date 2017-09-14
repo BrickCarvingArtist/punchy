@@ -11,7 +11,7 @@ const collectArticleView = ({user_id, article_id, ip}) => {
 			code: 5009700001
 		};
 	}
-}
+};
 export default action => ({
 	collectArticleView
 }[action]) || function(){};

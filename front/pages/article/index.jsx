@@ -3,6 +3,7 @@ import {Switch} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
+import {parse} from "querystring";
 import ArticleSection from "../../components/ArticleSection";
 import {RouteWithSubRoutes} from "../../utils";
 import {basis} from "../../actions";
@@ -20,13 +21,14 @@ class Article extends Component{
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			setFooterType
+			setFooterType,
+			location
 		} = this.props;
 		setTitle("所有文章");
 		setHeaderLeftButton();
 		setHeaderRightButton();
 		setFooterType(1);
-		dispatch(await setArticles());
+		dispatch(await setArticles(parse(location.search.slice(1))));
 	}
 	render(){
 		return (
