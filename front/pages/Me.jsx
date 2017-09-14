@@ -7,7 +7,7 @@ import {authorize, basis} from "../actions";
 import {server_name, auth_server} from "../configs";
 process.title === "node" || require("../styles/me");
 const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
-	<Link className="entrance with-icon" to={`${to}${tel ? `/${tel}` : ""}`} onClick={onClick}>
+	<Link className="entrance with-icon" to={tel ? `${to.replace(":id", tel)}` : to} onClick={onClick}>
 		<icon className={
 			classNames(["medium", icon])
 		}></icon>
@@ -31,35 +31,35 @@ export default class Me extends Component{
 				{
 					icon: "my-article",
 					label: "我的文章",
-					to: "/article",
+					to: "/:id/article",
 					name: "articleSum"
 				},
 				{
 					icon: "my-favorite",
 					label: "我的收藏",
-					to: "/favorite",
+					to: "/:id/favorite",
 					name: "favoriteSum"
 				},
 				{
 					icon: "my-focus",
 					label: "我的关注",
-					to: "/focus"
+					to: "/:id/focus"
 				}
 			], [
 				{
 					icon: "info",
 					label: "产品信息",
-					to: "/core/info"
+					to: "/info"
 				},
 				{
 					icon: "about",
 					label: "关于我们",
-					to: "/core/about"
+					to: "/about"
 				},
 				{
 					icon: "help",
 					label: "帮助中心",
-					to: "/core/help"
+					to: "/help"
 				}
 			]
 		]
@@ -92,7 +92,7 @@ export default class Me extends Component{
 		return (
 			<div className="page me without-footer">
 				<div className="profile">
-					<img className="avator" src={avator || "/test.jpeg"} />
+					<img className="avator" src={avator || "/avator.png"} />
 					{
 						tel ? <strong>{name || tel}</strong> : (
 							<a href={`${auth_server}?referer=${server_name}${location.pathname}`}>点击登录</a>
