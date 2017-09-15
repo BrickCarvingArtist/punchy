@@ -166,14 +166,14 @@ export default () => {
 		]
 	}), saySix())
 	// 查收藏点赞评论等记录
-	// .get("/relation/:id", validate({
-	// 	params: [
-	// 		{
-	// 			name: "id",
-	// 			alias: "number",
-	// 			comment: "文章id"
-	// 		}
-	// 	]
-	// }), getRelation())
+	.get("/relation/:id", validate({
+		params: [
+			{
+				name: "id",
+				alias: "number",
+				comment: "文章id"
+			}
+		]
+	}), getRelation())
 	.routes();
 };

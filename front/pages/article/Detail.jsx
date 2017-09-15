@@ -6,10 +6,18 @@ import classNames from "classnames";
 import {basis} from "../../actions";
 import {getDetail, getUserRelationsToArticle, addFavorite, saySix} from "../../actions/article";
 import {Time} from "../../utils";
-@connect(({article}) => ({
-	category: article.category,
-	...article
-}), dispatch => bindActionCreators(basis, dispatch))
+@connect(({article, articleRelation, router}) => {
+	let id;
+	try{
+		id = router.location.pathname.match(/\d+/)[0];
+	}catch(e){}
+	return {
+		category: article.category,
+		id,
+		...article[id],
+		...articleRelation[id]
+	};
+}, dispatch => bindActionCreators(basis, dispatch))
 @connect()
 export default class Detail extends Component{
 	state = {
@@ -22,9 +30,8 @@ export default class Detail extends Component{
 			setHeaderLeftButton,
 			setHeaderRightButton,
 			setFooterType,
-			match,
+			id,
 		} = this.props;
-		const {id} = match.params;
 		setTitle("文章详情页");
 		setHeaderLeftButton("back");
 		setHeaderRightButton({
@@ -33,24 +40,16 @@ export default class Detail extends Component{
 		});
 		setFooterType();
 		dispatch(await getDetail(id));
-		// dispatch(await getUserRelationsToArticle(id));
+		dispatch(await getUserRelationsToArticle(id));
 	}
 	componentWillReceiveProps(nextProps){
-		const {
-			setTitle,
-			match
-		} = this.props;
-		setTitle(nextProps[match.params.id].title);
+		this.props.setTitle(nextProps.title);
 	}
 	render(){
 		const {
 			dispatch,
 			match,
 			category,
-			isFavorite,
-			isSix,
-		} = this.props;
-		const {
 			id,
 			title,
 			author,
@@ -58,8 +57,10 @@ export default class Detail extends Component{
 			updated_at,
 			content,
 			sup_label,
-			sub_label
-		} = this.props[match.params.id] || {};
+			sub_label,
+			favorite,
+			thumb,
+		} = this.props;
 		const supLabel = category[sup_label] || {sub:[]};
 		return (
 			<article className="page detail with-footer" onScroll={
@@ -101,8 +102,8 @@ export default class Detail extends Component{
 					}>
 						<icon className={
 							classNames("medium", {
-								"on-favorite": isFavorite,
-								"off-favorite": !isFavorite
+								"on-favorite": favorite,
+								"off-favorite": !favorite
 							})
 						}></icon>
 						<span>收藏</span>
@@ -114,8 +115,8 @@ export default class Detail extends Component{
 					}>
 						<icon className={
 							classNames("medium", {
-								"on-six": isSix,
-								"off-six": !isSix
+								"on-six": thumb,
+								"off-six": !thumb
 							})
 						}></icon>
 						<span>点赞</span>

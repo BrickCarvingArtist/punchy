@@ -77,14 +77,16 @@
 			border-bottom 1px solid #e3e3e3
 article
 	&.detail
-		padding h(15) h(15)
+		padding 0 w(15) h(15)
 		background-color #fff
 		header
+			padding-bottom h(15)
 			border-bottom 1px solid #e3e3e3
 			h1
+				margin h(12.5) 0
 				font-size h(17)
+				line-height h(22)
 			.base
-				margin h(15) 0
 				display flex
 				justify-content space-between
 				align-items center
@@ -116,6 +118,7 @@ article
 			display flex
 			width w(375)
 			height h(50)
+			padding h(9)
 			background-color #fff
 			border-top 1px solid #e3e3e3
 			transition bottom .5s
@@ -126,9 +129,17 @@ article
 				flex 1
 				justify-content center
 				align-items center
+				&:first-child
+					border-right 1px solid #e3e3e3
 				icon
-					transition width height .5s
+					&.on-favorite
+					&.on-six
+						animation pulse .15s cubic-bezier(.45, .95, .95, .7)
 				span
 					margin-left w(10)
 					font-size h(15)
 					color #666
+@keyframes pulse
+	to
+		width w(25)
+		height h(25)

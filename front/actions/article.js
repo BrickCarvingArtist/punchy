@@ -84,7 +84,9 @@ export const getUserRelationsToArticle = id => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/relation/${id}`)).json();
+		} = await (await fetch(`${server_name}/api/article/relation/${id}`, {
+			credentials: "include"
+		})).json();
 		if(code){
 			return {
 				type: "DIALOG_MESSAGE",
@@ -126,7 +128,7 @@ export const addFavorite = id => (async () => {
 		}
 		return {
 			type: "FAVORITE_ARTICLE",
-			value: id
+			value: data
 		};
 	}catch(e){
 		return {
@@ -159,7 +161,7 @@ export const saySix = id => (async () => {
 		}
 		return {
 			type: "SIX_ARTICLE",
-			value: id
+			value: data
 		};
 	}catch(e){
 		return {

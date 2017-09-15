@@ -137,22 +137,33 @@ export const addFavorite = async ({user_id, article_id}) => {
 		});
 		if(record){
 			if(record.deleted_at){
-				return Favorite.restore({
+				await Favorite.restore({
 					where
 				});
+				return {
+					article_id,
+					favorite: 1
+				};
 			}
 			try{
 				await Favorite.destroy({
 					where
 				});
-				return 1;
+				return {
+					article_id,
+					favorite: 0
+				};
 			}catch(e){
 				throw {
 					code: 5000100802
 				};
 			}
 		}
-		return Favorite.create(where);
+		await Favorite.create(where);
+		return {
+			article_id,
+			favorite: 1
+		};
 	}catch(e){
 		throw {
 			code: e.code || 5000100801
@@ -172,35 +183,61 @@ export const thumb = async ({user_id, article_id}) => {
 		});
 		if(record){
 			if(record.deleted_at){
-				return Thumb.restore(where);
+				await Thumb.restore({
+					where
+				});
+				return {
+					article_id,
+					thumb: 1
+				};
 			}
 			try{
-				await Thumb.destroy(where);
-				return 1;
+				await Thumb.destroy({
+					where
+				});
+				return {
+					article_id,
+					thumb: 0
+				};
 			}catch(e){
 				throw {
 					code: 5000100902
 				};
 			}
 		}
-		return Thumb.create(where);
+		await Thumb.create(where);
+		return {
+			article_id,
+			thumb: 1
+		};
 	}catch(e){
 		throw {
 			code: e.code || 5000100901
 		};
 	}
 };
-// export const getRelation = ({user_id, article_id}) => Article.find({
-// 	where: {
-// 		article_id
-// 	},
-// 	include: [
-// 		{
-// 			model: Favorite,
-// 			attributes: [[sequelize.fn("COUNT"), sequelize.col("*")], ""]
-// 		},
-// 		{
-// 			model: 
-// 		}
-// 	]
-// })
+export const getRelation = async ({user_id, article_id}) => {
+	const where = filter({
+		user_id,
+		article_id
+	});
+	return (await sequelize.transaction(t => Promise.all([
+		Favorite.findOne({
+			where,
+			attributes: [[sequelize.fn("COUNT", sequelize.col("*")), "favorite"]],
+			transaction: t,
+			raw: true
+		}),
+		Thumb.findOne({
+			where,
+			attributes: [[sequelize.fn("COUNT", sequelize.col("*")), "thumb"]],
+			transaction: t,
+			raw: true
+		}),
+	]))).reduce((relations, relation) => ({
+		...relations,
+		...relation
+	}), {
+		article_id: +article_id
+	});
+};
