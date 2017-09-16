@@ -7,7 +7,7 @@ import {parse} from "querystring";
 import {basis} from "../../actions";
 import {setAvator} from "../../actions/setting";
 import {RouteWithSubRoutes} from "../../utils";
-import {server_name, auth_server} from "../../configs";
+import {SERVER_NAME, AUTH_SERVER} from "../../configs";
 import Profile from "./Profile";
 process.title === "node" || require("../../styles/setting");
 @connect(({core, me}) => ({
@@ -25,7 +25,7 @@ class Setting extends Component{
 			{
 				type: 1,
 				label: "修改密码",
-				to: `${auth_server}/behavior`,
+				to: `${AUTH_SERVER}/behavior`,
 			}
 		]
 	};
@@ -83,7 +83,7 @@ class Setting extends Component{
 						entrances.map(({label, to, type = 0}, i) => (
 							[
 								<Link className="entrance without-icon" key={i} to={to}>{label}</Link>,
-								<a className="entrance without-icon" key={i} href={`${to}?referer=${server_name}${location.pathname}`}>{label}</a>
+								<a className="entrance without-icon" key={i} href={`${to}?referer=${SERVER_NAME}${location.pathname}`}>{label}</a>
 							][type]
 						))
 					}

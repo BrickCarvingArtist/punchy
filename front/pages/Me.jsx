@@ -4,7 +4,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
 import {authorize, basis} from "../actions";
-import {server_name, auth_server} from "../configs";
+import {SERVER_NAME, AUTH_SERVER} from "../configs";
 process.title === "node" || require("../styles/me");
 const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
 	<Link className="entrance with-icon" to={tel ? `${to.replace(":id", tel)}` : to} onClick={onClick}>
@@ -95,7 +95,7 @@ export default class Me extends Component{
 					<img className="avator" src={avator || "/avator.png"} />
 					{
 						tel ? <strong>{name || tel}</strong> : (
-							<a href={`${auth_server}?referer=${server_name}${location.pathname}`}>点击登录</a>
+							<a href={`${AUTH_SERVER}?referer=${SERVER_NAME}${location.pathname}`}>点击登录</a>
 						)
 					}
 				</div>
