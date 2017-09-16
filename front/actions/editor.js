@@ -1,5 +1,5 @@
 import fetch from "isomorphic-fetch";
-import {server_name} from "../configs";
+import {SERVER_NAME} from "../configs";
 import {stringify} from "querystring";
 export const saveAll = ({...value}) => ({
 	type: "DRAFT_ALL",
@@ -11,7 +11,7 @@ export const insert = article => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article`, {
+		} = await (await fetch(`${SERVER_NAME}/api/article`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
@@ -43,7 +43,7 @@ export const update = article => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article`, {
+		} = await (await fetch(`${SERVER_NAME}/api/article`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"

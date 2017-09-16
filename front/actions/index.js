@@ -1,6 +1,6 @@
 import fetch from "isomorphic-fetch";
 import {stringify} from "querystring";
-import {server_name} from "../configs";
+import {SERVER_NAME} from "../configs";
 export const setMessage = value => ({
 	type: "DIALOG_MESSAGE",
 	value
@@ -30,7 +30,7 @@ export const setUser = () => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/profile`, {
+		} = await (await fetch(`${SERVER_NAME}/api/profile`, {
 			credentials: "include"
 		})).json();
 		if(code){
@@ -67,7 +67,7 @@ export const getDetail = id => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/${id}`)).json();
+		} = await (await fetch(`${SERVER_NAME}/api/article/${id}`)).json();
 		if(code){
 			return {
 				type: "DIALOG_MESSAGE",

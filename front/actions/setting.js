@@ -1,12 +1,12 @@
 import fetch from "isomorphic-fetch";
-import {server_name} from "../configs";
+import {SERVER_NAME} from "../configs";
 export const setAvator = file => (async () => {
 	try{
 		const {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/avator`, {
+		} = await (await fetch(`${SERVER_NAME}/api/avator`, {
 			method: "PATCH",
 			credentials: "include",
 			body: file
@@ -35,7 +35,7 @@ export const updateUserName = name => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/profile`, {
+		} = await (await fetch(`${SERVER_NAME}/api/profile`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"

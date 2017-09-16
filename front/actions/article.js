@@ -1,13 +1,13 @@
 import fetch from "isomorphic-fetch";
 import {stringify} from "querystring";
-import {server_name} from "../configs";
+import {SERVER_NAME} from "../configs";
 export const setCategory = () => (async () => {
 	try{
 		const {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/category`)).json();
+		} = await (await fetch(`${SERVER_NAME}/api/article/category`)).json();
 		if(code){
 			return {
 				type: "DIALOG_MESSAGE",
@@ -32,7 +32,7 @@ export const setArticles = queries => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article?${stringify(queries)}`)).json();
+		} = await (await fetch(`${SERVER_NAME}/api/article?${stringify(queries)}`)).json();
 		if(code){
 			return {
 				type: "DIALOG_MESSAGE",
@@ -57,7 +57,7 @@ export const getDetail = id => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/${id}`, {
+		} = await (await fetch(`${SERVER_NAME}/api/article/${id}`, {
 			credentials: "include"
 		})).json();
 		if(code){
@@ -84,7 +84,7 @@ export const getUserRelationsToArticle = id => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/relation/${id}`, {
+		} = await (await fetch(`${SERVER_NAME}/api/article/relation/${id}`, {
 			credentials: "include"
 		})).json();
 		if(code){
@@ -110,7 +110,7 @@ export const addFavorite = id => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/favorite`, {
+		} = await (await fetch(`${SERVER_NAME}/api/article/favorite`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"
@@ -143,7 +143,7 @@ export const saySix = id => (async () => {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/say_six`, {
+		} = await (await fetch(`${SERVER_NAME}/api/article/say_six`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded"

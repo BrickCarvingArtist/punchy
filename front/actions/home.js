@@ -1,12 +1,12 @@
 import fetch from "isomorphic-fetch";
-import {server_name} from "../configs"
+import {SERVER_NAME} from "../configs"
 export const setArticles = () => (async () => {
 	try{
 		const {
 			code,
 			data,
 			message
-		} = await (await fetch(`${server_name}/api/article/random`)).json()
+		} = await (await fetch(`${SERVER_NAME}/api/article/random`)).json()
 		if(code){
 			return {
 				type: "DIALOG_MESSAGE",
