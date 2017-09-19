@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import classNames from "classnames";
 import {parse} from "querystring";
 import ArticleSection from "../../components/ArticleSection";
+import Scroller from "../../components/Scroller";
 import {RouteWithSubRoutes} from "../../utils";
 import {basis} from "../../actions";
 import {setArticles} from "../../actions/article";
@@ -15,28 +16,52 @@ import Edit from "./Edit";
 }), dispatch => bindActionCreators(basis, dispatch))
 @connect()
 class Article extends Component{
+	static defaultProps = {
+		size: 10
+	};
+	state = {
+		ending: 0
+	};
 	async componentWillMount(){
 		const {
-			dispatch,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			setFooterType,
-			location
+			setFooterType
 		} = this.props;
 		setTitle("所有文章");
 		setHeaderLeftButton();
 		setHeaderRightButton();
 		setFooterType(1);
-		dispatch(await setArticles(parse(location.search.slice(1))));
+	}
+	componentWillReceiveProps(nextProps){
+		const nextLength = nextProps.articles.length,
+			{
+				articles,
+				size
+			} = this.props;
+		(articles.length == nextLength || nextLength % size) && this.setState({
+			ending: 1
+		});
 	}
 	render(){
 		return (
-			<div className="page article without-footer">
+			<Scroller className="page article without-footer" loadData={
+				async (index, isRefresh) => {
+					this.props.dispatch(await setArticles({
+						...parse(location.search.slice(1)),
+						index,
+						size: this.props.size
+					}, isRefresh));
+					isRefresh && this.setState({
+						ending: 0
+					});
+				}
+			} ending={this.state.ending}>
 				{
 					this.props.articles.map((article, i) => <ArticleSection key={i} {...article} />)
 				}
-			</div>
+			</Scroller>
 		);
 	}
 }

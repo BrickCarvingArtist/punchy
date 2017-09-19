@@ -26,7 +26,7 @@ export const setCategory = () => (async () => {
 		};
 	}
 })();
-export const setArticles = queries => (async () => {
+export const setArticles = (queries, isRefresh) => (async () => {
 	try{
 		const {
 			code,
@@ -42,6 +42,7 @@ export const setArticles = queries => (async () => {
 		return {
 			type: "ALL_ARTICLES",
 			value: data,
+			isRefresh,
 			ok: 1
 		};
 	}catch(e){

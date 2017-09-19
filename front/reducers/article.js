@@ -1,12 +1,18 @@
 export default (state = {
 	articles: [],
 	category: []
-}, {type, value}) => {
+}, {type, value, isRefresh}) => {
 	switch(type){
 		case "ALL_ARTICLES":
-			return {
+			return isRefresh ? {
 				...state,
 				articles: value
+			} : {
+				...state,
+				articles: [
+					...state.articles,
+					...value
+				]
 			};
 		case "ARTICLE_DETAIL":
 			return {
