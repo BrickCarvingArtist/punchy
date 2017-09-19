@@ -37,7 +37,7 @@ class Editor extends Component{
 		setHeaderRightButton({
 			label: "发表",
 			onClick: async () => {
-				const article = this.props.editor[id];
+				const article = this.props.editor[id] || {};
 				if(!this.validate(article)){
 					return;
 				}

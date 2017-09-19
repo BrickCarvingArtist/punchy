@@ -12,7 +12,7 @@ import Profile from "./Profile";
 process.title === "node" || require("../../styles/setting");
 @connect(({core, me}) => ({
 	name: me.name,
-	avator: me.avator
+	avator: me.avator || "/avator.png"
 }), dispatch => bindActionCreators(basis, dispatch))
 @connect()
 class Setting extends Component{
