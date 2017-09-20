@@ -3,6 +3,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
 import {basis} from "../actions";
+process.title === "node" || require("../styles/discovery");
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class User extends Component{
 	componentWillMount(){
@@ -21,7 +22,16 @@ export default class User extends Component{
 	render(){
 		return (
 			<div className="page discovery without-footer">
-				发现
+				<h3>开发者信息</h3>
+				<div className="row">
+					<a className="small" href="https://github.com/BrickCarvingArtist">Github：BrickCarvingArtist</a>
+				</div>
+				<div className="row">
+					<a className="small" href="http://wpa.qq.com/msgrd?v=3&uin=806321554&site=qq&menu=yes">QQ号：806321554</a>
+				</div>
+				<div className="row">
+					<a className="small" href="http://shang.qq.com/wpa/qunwpa?idkey=6ff6f2e96e77e3321c42a756bc7a83a64ac70129da6f3d0a59809afe08346998">QQ群：精通JavaScript</a>
+				</div>
 			</div>
 		);
 	}

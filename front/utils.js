@@ -7,23 +7,6 @@ export const RouteWithSubRoutes = route => (
 		)
 	} />
 );
-export const qs = {
-	parse(query){
-		let queries = {};
-		query.split("&").forEach(item => {
-			let [key, value] = item.split("=");
-			queries[key] = value;
-		});
-		return queries;
-	},
-	serialize(query){
-		let queries = [];
-		for(let i in query){
-			queries.push(`${i}=${query[i]}`);
-		}
-		return queries.join("&");
-	}
-};
 export const Time = ((format = a => a < 10 ? `0${a}` : a, diff = ((PRECISION = ["second", "minute", "hour", "date", "month"]) => (s, precision, type = 0, result = "刚刚") => {
 	type = ["前", "后"][type];
 	const mins = s / 60000 | 0;

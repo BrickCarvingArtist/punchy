@@ -39,7 +39,6 @@ export const routes = [
 @connect()
 export default class App extends Component{
 	async componentWillMount(){
-		const {dispatch} = this.props;
 		dispatch(await setUser());
 		dispatch(await setCategory());
 	}
