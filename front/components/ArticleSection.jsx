@@ -5,7 +5,7 @@ import {Time} from "../utils"
 export default ({id, avator, author, title, description, updated_at, viewed_times, cover}) => (
 	<section className="article">
 		<header>
-			<img className="avator" src={avator || "/404.jpg"} />
+			<img className="avator" src={avator || "/avator.png"} />
 			<Link to={`/profile/${author}`}>
 				<strong>{author}</strong>
 			</Link>
