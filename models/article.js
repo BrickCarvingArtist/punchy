@@ -12,7 +12,7 @@ export default (sequelize, {INTEGER, STRING, TEXT}) => sequelize.define("article
 		}
 	},
 	author: {
-		type: INTEGER,
+		type: STRING(12),
 		allowNull: false
 	},
 	description: {
