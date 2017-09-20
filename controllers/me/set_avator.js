@@ -13,7 +13,7 @@ export default () => async ctx => {
 			mimetype,
 			buffer
 		} = ctx.req.file;
-		const {url} = await co(store.put(`avators/${fieldname}_${randomBytes(8).toString("hex")}.${mimetype.match(/\/(.*)/)[1]}`, buffer));
+		const {url} = await co(store.put(`avators/${fieldname}_${randomBytes(8).toString("hex")}`, buffer));
 		try{
 			ctx.body = await (await fetch(`${AUTH_SERVER}/api/avator`, {
 				method: "PATCH",
