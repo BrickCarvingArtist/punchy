@@ -45,6 +45,9 @@ class Article extends Component{
 		});
 	}
 	render(){
+		const {
+			location
+		} = this.props;
 		return (
 			<Scroller className="page article without-footer" loadData={
 				async (index, isRefresh) => {
