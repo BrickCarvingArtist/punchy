@@ -1,6 +1,14 @@
 import {pick} from "lodash";
-import {sequelize, Article, View, UserInfo, Favorite, Thumb} from "./";
+import {sequelize, Article, View, User, UserInfo, Favorite, Thumb} from "./";
 import {filter} from "./utils";
+User.hasOne(Article, {
+	foreignKey: "author"
+});
+Article.belongsTo(User, {
+	foreignKey: "author",
+	targetKey: "tel",
+	as: "user"
+});
 UserInfo.hasOne(Article, {
 	foreignKey: "author"
 });
@@ -50,21 +58,28 @@ export const fetch = async ({index, size, sup_label, sub_label, from, to}) => (a
 			as: "view"
 		},
 		{
+			model: User,
+			attributes: ["name"],
+			as: "user"
+		},
+		{
 			model: UserInfo,
 			attributes: ["avator"],
 			as: "info"
-		}
+		},
 	],
-	attributes: ["id", "author", "title", "description", "updated_at"],
+	attributes: ["id", "title", "description", "updated_at"],
 	order: [["updated_at", "DESC"]],
-	group: ["article.id", "info.avator"],
+	group: ["article.id", "user.name", "info.avator"],
 	raw: true,
 	offset: index * size
 	// ,limit: size // 莫名其妙sql会被乱编译到错误的位置，无法使用，todo
 })).filter((article, index) => {
 	article.viewed_times = article["view.viewed_times"];
+	article.author = article["user.name"];
 	article.avator = article["info.avator"];
 	delete article["view.viewed_times"];
+	delete article["user.name"];
 	delete article["info.avator"];
 	return index < size;
 });
