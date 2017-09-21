@@ -14,7 +14,10 @@ export default () => async ctx => {
 		});
 	}
 	try{
-		ctx.body = success(await update(ctx.request.body));
+		ctx.body = success(await update({
+			...ctx.request.body,
+			author: ctx.state.tel
+		}));
 	}catch(e){
 		ctx.body = error({
 			code: e.code || 5000100501,
