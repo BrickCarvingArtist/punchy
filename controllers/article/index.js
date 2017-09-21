@@ -90,6 +90,7 @@ export default () => {
 		body: [
 			{
 				name: "id",
+				alias: "number",
 				comment: "文章id"
 			},
 			{
