@@ -102,6 +102,9 @@ const routes = [
 	{
 		path: "/setting/profile",
 		component: Profile
+	},
+	{
+		component: () => <div>404</div>
 	}
 ];
 export default () => (

@@ -7,15 +7,22 @@ import {parse} from "querystring";
 import ArticleSection from "../../components/ArticleSection";
 import Scroller from "../../components/Scroller";
 import {RouteWithSubRoutes} from "../../utils";
-import {basis} from "../../actions";
+import {basis, setSlideOnBar} from "../../actions";
 import {setArticles} from "../../actions/article";
 import Detail from "./Detail";
 import Edit from "./Edit";
-@connect(({core, article}) => ({
+@connect(({article, me}) => ({
+	user: me.tel,
 	articles: article.articles
-}), dispatch => bindActionCreators(basis, dispatch))
+}), dispatch => bindActionCreators({
+	...basis,
+	setSlideOnBar
+}, dispatch))
 @connect()
 class Article extends Component{
+	static defaultProps = {
+		size: 10
+	};
 	state = {
 		ending: 0
 	};
@@ -37,22 +44,58 @@ class Article extends Component{
 				articles,
 				size
 			} = this.props;
-		(articles.length == nextLength || nextLength % size) && this.setState({
-			ending: 1
+		this.setState({
+			ending: articles.length == nextLength || nextLength % size
 		});
 	}
 	render(){
+		const {
+			dispatch,
+			setMessage,
+			setSlideOnBar,
+			user,
+			size,
+			articles
+		} = this.props;
 		return (
 			<Scroller className="page article without-footer" loadData={
 				async (index, isRefresh) => {
-					this.props.dispatch(await setArticles({index}, isRefresh));
-					isRefresh && this.setState({
-						ending: 0
-					});
+					dispatch(await setArticles({
+						index,
+						size
+					}, isRefresh));
 				}
 			} ending={this.state.ending}>
 				{
-					this.props.articles.map((article, i) => <ArticleSection key={i} {...article} />)
+					articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={
+						(articleId, author) => {
+							setSlideOnBar(author == user ? [
+								{
+									name: "编辑",
+									to: `/article/edit/${articleId}`
+								},
+								{
+									name: "删除",
+									onClick(){
+										setMessage("确定删除这篇文章？");
+									}
+								}
+							] : [
+								{
+									name: "关注",
+									onClick(){
+										setMessage("关注成功");
+									}
+								},
+								{
+									name: "举报",
+									onClick(){
+										setMessage("举报成功");
+									}
+								}
+							]);
+						}
+					} />)
 				}
 			</Scroller>
 		);
@@ -71,6 +114,9 @@ const routes = [
 	{
 		path: "/article/:id",
 		component: Detail
+	},
+	{
+		component: () => <div>404</div>
 	}
 ];
 export default () => (

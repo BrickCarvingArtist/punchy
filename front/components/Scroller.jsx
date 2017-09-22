@@ -45,6 +45,7 @@ export default class Scroller extends Component{
 			ending,
 			loadingHeight
 		} = this.props;
+		const {loading} = this.state;
 		let scroller, startY, distance;
 		return (
 			<div className={classNames("scroller", className)} ref={
@@ -83,15 +84,19 @@ export default class Scroller extends Component{
 					});
 					this.scrollBack(distance);
 				}
+			} style={
+				{
+					backgroundPositionY: `-${loadingHeight}px`
+				}
 			}>
 				{
 					Children.map(children, (item, index) => item)
 				}
 				{
-					this.state.loading ? <p className="note">奋力加载中...</p> : null
+					loading ? <p className="note">奋力加载中...</p> : null
 				}
 				{
-					ending ? <p className="note">不好，底都被你看光了...</p> : null
+					!loading && ending ? <p className="note">不好，底都被你看光了...</p> : null
 				}
 			</div>
 		);
