@@ -16,17 +16,18 @@ import ArticleSection from "../../components/ArticleSection";
 }, dispatch))
 @connect()
 export default class Article extends Component{
+	static defaultProps = {
+		size: 10
+	};
 	state = {
 		ending: 0
 	};
-	async componentWillMount(){
+	componentWillMount(){
 		const {
-			dispatch,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			setFooterType,
-			user
+			setFooterType
 		} = this.props;
 		setTitle("我的文章");
 		setHeaderLeftButton("back");
@@ -39,29 +40,31 @@ export default class Article extends Component{
 				articles,
 				size
 			} = this.props;
-		(articles.length == nextLength || nextLength % size) && this.setState({
-			ending: 1
+		this.setState({
+			ending: articles.length == nextLength || nextLength % size
 		});
 	}
 	render(){
 		const {
+			dispatch,
 			setSlideOnBar,
-			setMessage
+			setMessage,
+			user,
+			size,
+			articles
 		} = this.props;
 		return (
-			<Scroller className="page article without-footer" loadData={
+			<Scroller className="page with-footer" loadData={
 				async (index, isRefresh) => {
-					this.props.dispatch(await setMyArticles({
-						author: this.props.user,
-						index
+					dispatch(await setMyArticles({
+						author: user,
+						index,
+						size
 					}, isRefresh));
-					isRefresh && this.setState({
-						ending: 0
-					});
 				}
 			} ending={this.state.ending}>
 				{
-					this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={
+					articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={
 						articleId => {
 							setSlideOnBar([
 								{
