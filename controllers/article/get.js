@@ -7,6 +7,7 @@ export default () => async ctx => {
 		size = 10,
 		sup_label,
 		sub_label,
+		author,
 		from,
 		to
 	} = ctx.query;
@@ -23,6 +24,7 @@ export default () => async ctx => {
 			size,
 			sup_label,
 			sub_label,
+			author,
 			from,
 			to
 		}));

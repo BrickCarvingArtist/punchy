@@ -4,7 +4,6 @@ import get from "./get";
 import insert from "./insert";
 import category from "./category";
 import random from "./random";
-import list from "./list";
 import update from "./update";
 import remove from "./remove";
 import detail from "./detail";
@@ -46,6 +45,12 @@ export default () => {
 				alias: "number",
 				required: false,
 				comment: "二级类目"
+			},
+			{
+				name: "author",
+				alias: "tel",
+				required: false,
+				comment: "作者"
 			},
 			{
 				name: "from",
@@ -130,8 +135,6 @@ export default () => {
 	}), remove())
 	// 随机文章接口
 	.get("/random", random())
-	// 根据用户查文章列表接口
-	// .get("/list", authorize(), list())
 	// 查详情接口
 	.get("/:id", validate({
 		params: [

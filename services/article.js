@@ -44,10 +44,11 @@ Thumb.belongsTo(Article, {
 	foreignKey: "article_id",
 	targetKey: "id"
 });
-export const fetch = async ({index, size, sup_label, sub_label, from, to}) => (await Article.findAll({
+export const fetch = async ({index, size, sup_label, sub_label, author, from, to}) => (await Article.findAll({
 	where: filter({
 		sup_label,
 		sub_label,
+		author,
 		from,
 		to
 	}),
@@ -59,7 +60,7 @@ export const fetch = async ({index, size, sup_label, sub_label, from, to}) => (a
 		},
 		{
 			model: User,
-			attributes: ["name"],
+			attributes: ["tel", "name"],
 			as: "user"
 		},
 		{
@@ -76,9 +77,11 @@ export const fetch = async ({index, size, sup_label, sub_label, from, to}) => (a
 	// ,limit: size // 莫名其妙sql会被乱编译到错误的位置，无法使用，todo
 })).filter((article, index) => {
 	article.viewed_times = article["view.viewed_times"];
-	article.author = article["user.name"];
+	article.author_id = article["user.tel"];
+	article.author_name = article["user.name"];
 	article.avator = article["info.avator"];
 	delete article["view.viewed_times"];
+	delete article["user.tel"];
 	delete article["user.name"];
 	delete article["info.avator"];
 	return index < size;
@@ -131,7 +134,7 @@ export const remove = id => sequelize.transaction(t => Promise.all([
 		transcation: t
 	})
 ]));
-export const random = () => sequelize.query("SELECT * FROM (SELECT id, title, author, description, updated_at, IFNULL(t1.viewed_times, 0) AS viewed_times FROM articles LEFT JOIN (SELECT article_id, COUNT(ip) AS viewed_times FROM article_views GROUP BY article_id)t1 ON id=t1.article_id ORDER BY RAND() DESC LIMIT 10)t2 ORDER BY t2.updated_at DESC;", {
+export const random = () => sequelize.query("SELECT * FROM (SELECT id, title, author as author_id, description, updated_at, IFNULL(t1.viewed_times, 0) AS viewed_times FROM articles LEFT JOIN (SELECT article_id, COUNT(ip) AS viewed_times FROM article_views GROUP BY article_id)t1 ON id=t1.article_id ORDER BY RAND() DESC LIMIT 10)t2 ORDER BY t2.updated_at DESC;", {
 	type: sequelize.QueryTypes.SELECT
 });
 export const getDetail = id => Article.findOne({
