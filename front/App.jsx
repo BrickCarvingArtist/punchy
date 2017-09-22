@@ -37,11 +37,22 @@ export const routes = [
 		component: Setting
 	},
 	{
+		path: "/info",
+		component: () => <div>产品信息</div>
+	},
+	{
+		path: "/about",
+		component: () => <div>关于我们</div>
+	},
+	{
+		path: "/help",
+		component: () => <div>帮助中心</div>
+	},
+	{
 		path: "/:id",
 		component: User
 	},
 	{
-		path: "/",
 		component: () => <div>404</div>
 	}
 ];
