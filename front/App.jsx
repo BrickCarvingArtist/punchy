@@ -1,13 +1,15 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
+import {Switch, withRouter} from "react-router-dom";
 import Dialog from "./components/Dialog";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import SlideOnBar from "./components/SlideOnBar";
 import Home from "./pages/Home";
 import Article from "./pages/article";
 import Discovery from "./pages/Discovery";
 import Me from "./pages/Me";
+import User from "./pages/user";
 import Setting from "./pages/setting";
 import {setUser} from "./actions";
 import {setCategory} from "./actions/article";
@@ -33,6 +35,14 @@ export const routes = [
 	{
 		path: "/setting",
 		component: Setting
+	},
+	{
+		path: "/:id",
+		component: User
+	},
+	{
+		path: "/",
+		component: () => <div>404</div>
 	}
 ];
 @withRouter
@@ -47,10 +57,13 @@ export default class App extends Component{
 		return (
 			<main>
 				<Header />
-				{
-					routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
-				}
+				<Switch>
+					{
+						routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
+					}
+				</Switch>
 				<Footer />
+				<SlideOnBar />
 				<Dialog />
 			</main>
 		);

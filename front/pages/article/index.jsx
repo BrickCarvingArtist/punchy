@@ -16,9 +16,6 @@ import Edit from "./Edit";
 }), dispatch => bindActionCreators(basis, dispatch))
 @connect()
 class Article extends Component{
-	static defaultProps = {
-		size: 10
-	};
 	state = {
 		ending: 0
 	};
@@ -45,17 +42,10 @@ class Article extends Component{
 		});
 	}
 	render(){
-		const {
-			location
-		} = this.props;
 		return (
 			<Scroller className="page article without-footer" loadData={
 				async (index, isRefresh) => {
-					this.props.dispatch(await setArticles({
-						...parse(location.search.slice(1)),
-						index,
-						size: this.props.size
-					}, isRefresh));
+					this.props.dispatch(await setArticles({index}, isRefresh));
 					isRefresh && this.setState({
 						ending: 0
 					});
