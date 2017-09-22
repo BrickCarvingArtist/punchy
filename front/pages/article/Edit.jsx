@@ -47,7 +47,7 @@ class Editor extends Component{
 				})) : dispatch(await insert(article));
 				if(ok){
 					clearDraft(id);
-					history.goBack();
+					history.push("/article");
 				}
 			}
 		});
