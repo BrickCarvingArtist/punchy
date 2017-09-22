@@ -63,7 +63,7 @@ export default class Scroller extends Component{
 			} onTouchMove={
 				({changedTouches}) => {
 					const realDistance = changedTouches[0].pageY - startY;
-					if(realDistance < 0){
+					if(realDistance < 0 || scroller.scrollTop > 0){
 						return;
 					}
 					distance = Math.sqrt(10 * realDistance);
