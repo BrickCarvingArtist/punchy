@@ -1,6 +1,7 @@
 export default (state = {
 	headerLeftButton: {},
-	headerRightButton: {}
+	headerRightButton: {},
+	slideOnBars: []
 }, {type, value}) => {
 	switch(type){
 		case "PAGE_TITLE":
@@ -28,6 +29,11 @@ export default (state = {
 			return {
 				...state,
 				footerType: value
+			};
+		case "SLIDE_ON_BARS":
+			return {
+				...state,
+				slideOnBars: value
 			};
 		default:
 			return state;

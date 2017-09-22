@@ -24,6 +24,10 @@ export const basis = {
 		value
 	})
 };
+export const setSlideOnBar = value => ({
+	type: "SLIDE_ON_BARS",
+	value
+});
 export const setUser = () => (async () => {
 	try{
 		const {

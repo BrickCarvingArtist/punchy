@@ -1,0 +1,27 @@
+@import "./mixin"
+.slide-on-bar
+	position fixed
+	top 0
+	right 0
+	bottom 0
+	left 0
+	display flex
+	flex-direction column
+	&.hidden
+		display none
+	.shadow
+		flex 1
+		background-color transparentify(#000, .5)
+	a
+		display flex
+		height h(45)
+		justify-content center
+		align-items center
+		background-color #fff
+		text-align center
+		font-size h(15)
+		color #333
+		&:not(:last-of-type)
+			border-bottom 1px solid #e3e3e3
+		&:last-of-type
+			border-top 4px solid #e3e3e3
