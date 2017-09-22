@@ -35,13 +35,19 @@ const Button = ({icon, label, to, onClick = function(){}, level = 0}) => {
 @connect(({core}) => ({
 	title: core.title,
 	headerLeftButton: core.headerLeftButton,
-	headerRightButton: core.headerRightButton
+	headerRightButton: core.headerRightButton,
+	headerType: core.headerType
 }))
 export default class Header extends Component{
+	static defaultProps = {
+		headerType: 1
+	};
 	render(){
 		const {
 			history,
-			headerRightButton
+			headerRightButton,
+			headerType,
+			title
 		} = this.props;
 		let {headerLeftButton} = this.props;
 		headerLeftButton === "back" && (headerLeftButton = {
@@ -51,9 +57,13 @@ export default class Header extends Component{
 			}
 		});
 		return (
-			<header>
+			<header className={
+				classNames({
+					hidden: !headerType
+				})
+			}>
 				<Button {...headerLeftButton} />
-				<strong>{this.props.title}</strong>
+				<strong>{title}</strong>
 				<Button {...headerRightButton} />
 			</header>
 		);

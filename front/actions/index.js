@@ -19,6 +19,10 @@ export const basis = {
 		type: "HEADER_RIGHT_BUTTON",
 		value
 	}),
+	setHeaderType: value => ({
+		type: "HEADER_TYPE",
+		value
+	}),
 	setFooterType: value => ({
 		type: "FOOTER_TYPE",
 		value

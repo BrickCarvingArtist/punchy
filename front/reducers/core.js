@@ -25,6 +25,11 @@ export default (state = {
 				...state,
 				headerRightButton: value
 			};
+		case "HEADER_TYPE":
+			return {
+				...state,
+				headerType: value
+			};
 		case "FOOTER_TYPE":
 			return {
 				...state,
