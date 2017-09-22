@@ -3,13 +3,20 @@ import {Link} from "react-router-dom";
 import classNames from "classnames";
 import {Time} from "../utils";
 process.title === "node" || require("../styles/article_section.styl");
-export default ({id, avator, author, title, description, updated_at, viewed_times, cover}) => (
+export default ({id, avator, author_id, author_name, title, description, updated_at, viewed_times, cover, handleOption}) => (
 	<section className="article">
 		<header>
-			<img className="avator" src={avator || "/avator.png"} />
-			<Link to={`/profile/${author}`}>
-				<strong>{author}</strong>
-			</Link>
+			<div className="left">
+				<img className="avator" src={avator || "/avator.png"} />
+				<Link to={`/${author_id}`}>
+					<strong>{author_name || author_id}</strong>
+				</Link>
+			</div>
+			<icon className="medium option" onClick={
+				() => {
+					handleOption(id, author_id);
+				}
+			}></icon>
 		</header>
 		<div className="detail">
 			<Link className={
