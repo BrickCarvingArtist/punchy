@@ -1,5 +1,5 @@
 import {success, error} from "../../utils";
-import {addFavorite} from "../../services/article"
+import {addFavorite} from "../../services/article";
 export default () => async ctx => {
 	try{
 		ctx.body = success(await addFavorite({

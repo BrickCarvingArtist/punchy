@@ -1,5 +1,5 @@
 import {success, error} from "../../utils";
-import {thumb} from "../../services/article"
+import {thumb} from "../../services/article";
 export default () => async ctx => {
 	try{
 		ctx.body = success(await thumb({
