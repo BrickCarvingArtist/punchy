@@ -88,7 +88,7 @@ class Setting extends Component{
 						))
 					}
 				</div>
-				<Link className="entrance out" to="/out">退出登录</Link>
+				<a className="entrance out" href="/api/out">退出登录</a>
 			</div>
 		);
 	}

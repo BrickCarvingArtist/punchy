@@ -3,12 +3,7 @@ export default (state = {}, {type, value}) => ({
 		...state,
 		...value
 	},
-	NOT_AUTHORIZED: {
-		...state,
-		user: {
-			tel: 0
-		}
-	},
+	NOT_AUTHORIZED: {},
 	USER_AVATOR: {
 		...state,
 		avator: value

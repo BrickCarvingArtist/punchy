@@ -1,13 +1,13 @@
+import fetch from "isomorphic-fetch";
 import {sucess, error} from "../../utils";
+import {SERVER, AUTH_SERVER} from "../../configs";
 export default () => async ctx => {
-	ctx.cookies.set("sso_token", null);
-	try{
-		ctx.redirect("/");
-	}catch(e){
-		ctx.body = error({
-			code: 5000200400,
-			ctx,
-			e
-		});
-	}
+	const {
+		protocol,
+		name
+	} = SERVER;
+	ctx.cookies.set("sso_token", "", {
+		maxAge: 0
+	});
+	ctx.redirect(`${AUTH_SERVER}/api/out?referer=${protocol}${name}`);
 };
