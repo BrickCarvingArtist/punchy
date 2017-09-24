@@ -8,12 +8,10 @@ try{
 export default ({id, avator, author_id, author_name, title, description, updated_at, viewed_times, cover, handleOption}) => (
 	<section className="article">
 		<header>
-			<div className="left">
+			<Link className="author" to={`/${author_id}`}>
 				<img className="avator" src={avator || "/avator.png"} alt="作者头像" />
-				<Link to={`/${author_id}`}>
-					<strong>{author_name || author_id}</strong>
-				</Link>
-			</div>
+				<strong>{author_name || author_id}</strong>
+			</Link>
 			<icon className="medium option" onClick={
 				() => {
 					handleOption(id, author_id);

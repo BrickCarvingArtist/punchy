@@ -84,7 +84,7 @@ class User extends Component{
 					}></icon>
 					<div className="main">
 						<div className="left">
-							<img className="avator" src={avator || "/avator.png"} />
+							<img className="avator" src={avator || "/avator.png"} alt="作者头像" />
 							<div className="center">
 								<strong>{name || author}</strong>
 								<p>
