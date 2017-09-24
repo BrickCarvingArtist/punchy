@@ -17,35 +17,36 @@ export default class SlideOnBar extends Component{
 			display: nextProps.bars.length
 		});
 	}
+	hide(){
+		this.setState({
+			display: 0
+		});
+	}
 	render(){
 		return (
 			<div className={
 				classNames("slide-on-bar", {
 					hidden: !this.state.display
 				})
-			}>
+			} onClick={this::this.hide}>
 				<div className="shadow"></div>
-				{
-					this.props.bars.map(({name, to, onClick}) => {
-						if(to){
-							return <Link to={to} onClick={
-								() => {
-									this.setState({
-										display: 0
-									})
+				<div className="bars">
+					{
+						this.props.bars.map(({name, to, onClick}) => {
+							if(to){
+								return <Link to={to}>{name}</Link>
+							}
+							return <a onClick={
+								async e => {
+									e.stopPropagation();
+									await onClick(e);
+									this.hide();
 								}
-							}>{name}</Link>
-						}
-						return <a onClick={onClick}>{name}</a>
-					})
-				}
-				<a onClick={
-					() => {
-						this.setState({
-							display: 0
-						});
+							}>{name}</a>
+						})
 					}
-				}>取消</a>
+					<a>取消</a>
+				</div>
 			</div>
 		);
 	}
