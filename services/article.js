@@ -137,11 +137,32 @@ export const remove = id => sequelize.transaction(t => Promise.all([
 export const random = () => sequelize.query("SELECT * FROM (SELECT id, title, author as author_id, description, updated_at, IFNULL(t1.viewed_times, 0) AS viewed_times FROM articles LEFT JOIN (SELECT article_id, COUNT(ip) AS viewed_times FROM article_views GROUP BY article_id)t1 ON id=t1.article_id ORDER BY RAND() DESC LIMIT 10)t2 ORDER BY t2.updated_at DESC;", {
 	type: sequelize.QueryTypes.SELECT
 });
-export const getDetail = id => Article.findOne({
+export const getDetail = async id => {
+	const detail = await Article.findOne({
+		where: {
+			id
+		},
+		include: [
+			{
+				model: User,
+				attributes: ["name"],
+				as: "user"
+			}
+		],
+		group: ["user.name"],
+		raw: true
+	}) || {};
+	detail.author_id = detail.author;
+	detail.author_name = detail["user.name"];
+	delete detail.author;
+	delete detail["user.name"];
+	return detail;
+};
+export const countAuthorArticles = author => Article.count({
 	where: {
-		id
+		author
 	}
-}) || {};
+});
 export const addFavorite = async ({user_id, article_id}) => {
 	const where = filter({
 		user_id,

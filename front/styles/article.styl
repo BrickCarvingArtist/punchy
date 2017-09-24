@@ -75,70 +75,69 @@
 		color #999
 		&:not(:last-child)
 			border-bottom 1px solid #e3e3e3
-article
-	&.detail
-		padding 0 w(15) h(15)
-		background-color #fff
-		header
-			padding-bottom h(15)
-			border-bottom 1px solid #e3e3e3
-			h1
-				margin h(12.5) 0
-				font-size h(17)
-				line-height h(22)
-			.base
-				display flex
-				justify-content space-between
-				align-items center
-				a
-					display flex
-					align-items center
-					img.avator.small
-						width w(20)
-						height h(20)
-					strong
-						margin-left w(10)
-						font-size h(13)
-						color #666
-				time
-					font-size h(13)
-					color #999
-		
-		.category
-			margin h(15) 0
-			font-size h(14)
-			color #666
-		pre
+article.detail
+	padding 0 w(15) h(15)
+	background-color #fff
+	header
+		padding-bottom h(15)
+		border-bottom 1px solid #e3e3e3
+		h1
+			margin h(12.5) 0
+			font-size h(17)
 			line-height h(22)
-			font-size h(15)
-		footer
-			position absolute
-			bottom h(-50)
-			left 0
+		.base
 			display flex
-			width w(375)
-			height h(50)
-			padding h(9)
-			background-color #fff
-			border-top 1px solid #e3e3e3
-			transition bottom .5s
-			&.pin
-				bottom 0
-			button
+			justify-content space-between
+			align-items center
+			a
 				display flex
-				flex 1
-				justify-content center
 				align-items center
-				&:first-child
-					border-right 1px solid #e3e3e3
-				icon
-					&.on-favorite
-					&.on-six
-						animation pulse .15s cubic-bezier(.45, .95, .95, .7)
-				span
+				img.avator.small
+					width w(20)
+					height h(20)
+				strong
 					margin-left w(10)
-					font-size h(15)
+					font-size h(13)
 					color #666
+			time
+				font-size h(13)
+				color #999
+	
+	.category
+		margin h(15) 0
+		font-size h(14)
+		color #666
+	pre
+		line-height h(22)
+		font-size h(15)
+	footer
+		position fixed
+		bottom h(-50)
+		left 0
+		display flex
+		width w(375)
+		height h(50)
+		padding h(9)
+		background-color #fff
+		border-top 1px solid #e3e3e3
+		transition bottom .5s
+		&.pin
+			bottom 0
+		button
+			display flex
+			flex 1
+			justify-content center
+			align-items center
+			&:first-child
+				border-right 1px solid #e3e3e3
+			icon
+				&.on-favorite
+				&.on-six
+					animation pulse .15s cubic-bezier(.45, .95, .95, .7)
+			span
+				margin-left w(10)
+				font-size h(15)
+				color #666
 @keyframes pulse
 	to
 		width w(25)
