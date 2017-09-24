@@ -2,7 +2,9 @@ import React, {Component} from "react";
 import {NavLink, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import classNames from "classnames";
-process.title === "node" || require("../styles/footer");
+try{
+	require("../styles/footer");
+}catch(e){}
 @withRouter
 @connect(({core}) => ({
 	footerType: core.footerType

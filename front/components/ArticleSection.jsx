@@ -2,7 +2,9 @@ import React from "react";
 import {Link} from "react-router-dom";
 import classNames from "classnames";
 import {Time} from "../utils";
-process.title === "node" || require("../styles/article_section.styl");
+try{
+	require("../styles/article_section");
+}catch(e){}
 export default ({id, avator, author_id, author_name, title, description, updated_at, viewed_times, cover, handleOption}) => (
 	<section className="article">
 		<header>
