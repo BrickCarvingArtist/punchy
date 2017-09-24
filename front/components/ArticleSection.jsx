@@ -7,7 +7,7 @@ export default ({id, avator, author_id, author_name, title, description, updated
 	<section className="article">
 		<header>
 			<div className="left">
-				<img className="avator" src={avator || "/avator.png"} />
+				<img className="avator" src={avator || "/avator.png"} alt="作者头像" />
 				<Link to={`/${author_id}`}>
 					<strong>{author_name || author_id}</strong>
 				</Link>
