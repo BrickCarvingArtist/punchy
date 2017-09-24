@@ -9,7 +9,9 @@ import {setAvator} from "../../actions/setting";
 import {RouteWithSubRoutes} from "../../utils";
 import {SERVER_NAME, AUTH_SERVER} from "../../configs";
 import Profile from "./Profile";
-process.title === "node" || require("../../styles/setting");
+try{
+	require("../../styles/setting");
+}catch(e){}
 @connect(({core, me}) => ({
 	name: me.name,
 	avator: me.avator || "/avator.png"

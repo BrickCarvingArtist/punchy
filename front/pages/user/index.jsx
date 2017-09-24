@@ -9,7 +9,9 @@ import {basis, setSlideOnBar} from "../../actions";
 import {getAuthorProfile, setAuthorArticles} from "../../actions/user";
 import {RouteWithSubRoutes} from "../../utils";
 import MyArticle from "./Article";
-process.title === "node" || require("../../styles/user.styl");
+try{
+	require("../../styles/user");
+}catch(e){}
 @connect(({user, router}) => {
 	let id;
 	try{

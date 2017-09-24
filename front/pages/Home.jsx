@@ -6,8 +6,10 @@ import classNames from "classnames";
 import ArticleSection from "../components/ArticleSection";
 import {basis} from "../actions";
 import {setArticles} from "../actions/home";
-import {Time} from "../utils"
-process.title === "node" || require("../styles/home");
+import {Time} from "../utils";
+try{
+	require("../styles/home");
+}catch(e){}
 @connect(({home, core}) => ({
 	articles: home.articles
 }), dispatch => bindActionCreators(basis, dispatch))

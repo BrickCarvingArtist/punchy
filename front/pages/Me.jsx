@@ -5,7 +5,9 @@ import {connect} from "react-redux";
 import classNames from "classnames";
 import {authorize, basis} from "../actions";
 import {SERVER_NAME, AUTH_SERVER} from "../configs";
-process.title === "node" || require("../styles/me");
+try{
+	require("../styles/me");
+}catch(e){}
 const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
 	<Link className="entrance with-icon" to={tel ? `${to.replace(":id", tel)}` : to} onClick={onClick}>
 		<icon className={
