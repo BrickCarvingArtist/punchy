@@ -18,20 +18,17 @@ export default ({id, avator, author_id, author_name, title, description, updated
 				}
 			}></icon>
 		</header>
-		<div className="detail">
-			<Link className={
-				classNames({
-					title: true,
-					hasCover: cover
-				})
-			} to={`/article/${id}`}>
-				{
-					cover ? <div className="cover"></div> : []
-				}
-				<h1>{title}</h1>
-			</Link>
+		<Link className={
+			classNames("detail", {
+				hasCover: cover
+			})
+		} to={`/article/${id}`}>
+			{
+				cover ? <div className="cover"></div> : []
+			}
+			<h1>{title}</h1>
 			<p>{description}</p>
-		</div>
+		</Link>
 		<footer>
 			<time>{Time.diff(Date.now(), updated_at)}</time>
 			<div className="view">
