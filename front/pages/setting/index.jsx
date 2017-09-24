@@ -34,7 +34,6 @@ class Setting extends Component{
 	componentWillMount(){
 		const {
 			dispatch,
-			setMessage,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
@@ -48,7 +47,6 @@ class Setting extends Component{
 		});
 		setHeaderRightButton();
 		setFooterType();
-		parse(location.search.slice(1)).sso_token && setMessage("密码修改成功");
 	}
 	handleAvator = async e => {
 		const file = new FormData();

@@ -15,6 +15,7 @@ export default class User extends Component{
 	componentWillMount(){
 		const {
 			dispatch,
+			setMessage,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
@@ -26,15 +27,19 @@ export default class User extends Component{
 		setHeaderRightButton({
 			label: "完成",
 			level: 1,
-			onClick: () => {
+			onClick: async () => {
 				const {value} = this.input;
-				new Promise(async (resolve, reject) => {
+				const ok = await new Promise(async (resolve, reject) => {
 					let isEquals = value === this.props.name;
 					if(isEquals){
 						return resolve(isEquals);
 					}
 					resolve(dispatch(await updateUserName(value)).ok);
-				}).then(ok => ok && history.goBack());
+				});
+				if(ok){
+					setMessage("修改成功");
+					history.goBack();
+				}
 			}
 		});
 		setFooterType();

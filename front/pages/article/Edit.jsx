@@ -25,6 +25,7 @@ class Editor extends Component{
 	async componentWillMount(){
 		const {
 			dispatch,
+			setMessage,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
@@ -48,6 +49,7 @@ class Editor extends Component{
 					...article
 				})) : dispatch(await insert(article));
 				if(ok){
+					setMessage("发表成功");
 					clearDraft(id);
 					history.push("/article");
 				}
