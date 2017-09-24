@@ -17,7 +17,7 @@ const getCoreConfig = () => ({
 				exclude: [
 					resolve(__dirname, "./node_modules")
 				],
-				use: ["babel-loader"]
+				use: "babel-loader"
 			},
 			{
 				test: /\.styl$/,
@@ -79,6 +79,25 @@ if(NODE_ENV === "production"){
 	Object.assign(config.output, {
 		path: resolve(__dirname, "../../statics/punchy"),
 		publicPath: "/punchy/"
+	});
+	// why not work?
+	config.module.rules[0].use = {
+		loader: "babel-loader",
+		options: {
+			minified: true
+		}
+	};
+	config.module.rules[1].use = ExtractTextPlugin.extract({
+		fallback: "style-loader",
+		use: [
+			{
+				loader: "css-loader",
+				options: {
+					minimize: true
+				}
+			},
+			"stylus-loader"
+		]
 	});
 	config.plugins.push(new webpack.DefinePlugin({
 		process: {
