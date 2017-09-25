@@ -27,6 +27,36 @@ export const setMyArticles = (queries, isRefresh) => (async () => {
 		};
 	}
 })();
+export const setMyFavorites = (queries, isRefresh) => (async () => {
+	try{
+		const {
+			code,
+			data,
+			message
+		} = await (await fetch(`${SERVER_NAME}/api/article/favorite?${stringify(queries)}`)).json();
+		if(code){
+			return {
+				type: "DIALOG_MESSAGE",
+				value: message
+			};
+		}
+		return {
+			type: "MY_FAVORITES",
+			value: data,
+			isRefresh,
+			ok: 1
+		};
+	}catch(e){
+		return {
+			type: "DIALOG_MESSAGE",
+			value: "网络异常"
+		};
+	}
+})();
+export const updateMyFavorite = value => ({
+	type: "UPDATE_MY_FAVORITE",
+	value
+});
 export const getAuthorProfile = author => (async () => {
 	try{
 		const {

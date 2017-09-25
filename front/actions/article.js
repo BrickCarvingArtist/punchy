@@ -129,7 +129,8 @@ export const addFavorite = id => (async () => {
 		}
 		return {
 			type: "FAVORITE_ARTICLE",
-			value: data
+			value: data,
+			ok: 1
 		};
 	}catch(e){
 		return {
@@ -157,7 +158,8 @@ export const saySix = id => (async () => {
 		if(code){
 			return {
 				type: "DIALOG_MESSAGE",
-				value: message
+				value: message,
+				ok: 1
 			};
 		}
 		return {

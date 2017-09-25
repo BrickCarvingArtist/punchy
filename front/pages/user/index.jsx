@@ -9,6 +9,7 @@ import {basis, setSlideOnBar} from "../../actions";
 import {getAuthorProfile, setAuthorArticles} from "../../actions/user";
 import {RouteWithSubRoutes} from "../../utils";
 import MyArticle from "./Article";
+import MyFavorite from "./Favorite";
 try{
 	require("../../styles/user");
 }catch(e){}
@@ -137,6 +138,10 @@ const routes = [
 	{
 		path: "/:id/article",
 		component: MyArticle
+	},
+	{
+		path: "/:id/favorite",
+		component: MyFavorite
 	},
 	{
 		component: () => <div>404</div>

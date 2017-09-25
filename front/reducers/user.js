@@ -14,6 +14,26 @@ export default (state = {
 					...value
 				]
 			};
+		case "MY_FAVORITES":
+			return isRefresh ? {
+				...state,
+				favorites: value
+			} : {
+				...state,
+				favorites: [
+					...state.favorites,
+					...value
+				]
+			};
+		case "UPDATE_MY_FAVORITE":
+			return {
+				...state, 
+				favorites: (() => {
+					const favorites = [...state.favorites];
+					favorites.splice(value, value + 1);
+					return favorites;
+				})()
+			};
 		case "AUTHOR_PROFILE":
 			return {
 				...state,
