@@ -5,7 +5,7 @@ import {Time} from "../utils";
 try{
 	require("../styles/article_section");
 }catch(e){}
-export default ({id, avator, author_id, author_name, title, description, updated_at, viewed_times, cover, handleOption}) => (
+export default ({id, avator, author_id, author_name, title, description, updated_at, favorite_sum, thumb_sum, viewed_times, cover, handleOption}) => (
 	<section className="article">
 		<header>
 			<Link className="author" to={`/${author_id}`}>
@@ -31,7 +31,11 @@ export default ({id, avator, author_id, author_name, title, description, updated
 		</Link>
 		<footer>
 			<time>{Time.diff(Date.now(), updated_at)}</time>
-			<div className="view">
+			<div className="right">
+				<icon className="small off-favorite"></icon>
+				<span>{favorite_sum}</span>
+				<icon className="small off-six"></icon>
+				<span>{thumb_sum}</span>
 				<icon className="small view"></icon>
 				<span>{viewed_times}</span>
 			</div>

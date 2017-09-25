@@ -48,10 +48,15 @@ section.article
 		time
 			font-size h(13)
 			color #999
-		div.view
+		div.right
 			display flex
 			align-items center
-		span
-			margin-left w(5)
-			font-zize h(13)
-			color #a9b9c9
+			icon
+				margin-left w(15)
+			span
+				margin-left w(5)
+				font-zize h(13)
+				&:not(:last-of-type)
+					color #ccc
+				&:last-of-type
+					color #a9b9c9

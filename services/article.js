@@ -54,11 +54,6 @@ export const fetch = async ({index, size, sup_label, sub_label, author, from, to
 	}),
 	include: [
 		{
-			model: View,
-			attributes: [[sequelize.fn("COUNT", sequelize.col("article_id")), "viewed_times"]],
-			as: "view"
-		},
-		{
 			model: User,
 			attributes: ["tel", "name"],
 			as: "user"
@@ -67,20 +62,22 @@ export const fetch = async ({index, size, sup_label, sub_label, author, from, to
 			model: UserInfo,
 			attributes: ["avator"],
 			as: "info"
-		},
+		}
 	],
-	attributes: ["id", "title", "description", "updated_at"],
+	attributes: ["id", "title", "description", "updated_at",
+		[sequelize.literal("(SELECT COUNT(0) FROM `article_views` WHERE `article_views`.`article_id` = `article`.`id`)"), "viewed_times"],
+		[sequelize.literal("(SELECT COUNT(0) FROM `favorites` WHERE `favorites`.`article_id` = `article`.`id`)"), "favorite_sum"],
+		[sequelize.literal("(SELECT COUNT(0) FROM `thumbs` WHERE `thumbs`.`article_id` = `article`.`id`)"), "thumb_sum"]
+	],
 	order: [["updated_at", "DESC"]],
 	group: ["article.id", "user.name", "info.avator"],
 	raw: true,
-	offset: index * size
-	// ,limit: size // 莫名其妙sql会被乱编译到错误的位置，无法使用，todo
+	offset: index * size,
+	limit: +size
 })).filter((article, index) => {
-	article.viewed_times = article["view.viewed_times"];
 	article.author_id = article["user.tel"];
 	article.author_name = article["user.name"];
 	article.avator = article["info.avator"];
-	delete article["view.viewed_times"];
 	delete article["user.tel"];
 	delete article["user.name"];
 	delete article["info.avator"];
