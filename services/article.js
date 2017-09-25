@@ -65,9 +65,9 @@ export const fetch = async ({index, size, sup_label, sub_label, author, from, to
 		}
 	],
 	attributes: ["id", "title", "description", "updated_at",
-		[sequelize.literal("(SELECT COUNT(0) FROM `article_views` WHERE `article_views`.`article_id` = `article`.`id`)"), "viewed_times"],
-		[sequelize.literal("(SELECT COUNT(0) FROM `favorites` WHERE `favorites`.`article_id` = `article`.`id`)"), "favorite_sum"],
-		[sequelize.literal("(SELECT COUNT(0) FROM `thumbs` WHERE `thumbs`.`article_id` = `article`.`id`)"), "thumb_sum"]
+		[sequelize.literal("(SELECT COUNT(0) FROM `article_views` WHERE `article_views`.`article_id` = `article`.`id` AND (`article`.`deleted_at` > CURRENT_TIMESTAMP OR `article`.`deleted_at` IS NULL))"), "viewed_times"],
+		[sequelize.literal("(SELECT COUNT(0) FROM `favorites` AS `favorite` WHERE `favorite`.`article_id` = `article`.`id` AND (`favorite`.`deleted_at` > CURRENT_TIMESTAMP OR `favorite`.`deleted_at` IS NULL))"), "favorite_sum"],
+		[sequelize.literal("(SELECT COUNT(0) FROM `thumbs` AS `thumb` WHERE `thumb`.`article_id` = `article`.`id` AND (`thumb`.`deleted_at` > CURRENT_TIMESTAMP OR `thumb`.`deleted_at` IS NULL))"), "thumb_sum"]
 	],
 	order: [["updated_at", "DESC"]],
 	group: ["article.id", "user.name", "info.avator"],
@@ -160,6 +160,62 @@ export const countAuthorArticles = author => Article.count({
 		author
 	}
 });
+export const getFavorites = async ({index, size, sup_label, sub_label, user_id, from, to}) => {
+	let articleIds;
+	try{
+		articleIds = await Favorite.findAll(filter({
+			where: {
+				user_id
+			},
+			attributes: ["article_id"]
+		})).map(({article_id}) => article_id);
+	}catch(e){
+		throw {
+			code: 5000100803
+		};
+	}
+	return (await Article.findAll({
+		where: filter({
+			sup_label,
+			sub_label,
+			id: {
+				in: articleIds
+			},
+			from,
+			to
+		}),
+		include: [
+			{
+				model: User,
+				attributes: ["tel", "name"],
+				as: "user"
+			},
+			{
+				model: UserInfo,
+				attributes: ["avator"],
+				as: "info"
+			}
+		],
+		attributes: ["id", "title", "description", "updated_at",
+			[sequelize.literal("(SELECT COUNT(0) FROM `article_views` WHERE `article_views`.`article_id` = `article`.`id`)"), "viewed_times"],
+			[sequelize.literal("(SELECT COUNT(0) FROM `favorites` WHERE `favorites`.`article_id` = `article`.`id`)"), "favorite_sum"],
+			[sequelize.literal("(SELECT COUNT(0) FROM `thumbs` WHERE `thumbs`.`article_id` = `article`.`id`)"), "thumb_sum"]
+		],
+		order: [["updated_at", "DESC"]],
+		group: ["article.id", "user.name", "info.avator"],
+		raw: true,
+		offset: index * size,
+		limit: +size
+	})).filter((article, index) => {
+		article.author_id = article["user.tel"];
+		article.author_name = article["user.name"];
+		article.avator = article["info.avator"];
+		delete article["user.tel"];
+		delete article["user.name"];
+		delete article["info.avator"];
+		return index < size;
+	});
+};
 export const addFavorite = async ({user_id, article_id}) => {
 	const where = filter({
 		user_id,
