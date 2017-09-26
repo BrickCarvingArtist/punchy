@@ -10,6 +10,7 @@ try{
 	message: core.message
 }), dispatch => bindActionCreators({setMessage}, dispatch))
 export default class Dialog extends Component{
+	static confirm(){}
 	render(){
 		const {
 			message,

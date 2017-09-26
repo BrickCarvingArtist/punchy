@@ -6,10 +6,11 @@ import classNames from "classnames";
 import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
 import {basis, setSlideOnBar} from "../../actions";
-import {getAuthorProfile, setAuthorArticles} from "../../actions/user";
+import {getAuthorProfile, setAuthorArticles, focus} from "../../actions/user";
 import {RouteWithSubRoutes} from "../../utils";
 import MyArticle from "./Article";
 import MyFavorite from "./Favorite";
+import MyFocus from "./Focus";
 try{
 	require("../../styles/user");
 }catch(e){}
@@ -35,9 +36,8 @@ class User extends Component{
 	state = {
 		ending: 0
 	};
-	async componentWillMount(){
+	componentWillMount(){
 		const {
-			dispatch,
 			setTitle,
 			setHeaderType,
 			setFooterType,
@@ -46,7 +46,7 @@ class User extends Component{
 		setTitle(`${author}的个人主页`);
 		setHeaderType(0);
 		setFooterType();
-		dispatch(await getAuthorProfile(author));
+		this.setAuthorProfile();
 	}
 	componentWillReceiveProps(nextProps){
 		const nextLength = nextProps.articles.length,
@@ -61,6 +61,13 @@ class User extends Component{
 	componentWillUnmount(){
 		this.props.setHeaderType(1);
 	}
+	async setAuthorProfile(){
+		const {
+			author,
+			dispatch
+		} = this.props;
+		dispatch(await getAuthorProfile(author));
+	}
 	render(){
 		const {
 			dispatch,
@@ -70,8 +77,10 @@ class User extends Component{
 			avator,
 			name,
 			author,
+			tel,
 			article_sum,
-			fans_sum,
+			focus_sum,
+			focused,
 			size,
 			articles
 		} = this.props;
@@ -90,15 +99,24 @@ class User extends Component{
 								<strong>{name || author}</strong>
 								<p>
 									<span>文章 {article_sum || 0}</span>
-									<span>粉丝 {fans_sum || 0}</span>
+									<span>粉丝 {focus_sum || 0}</span>
 								</p>
 							</div>
 						</div>
-						<a onClick={
-							() => {
-								setMessage("关注成功");
+						<a className="border-button white" onClick={
+							async () => {
+								const {
+									ok,
+									value
+								} = dispatch(await focus(author));
+								if(ok){
+									setMessage(`${["取消", ""][value.focus]}关注成功`);
+									this.setAuthorProfile();
+								}
 							}
-						}>+关注</a>
+						}>{
+							["关注", "取消关注"][focused]
+						}</a>
 					</div>
 				</div>
 				<Scroller className="article" loadData={
@@ -142,6 +160,10 @@ const routes = [
 	{
 		path: "/:id/favorite",
 		component: MyFavorite
+	},
+	{
+		path: "/:id/focus",
+		component: MyFocus
 	},
 	{
 		component: () => <div>404</div>

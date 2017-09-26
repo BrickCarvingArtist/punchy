@@ -4,9 +4,10 @@ import {connect} from "react-redux";
 import {Link, Switch} from "react-router-dom";
 import classNames from "classnames";
 import {basis, setSlideOnBar} from "../../actions";
-import {setMyArticles} from "../../actions/user";
+import {setMyArticles, removeMyArticle} from "../../actions/user";
 import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
+import Dialog from "../../components/Dialog";
 @connect(({me, user}) => ({
 	user: me.tel,
 	articles: user.articles
@@ -73,8 +74,8 @@ export default class Article extends Component{
 								},
 								{
 									name: "删除",
-									onClick(){
-										setMessage("确认删除这篇文章？");
+									async onClick(){
+										Dialog.confirm("确认删除这篇文章？")(async () => disatch(await removeMyArticle(articleId)));
 									}
 								}
 							])

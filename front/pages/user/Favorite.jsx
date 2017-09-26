@@ -5,7 +5,7 @@ import {Link, Switch} from "react-router-dom";
 import classNames from "classnames";
 import {basis, setSlideOnBar} from "../../actions";
 import {addFavorite} from "../../actions/article";
-import {setMyFavorites, updateMyFavorite} from "../../actions/user";
+import {setMyFavorites, updateMyFavorites} from "../../actions/user";
 import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
 @connect(({me, user}) => ({
@@ -14,7 +14,7 @@ import ArticleSection from "../../components/ArticleSection";
 }), dispatch => bindActionCreators({
 	...basis,
 	setSlideOnBar,
-	updateMyFavorite
+	updateMyFavorites
 }, dispatch))
 @connect()
 export default class Article extends Component{
@@ -63,7 +63,7 @@ export default class Article extends Component{
 			dispatch,
 			setMessage,
 			setSlideOnBar,
-			updateMyFavorite,
+			updateMyFavorites,
 			articles
 		} = this.props;
 		return (
@@ -76,7 +76,7 @@ export default class Article extends Component{
 									name: "取消收藏",
 									onClick: async e => {
 										if(dispatch(await addFavorite(articleId)).ok){
-											updateMyFavorite(i);
+											updateMyFavorites(i);
 											setMessage("取消收藏成功");
 										}
 									}
