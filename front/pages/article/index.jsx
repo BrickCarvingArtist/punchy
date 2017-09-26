@@ -82,12 +82,6 @@ class Article extends Component{
 								}
 							] : [
 								{
-									name: "关注",
-									onClick(){
-										setMessage("关注成功");
-									}
-								},
-								{
 									name: "举报",
 									onClick(){
 										setMessage("举报成功");
