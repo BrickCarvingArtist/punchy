@@ -5,6 +5,7 @@ import {crossDomain, verifyToken, page} from "./middlewares";
 import article from "./article";
 import lottery from "./lottery";
 import me from "./me";
+import relationship from "./relationship";
 export default async app => {
 	try{
 		await sequelize.authenticate();
@@ -19,6 +20,7 @@ export default async app => {
 		.use(article())
 		.use(lottery())
 		.use(me())
+		.use(relationship())
 		.use(page())
 		.listen(SERVER.port)
 		.on("error", e => {
