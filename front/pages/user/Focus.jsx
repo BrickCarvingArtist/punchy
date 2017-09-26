@@ -62,7 +62,7 @@ export default class Focus extends Component{
 			<section>
 				<Link to={`/${tel}`}>
 					<img src={avatar || "/avator.png"} alt="作者头像" />
-					<strong>{name}</strong>
+					<strong>{name || tel}</strong>
 				</Link>
 				<a className="border-button blue" onClick={this.cancelFocus.bind(this, tel, index)}>取消关注</a>
 			</section>
