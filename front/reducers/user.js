@@ -1,6 +1,7 @@
 export default (state = {
 	articles: [],
-	favorites: []
+	favorites: [],
+	focuses: []
 }, {type, value, isRefresh, author}) => {
 	switch(type){
 		case "MY_ARTICLES":
@@ -25,13 +26,33 @@ export default (state = {
 					...value
 				]
 			};
-		case "UPDATE_MY_FAVORITE":
+		case "UPDATE_MY_FAVORITES":
 			return {
 				...state, 
 				favorites: (() => {
 					const favorites = [...state.favorites];
 					favorites.splice(value, value + 1);
 					return favorites;
+				})()
+			};
+		case "MY_FOCUSES":
+			return isRefresh ? {
+				...state,
+				focuses: value
+			} : {
+				...state,
+				focuses: [
+					...state.focuses,
+					...value
+				]
+			};
+		case "UPDATE_MY_FOCUSES":
+			return {
+				...state, 
+				focuses: (() => {
+					const focuses = [...state.focuses];
+					focuses.splice(value, value + 1);
+					return focuses;
 				})()
 			};
 		case "AUTHOR_PROFILE":
