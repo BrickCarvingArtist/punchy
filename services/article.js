@@ -1,5 +1,5 @@
 import {pick} from "lodash";
-import {sequelize, Article, View, User, UserInfo, Favorite, Thumb} from "./";
+import {sequelize, Article, View, User, UserInfo, Favorite, Thumb, Focus} from "./";
 import {filter} from "./utils";
 User.hasOne(Article, {
 	foreignKey: "author"
@@ -74,14 +74,14 @@ export const fetch = async ({index, size, sup_label, sub_label, author, from, to
 	raw: true,
 	offset: index * size,
 	limit: +size
-})).filter((article, index) => {
+})).filter(article => {
 	article.author_id = article["user.tel"];
 	article.author_name = article["user.name"];
 	article.avator = article["info.avator"];
 	delete article["user.tel"];
 	delete article["user.name"];
 	delete article["info.avator"];
-	return index < size;
+	return article;
 });
 export const insert = async ({title, author, sup_label, sub_label, content}) => pick(await Article.create(filter({
 	title,
@@ -155,11 +155,6 @@ export const getDetail = async id => {
 	delete detail["user.name"];
 	return detail;
 };
-export const countAuthorArticles = author => Article.count({
-	where: {
-		author
-	}
-});
 export const getFavorites = async ({index, size, sup_label, sub_label, user_id, from, to}) => {
 	let articleIds;
 	try{
@@ -206,14 +201,14 @@ export const getFavorites = async ({index, size, sup_label, sub_label, user_id, 
 		raw: true,
 		offset: index * size,
 		limit: +size
-	})).filter((article, index) => {
+	})).map(article => {
 		article.author_id = article["user.tel"];
 		article.author_name = article["user.name"];
 		article.avator = article["info.avator"];
 		delete article["user.tel"];
 		delete article["user.name"];
 		delete article["info.avator"];
-		return index < size;
+		return article;
 	});
 };
 export const addFavorite = async ({user_id, article_id}) => {
@@ -332,4 +327,28 @@ export const getRelation = async ({user_id, article_id}) => {
 	}), {
 		article_id: +article_id
 	});
+};
+export const getAuthorAdditions = async ({author, user_id}) => {
+	const where = filter({
+		author
+	});
+	const [article_sum, focus_sum, focused] = await sequelize.transaction(t => Promise.all([
+		Article.count({
+			where
+		}),
+		Focus.count({
+			where
+		}),
+		Focus.count({
+			where: filter({
+				author,
+				user_id
+			})
+		})
+	]));
+	return {
+		article_sum,
+		focus_sum,
+		focused
+	};
 };
