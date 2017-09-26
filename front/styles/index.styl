@@ -55,19 +55,32 @@ button
 		height h(40)
 	&.below_input
 		margin-top h(20)
-button.anchor
-	&.bottom
-		position fixed
-		bottom 0
-		width w(375)
-		height h(40)
-		border-radius 0
-		text-align center
-		line-height h(40)
-		font-size h(15)
-	&.blue
-		background-color #06f
+	&.anchor
+		&.bottom
+			position fixed
+			bottom 0
+			width w(375)
+			height h(40)
+			border-radius 0
+			text-align center
+			line-height h(40)
+			font-size h(15)
+		&.blue
+			background-color #06f
+			color #fff
+.border-button
+	display flex
+	justify-content center
+	align-items center
+	padding 0 w(6)
+	height h(28)
+	border 1px solid
+	border-radius 4px
+	font-size h(15)
+	&.white
 		color #fff
+	&.blue
+		color #639efe
 a
 	&.entrance
 		position relative
