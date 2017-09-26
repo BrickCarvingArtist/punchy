@@ -96,7 +96,7 @@ export default class Detail extends Component{
 						pin: !this.state.isHold
 					})
 				}>
-					<button type="button" onClick={
+					<div className="button" onClick={
 						async () => {
 							dispatch(await addFavorite(id));
 						}
@@ -108,8 +108,8 @@ export default class Detail extends Component{
 							})
 						}></icon>
 						<span>收藏</span>
-					</button>
-					<button type="button" onClick={
+					</div>
+					<div className="button" onClick={
 						async () => {
 							dispatch(await saySix(id));
 						}
@@ -121,7 +121,7 @@ export default class Detail extends Component{
 							})
 						}></icon>
 						<span>点赞</span>
-					</button>
+					</div>
 				</footer>
 			</article>
 		);
