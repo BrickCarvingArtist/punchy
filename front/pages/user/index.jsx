@@ -31,7 +31,8 @@ try{
 @connect()
 class User extends Component{
 	static defaultProps = {
-		size: 10
+		size: 10,
+		focused: 0
 	};
 	state = {
 		ending: 0

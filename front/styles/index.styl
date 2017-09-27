@@ -10,7 +10,8 @@ main
 	width w(375)
 	overflow hidden
 .page
-	margin-top h(45)
+	&:not(.with-both)
+		margin-top h(45)
 	&.with-footer
 		min-height h(622)
 	&.without-footer
