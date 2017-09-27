@@ -38,15 +38,15 @@ export const routes = [
 	},
 	{
 		path: "/info",
-		component: () => <div>产品信息</div>
+		component: () => <div className="page">产品信息</div>
 	},
 	{
 		path: "/about",
-		component: () => <div>关于我们</div>
+		component: () => <div className="page">关于我们</div>
 	},
 	{
 		path: "/help",
-		component: () => <div>帮助中心</div>
+		component: () => <div className="page">帮助中心</div>
 	},
 	{
 		path: "/:id",

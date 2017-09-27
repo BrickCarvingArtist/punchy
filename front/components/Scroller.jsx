@@ -13,6 +13,14 @@ export default class Scroller extends Component{
 	componentWillMount(){
 		this.loadData(1);
 	}
+	componentDidMount(){
+		const scroller = findDOMNode(this),
+			containerHeight = (667 - 95) / 667 * window.innerHeight;
+		window.addEventListener("scroll", async () => {
+			const needLoad = window.scrollY + containerHeight + 200 > scroller.offsetHeight;
+			needLoad && this.state.canloadable && !this.props.ending && this.loadData();
+		});
+	}
 	async loadData(isRefresh){
 		await this.setState({
 			canloadable: 0,
@@ -51,11 +59,6 @@ export default class Scroller extends Component{
 			<div className={classNames("scroller", className)} ref={
 				dom => {
 					scroller = dom;
-				}
-			} onScroll={
-				async e => {
-					const needLoad = scroller.offsetHeight + scroller.scrollTop + 200 > scroller.scrollHeight;
-					needLoad && this.state.canloadable && !ending && this.loadData();
 				}
 			} onTouchStart={
 				({touches}) => {
