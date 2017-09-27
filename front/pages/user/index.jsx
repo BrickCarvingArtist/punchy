@@ -31,8 +31,7 @@ try{
 @connect()
 class User extends Component{
 	static defaultProps = {
-		size: 10,
-		focused: 0
+		size: 10
 	};
 	state = {
 		ending: 0
@@ -116,7 +115,7 @@ class User extends Component{
 								}
 							}
 						}>{
-							["关注", "取消关注"][focused]
+							["关注", "取消关注"][focused || 0]
 						}</a>
 					</div>
 				</div>
