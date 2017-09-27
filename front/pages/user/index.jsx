@@ -115,7 +115,7 @@ class User extends Component{
 								}
 							}
 						}>{
-							["关注", "取消关注"][focused || 0]
+							["关注", "取消关注"][focused]
 						}</a>
 					</div>
 				</div>
