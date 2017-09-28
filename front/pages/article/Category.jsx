@@ -45,11 +45,7 @@ export default class Category extends Component{
 			<div className="page category with-footer">
 				{
 					this.props.category.map(({sup, sub}, supLabel) => (
-						<section key={supLabel} style={
-							{
-								height: `${supLabel === this.state.supLabel ? (sub.length + 1) * 4500 / 667 : 4500 / 667}vh`
-							}
-						} className={
+						<section key={supLabel} className={
 							classNames({
 								expand: supLabel === this.state.supLabel
 							})

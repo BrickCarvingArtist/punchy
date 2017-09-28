@@ -37,15 +37,19 @@
 				margin-left w(5)
 .category
 	section
+		transition max-height .5s
 		&:not(.expand)
-			height h(45)
+			max-height h(45)
 			overflow hidden
 		&.expand
-			overflow visible
+			max-height h(667)
+		h1
+			border-bottom 1px solid #fff
+			transition border-bottom-color .8s
 	section
 		&:not(.expand)
 			h1
-				border-bottom 1px solid #e3e3e3
+				border-bottom-color #e3e3e3
 	h1
 		position relative
 		margin-left w(15)
