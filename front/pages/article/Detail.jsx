@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import classNames from "classnames";
 import {basis} from "../../actions";
 import {getDetail, getUserRelationsToArticle, addFavorite, saySix} from "../../actions/article";
-import {Time} from "../../utils";
+import {Time, copy} from "../../utils";
 @connect(({article, articleRelation, router}) => {
 	let id;
 	try{
@@ -27,16 +27,22 @@ export default class Detail extends Component{
 		const {
 			dispatch,
 			setTitle,
+			setMessage,
 			setHeaderLeftButton,
 			setHeaderRightButton,
 			setFooterType,
-			id,
+			id
 		} = this.props;
 		setTitle("文章详情页");
 		setHeaderLeftButton("back");
 		setHeaderRightButton({
 			label: "分享",
-			level: 1
+			level: 1,
+			onClick(){
+				try{
+					copy(location.href) && setMessage("文章地址已成功复制到剪贴板");
+				}catch(e){}
+			}
 		});
 		setFooterType();
 		dispatch(await getDetail(id));

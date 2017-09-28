@@ -67,3 +67,14 @@ export const Time = ((format = a => a < 10 ? `0${a}` : a, diff = ((PRECISION = [
 		return diff(s, precision, type);
 	}
 }))();
+export const copy = valueToCopy => {
+	let link = document.body.lastChild;
+	if(!/^input$/i.test(link.nodeName)){
+		link = document.createElement("input");
+		link.value = valueToCopy;
+		document.body.appendChild(link);
+	}
+	link.focus();
+	link.setSelectionRange(0, link.value.length);
+	return document.execCommand("copy");
+};
