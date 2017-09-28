@@ -14,12 +14,10 @@ export default class Scroller extends Component{
 		this.loadData(1);
 	}
 	componentDidMount(){
-		const scroller = findDOMNode(this),
-			containerHeight = (667 - 95) / 667 * window.innerHeight;
-		window.addEventListener("scroll", async () => {
-			const needLoad = window.scrollY + containerHeight + 200 > scroller.offsetHeight;
-			needLoad && this.state.canloadable && !this.props.ending && this.loadData();
-		});
+		window.addEventListener("scroll", this.scroll);
+	}
+	componentWillUnmount(){
+		window.removeEventListener("scroll", this.scroll);
 	}
 	async loadData(isRefresh){
 		await this.setState({
@@ -33,6 +31,13 @@ export default class Scroller extends Component{
 			loading: 0
 		});
 	}
+	_scroll(scroller, containerHeight){
+		const needLoad = window.scrollY + containerHeight + 200 > scroller.offsetHeight;
+		needLoad && this.state.canloadable && !this.props.ending && this.loadData();
+	}
+	scroll = function scroll(){
+		this._scroll(findDOMNode(this), (667 - 95) / 667 * window.innerHeight);
+	}.bind(this);
 	scrollBack(distance){
 		const scroller = findDOMNode(this),
 			{loadingHeight} = this.props,
