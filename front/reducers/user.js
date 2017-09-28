@@ -31,7 +31,7 @@ export default (state = {
 				...state, 
 				favorites: (() => {
 					const favorites = [...state.favorites];
-					favorites.splice(value, value + 1);
+					favorites.splice(value, 1);
 					return favorites;
 				})()
 			};
@@ -51,7 +51,7 @@ export default (state = {
 				...state, 
 				focuses: (() => {
 					const focuses = [...state.focuses];
-					focuses.splice(value, value + 1);
+					focuses.splice(value, 1);
 					return focuses;
 				})()
 			};

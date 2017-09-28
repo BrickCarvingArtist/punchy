@@ -9,7 +9,7 @@ import {updateUserName} from "../../actions/setting";
 }), dispatch => bindActionCreators(basis, dispatch))
 @connect()
 export default class User extends Component{
-	state = {
+	static defaultProps = {
 		name: ""
 	};
 	componentWillMount(){

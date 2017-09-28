@@ -18,19 +18,6 @@ try{
 }), dispatch => bindActionCreators(basis, dispatch))
 @connect()
 class Setting extends Component{
-	static defaultProps = {
-		entrances: [
-			{
-				label: "实名认证",
-				to: "/setting/authorization"
-			},
-			{
-				type: 1,
-				label: "修改密码",
-				to: `${AUTH_SERVER}/behavior`,
-			}
-		]
-	};
 	componentWillMount(){
 		const {
 			dispatch,
@@ -48,22 +35,26 @@ class Setting extends Component{
 		setHeaderRightButton();
 		setFooterType();
 	}
-	handleAvator = async e => {
+	async handleAvator(e){
 		const file = new FormData();
 		file.append("avator", e.target.files[0]);
 		this.props.dispatch(await setAvator(file));
-	};
+	}
+	clearCaches(){
+		const {length} = localStorage.ik_punchy;
+		localStorage.clear();
+		this.props.setMessage(`已为您清除${length / 1000}KB缓存`);
+	}
 	render(){
 		const {
 			location,
-			entrances,
 			name,
 			avator
 		} = this.props;
 		return (
 			<div className="page setting with-footer">
 				<Link className="profile" to="/setting/profile">
-					<input className="avator" type="file" accept="image/*" capture onChange={this.handleAvator} onClick={
+					<input className="avator" type="file" accept="image/*" onChange={::this.handleAvator} onClick={
 						e => {
 							e.stopPropagation();
 						}
@@ -79,14 +70,9 @@ class Setting extends Component{
 					<icon className="medium go"></icon>
 				</Link>
 				<div className="container">
-					{
-						entrances.map(({label, to, type = 0}, i) => (
-							[
-								<Link className="entrance without-icon" key={i} to={to}>{label}</Link>,
-								<a className="entrance without-icon" key={i} href={`${to}?referer=${SERVER_NAME}${location.pathname}`}>{label}</a>
-							][type]
-						))
-					}
+					<Link className="entrance without-icon" to="/setting/authorization">实名认证</Link>
+					<a className="entrance without-icon" href={`${AUTH_SERVER}/behavior?referer=${SERVER_NAME}${location.pathname}`}>修改密码</a>
+					<a className="entrance without-icon" onClick={::this.clearCaches}>清除缓存</a>
 				</div>
 				<a className="entrance out" href="/api/out">退出登录</a>
 			</div>
