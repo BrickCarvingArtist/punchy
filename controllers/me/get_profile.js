@@ -10,7 +10,7 @@ export default () => async ctx => {
 				...data,
 				...(await getAuthorAdditions({
 					author: data.tel,
-					user_id: ctx.state.tel
+					user_id: ctx.state.tel || 0
 				}))
 			});
 		}catch(e){
