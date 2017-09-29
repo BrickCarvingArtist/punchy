@@ -98,7 +98,7 @@ export default class Scroller extends Component{
 				}
 			}>
 				{
-					Children.map(children, (item, index) => item) || <icon className="empty"></icon>
+					children.length ? Children.map(children, (item, index) => item) : <icon className="empty"></icon>
 				}
 				{
 					loading ? <p className="note">奋力加载中...</p> : null
