@@ -54,7 +54,7 @@ export default class Footer extends Component{
 					entrances.map(({icon, label, to}, i) => (
 						<NavLink key={i} to={to} exact>
 							<icon className={
-								classNames("medium-big", icon, {
+								classNames("big", icon, {
 									"active": location.pathname === to
 								})
 							}></icon>
