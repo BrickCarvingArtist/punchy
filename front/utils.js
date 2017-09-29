@@ -76,5 +76,7 @@ export const copy = valueToCopy => {
 	}
 	link.focus();
 	link.setSelectionRange(0, link.value.length);
-	return document.execCommand("copy");
+	const result = document.execCommand("copy");
+	link.blur();
+	return result;
 };
