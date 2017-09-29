@@ -214,7 +214,7 @@ export default () => {
 	}), statistic("collectArticleView", ctx => ({
 		article_id: ctx.params.id,
 		user_id: ctx.state.tel,
-		ip: ctx.headers["x-forward-for"]
+		ip: ctx.headers["x-forwarded-for"]
 	})), detail())
 	// 查收藏点赞评论等记录
 	.get("/relation/:id", validate({
