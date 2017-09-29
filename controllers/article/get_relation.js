@@ -3,7 +3,7 @@ import {getRelation} from "../../services/article";
 export default () => async ctx => {
 	try{
 		ctx.body = success(await getRelation({
-			user_id: ctx.state.tel,
+			user_id: ctx.state.tel || 0,
 			article_id: ctx.params.id
 		}));
 	}catch(e){
