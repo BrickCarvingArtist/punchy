@@ -15,7 +15,7 @@ export default async app => {
 		process.exit();
 	}
 	app
-		.use(crossDomain("http://localhost:5501"))
+		// .use(crossDomain("http://localhost:5501"))
 		.use(verifyToken())
 		.use(article())
 		.use(lottery())
