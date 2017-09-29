@@ -102,13 +102,19 @@ a
 			&:after
 				width w(360)
 .scroller
+	display flex
+	flex-direction column
+	align-items center
 	padding-bottom h(10)
 	bg("/loading.gif")
 	background-repeat no-repeat
 	background-position-x center
 	scroll-behavior smooth
-	p.note
-		text-align center
+	> p.note
 		line-height h(22)
 		font-size h(13)
 		color #999
+	> icon.empty
+		margin-top 50%
+		width w(80)
+		height h(80)

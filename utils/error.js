@@ -37,6 +37,7 @@ const writeErrorLog = async (ctx, code, message, e = "未定义错误对象") =>
 		}
 		await appendFile(resolve(__dirname, `../logs/error/${y}${mon}${d}.log`), `${"-".repeat(10)} | ${m}${y}-${mon}-${d} ${h}:${min}:${s} | ${"-".repeat(10)}\n${code} - ${message} - ${e}\n`, "utf-8");
 	}catch(e){
+		console.dir(e);
 		console.log("打印日志错误！");
 	}
 };

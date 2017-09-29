@@ -29,13 +29,19 @@ class Article extends Component{
 	async componentWillMount(){
 		const {
 			setTitle,
+			setMessage,
 			setHeaderLeftButton,
 			setHeaderRightButton,
 			setFooterType
 		} = this.props;
 		setTitle("所有文章");
 		setHeaderLeftButton();
-		setHeaderRightButton();
+		setHeaderRightButton({
+			icon: "search",
+			onClick(){
+				setMessage("功能暂未开通");
+			}
+		});
 		setFooterType(1);
 	}
 	componentWillReceiveProps(nextProps){
