@@ -64,7 +64,7 @@ export const focus = async ({user_id, author}) => {
 		};
 	}
 };
-export const getFocuses = async user_id => (await Focus.findAll({
+export const getFocuses = async ({index, size, user_id}) => (await Focus.findAll({
 	where: filter({
 		user_id
 	}),
