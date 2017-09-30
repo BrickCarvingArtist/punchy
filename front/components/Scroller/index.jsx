@@ -1,6 +1,9 @@
 import React, {Component, Children} from "react";
 import {findDOMNode} from "react-dom";
 import classNames from "classnames";
+try{
+	require("./scroller");
+}catch(e){}
 export default class Scroller extends Component{
 	static defaultProps = {
 		loadingHeight: 30
@@ -104,7 +107,7 @@ export default class Scroller extends Component{
 					loading ? <p className="note">奋力加载中...</p> : null
 				}
 				{
-					!loading && ending ? <p className="note">不好，底都被你看光了...</p> : null
+					!loading && ending ? <p className="note">不好，没有更多啦...</p> : null
 				}
 			</div>
 		);

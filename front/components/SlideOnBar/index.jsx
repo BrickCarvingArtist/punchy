@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import classNames from "classnames";
 try{
-	require("../styles/slide_on_bar");
+	require("./slide_on_bar");
 }catch(e){}
 @connect(({core}) => ({
 	bars: core.slideOnBars

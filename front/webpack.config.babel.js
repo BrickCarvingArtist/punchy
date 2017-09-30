@@ -4,7 +4,7 @@ import ExtractTextPlugin from "extract-text-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 const getCoreConfig = () => ({
 	entry: {
-		dependencies: ["react", "react-dom", "react-router-dom", "redux", "react-redux", "react-router-redux", "classnames"],
+		dependencies: ["react", "react-dom", "react-router-dom", "redux", "react-redux", "react-router-redux", "classnames", "querystring", "isomorphic-fetch"],
 		index: "./"
 	},
 	output: {
@@ -22,7 +22,8 @@ const getCoreConfig = () => ({
 			{
 				test: /\.styl$/,
 				include: [
-					resolve(__dirname, "./styles")
+					resolve(__dirname, "./styles"),
+					resolve(__dirname, "./components")
 				],
 				use: ExtractTextPlugin.extract({
 					fallback: "style-loader",

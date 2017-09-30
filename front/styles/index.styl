@@ -2,7 +2,7 @@
 @import "./icon"
 @import "./mixin"
 body
-	background-color #f3f3f3
+	background-color $bgGray
 	> input
 		position absolute
 		transform rotateX(90deg)
@@ -27,26 +27,23 @@ form
 		line-height h(50)
 		font-size h(16)
 		color #666
-a
-	&.small
-		font-size h(12)
-div
-	&.row
-		padding h(10) w(20)
+a.small
+	font-size h(12)
+div.row
+	padding h(10) w(20)
 fieldset
 	padding 0 w(20)
 	width 100%
 	border-width 1px 0
-	border-color #e3e3e3;
-input
-	&.full
-		padding 0 w(15)
-		width 100%
-		height h(45)
-		background-color #fff
-		font-size h(15)
-		&:not(:last-of-type)
-			border-bottom-color #e3e3e3
+	border-color $bdGray
+input.full
+	padding 0 w(15)
+	width 100%
+	height h(45)
+	background-color #fff
+	font-size h(15)
+	&:not(:last-of-type)
+		border-bottom-color $bdGray
 button
 	font-size h(15)
 	&.full
@@ -65,7 +62,7 @@ button
 			line-height h(40)
 			font-size h(15)
 		&.blue
-			background-color #06f
+			background-color $blue
 			color #fff
 .border-button
 	display flex
@@ -79,22 +76,21 @@ button
 	&.white
 		color #fff
 	&.blue
-		color #639efe
-a
-	&.entrance
-		position relative
-		display flex
-		align-items center
-		height h(45)
-		background-color #fff
-		&:not(:last-of-type)
-			&:after
-				position absolute
-				right 0
-				bottom 0
-				height h(1)
-				background-color #e3e3e3
-				content ""
+		color $blue
+a.entrance
+	position relative
+	display flex
+	align-items center
+	height h(45)
+	background-color #fff
+	&:not(:last-of-type)
+		&:after
+			position absolute
+			right 0
+			bottom 0
+			height h(1)
+			background-color $bdGray
+			content ""
 	&.with-icon
 		&:not(:last-of-type)
 			&:after
@@ -104,20 +100,3 @@ a
 		&:not(:last-of-type)
 			&:after
 				width w(360)
-.scroller
-	display flex
-	flex-direction column
-	align-items center
-	padding-bottom h(10)
-	bg("/loading.gif")
-	background-repeat no-repeat
-	background-position-x center
-	scroll-behavior smooth
-	> p.note
-		line-height h(22)
-		font-size h(13)
-		color #999
-	> icon.empty
-		margin 50% 0 h(10)
-		width w(80)
-		height h(80)

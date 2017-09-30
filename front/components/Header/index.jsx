@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {Link, withRouter} from "react-router-dom";
 import classNames from "classnames";
 try{
-	require("../styles/header");
+	require("./header");
 }catch(e){}
 const LEVELS = ["normal", "blue", "red"];
 const Button = ({icon, label, to, onClick = function(){}, level = 0}) => {

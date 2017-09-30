@@ -1,9 +1,9 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import classNames from "classnames";
-import {Time} from "../utils";
+import {Time} from "../../utils";
 try{
-	require("../styles/article_section");
+	require("./article_section");
 }catch(e){}
 export default ({id, avator, author_id, author_name, title, description, updated_at, favorite_sum, thumb_sum, viewed_times, cover, handleOption}) => (
 	<section className="article">

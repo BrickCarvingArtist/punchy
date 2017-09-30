@@ -1,4 +1,4 @@
-@import "mixin"
+@import "./mixin"
 .article-editor
 	background-color #fff
 	input
@@ -10,8 +10,7 @@
 		width w(345)
 		min-height h(200)
 		padding-top h(8)
-		background-color #fff
-		border-top 1px solid #e3e3e3
+		border-top 1px solid $bdGray
 		font-size h(15)
 		line-height h(22)
 	footer
@@ -25,14 +24,14 @@
 			flex-direction row-reverse
 		output
 			padding h(3) w(10)
-			background-color #f3f3f3
+			background-color $bgGray
 			border-radius h(13.5)
 			font-size h(15)
 			color #999
 		.category
 			display flex
 			align-items center
-			color #639efe
+			color $blue
 			icon
 				margin-left w(5)
 .category
@@ -49,7 +48,7 @@
 	section
 		&:not(.expand)
 			h1
-				border-bottom-color #e3e3e3
+				border-bottom-color $bdGray
 	h1
 		position relative
 		margin-left w(15)
@@ -81,14 +80,14 @@
 		font-size h(15)
 		color #999
 		&:not(:last-child)
-			border-bottom 1px solid #e3e3e3
+			border-bottom 1px solid $bdGray
 article.detail
 	padding 0 w(15) h(15)
 	background-color #fff
 	header
 		overflow hidden
 		padding-bottom h(15)
-		border-bottom 1px solid #e3e3e3
+		border-bottom 1px solid $bdGray
 		h1
 			margin h(12.5) 0
 			font-size h(17)
@@ -127,7 +126,7 @@ article.detail
 		height h(50)
 		padding h(9)
 		background-color #fff
-		border-top 1px solid #e3e3e3
+		border-top 1px solid $bdGray
 		transition bottom .5s
 		&.pin
 			bottom 0
@@ -137,7 +136,7 @@ article.detail
 			justify-content center
 			align-items center
 			&:first-child
-				border-right 1px solid #e3e3e3
+				border-right 1px solid $bdGray
 			icon
 				&.on-favorite
 				&.on-six

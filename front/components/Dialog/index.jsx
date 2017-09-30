@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
-import {setMessage} from "../actions";
+import {setMessage} from "../../actions";
 try{
-	require("../styles/dialog");
+	require("./dialog");
 }catch(e){}
 @connect(({core}) => ({
 	message: core.message

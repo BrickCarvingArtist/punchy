@@ -3,7 +3,7 @@ import {NavLink, withRouter} from "react-router-dom";
 import {connect} from "react-redux";
 import classNames from "classnames";
 try{
-	require("../styles/footer");
+	require("./footer");
 }catch(e){}
 @withRouter
 @connect(({core}) => ({
