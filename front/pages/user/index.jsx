@@ -70,7 +70,12 @@ class User extends Component{
 		dispatch(await getAuthorProfile(author));
 	}
 	async getData(index, isRefresh){
-		this.props.dispatch(await setAuthorArticles({
+		const {
+			dispatch,
+			size,
+			author
+		} = this.props;
+		dispatch(await setAuthorArticles({
 			author,
 			index,
 			size
