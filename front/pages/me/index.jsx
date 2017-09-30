@@ -3,10 +3,10 @@ import {Link} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
-import {authorize, basis} from "../actions";
-import {SERVER_NAME, AUTH_SERVER} from "../configs";
+import {authorize, basis} from "../../actions";
+import {SERVER_NAME, AUTH_SERVER} from "../../configs";
 try{
-	require("../styles/me");
+	require("../../styles/me");
 }catch(e){}
 const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
 	<Link className="entrance with-icon" to={tel ? `${to.replace(":id", tel)}` : to} onClick={onClick}>
@@ -33,19 +33,19 @@ export default class Me extends Component{
 				{
 					icon: "my-article",
 					label: "我的文章",
-					to: "/:id/article",
+					to: "/u/:id/article",
 					name: "articleSum"
 				},
 				{
 					icon: "my-favorite",
 					label: "我的收藏",
-					to: "/:id/favorite",
+					to: "/u/:id/favorite",
 					name: "favoriteSum"
 				},
 				{
 					icon: "my-focus",
 					label: "我的关注",
-					to: "/:id/focus"
+					to: "/u/:id/focus"
 				}
 			], [
 				{

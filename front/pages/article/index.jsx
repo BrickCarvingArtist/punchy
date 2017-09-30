@@ -11,6 +11,7 @@ import {basis, setSlideOnBar} from "../../actions";
 import {setArticles} from "../../actions/article";
 import Detail from "./Detail";
 import Edit from "./Edit";
+import NotFound from "../other/NotFound";
 @connect(({article, me}) => ({
 	user: me.tel,
 	articles: article.articles
@@ -116,7 +117,7 @@ const routes = [
 		component: Detail
 	},
 	{
-		component: () => <div>404</div>
+		component: NotFound
 	}
 ];
 export default () => (

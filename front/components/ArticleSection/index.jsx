@@ -8,7 +8,7 @@ try{
 export default ({id, avator, author_id, author_name, title, description, updated_at, favorite_sum, thumb_sum, viewed_times, cover, handleOption}) => (
 	<section className="article">
 		<header>
-			<Link className="author" to={`/${author_id}`}>
+			<Link className="author" to={`/u/${author_id}`}>
 				<img className="avator" src={avator || "/avator.png"} alt="作者头像" />
 				<strong>{author_name || author_id}</strong>
 			</Link>

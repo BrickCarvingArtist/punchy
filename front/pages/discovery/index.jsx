@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
-import {basis} from "../actions";
+import {basis} from "../../actions";
 try{
-	require("../styles/discovery");
+	require("../../styles/discovery");
 }catch(e){}
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class User extends Component{

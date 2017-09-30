@@ -9,7 +9,7 @@ import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
 import Dialog from "../../components/Dialog";
 @connect(({me, user}) => ({
-	user: me.tel,
+	user: me.tel || 19999999999,
 	articles: user.articles
 }), dispatch => bindActionCreators({
 	...basis,
@@ -45,25 +45,29 @@ export default class Article extends Component{
 			ending: articles.length == nextLength || nextLength % size
 		});
 	}
+	async getData(index, isRefresh){
+		const {
+			dispatch,
+			size,
+			user
+		} = this.props;
+		dispatch(await setMyArticles({
+			author: user,
+			index,
+			size
+		}, isRefresh)) || this.setState({
+			ending: 1
+		});
+	}
 	render(){
 		const {
 			dispatch,
 			setSlideOnBar,
 			setMessage,
-			user,
-			size,
 			articles
 		} = this.props;
 		return (
-			<Scroller className="page with-footer" loadData={
-				async (index, isRefresh) => {
-					dispatch(await setMyArticles({
-						author: user,
-						index,
-						size
-					}, isRefresh));
-				}
-			} ending={this.state.ending}>
+			<Scroller className="page with-footer" loadData={::this.getData} ending={this.state.ending}>
 				{
 					articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={
 						articleId => {

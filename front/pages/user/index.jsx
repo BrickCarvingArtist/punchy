@@ -11,6 +11,7 @@ import {RouteWithSubRoutes} from "../../utils";
 import MyArticle from "./Article";
 import MyFavorite from "./Favorite";
 import MyFocus from "./Focus";
+import NotFound from "../other/NotFound";
 try{
 	require("../../styles/user");
 }catch(e){}
@@ -68,6 +69,15 @@ class User extends Component{
 		} = this.props;
 		dispatch(await getAuthorProfile(author));
 	}
+	async getData(index, isRefresh){
+		this.props.dispatch(await setAuthorArticles({
+			author,
+			index,
+			size
+		}, isRefresh)).ok || this.setState({
+			ending: 1
+		});
+	}
 	render(){
 		const {
 			dispatch,
@@ -119,15 +129,7 @@ class User extends Component{
 						}</a>
 					</div>
 				</div>
-				<Scroller className="article" loadData={
-					async (index, isRefresh) => {
-						dispatch(await setAuthorArticles({
-							author,
-							index,
-							size
-						}, isRefresh));
-					}
-				} ending={this.state.ending}>
+				<Scroller className="article" loadData={::this.getData} ending={this.state.ending}>
 					{
 						articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={
 							articleId => {
@@ -149,24 +151,24 @@ class User extends Component{
 }
 const routes = [
 	{
-		path: "/:id",
+		path: "/u/:id",
 		exact: true,
 		component: User
 	},
 	{
-		path: "/:id/article",
+		path: "/u/:id/article",
 		component: MyArticle
 	},
 	{
-		path: "/:id/favorite",
+		path: "/u/:id/favorite",
 		component: MyFavorite
 	},
 	{
-		path: "/:id/focus",
+		path: "/u/:id/focus",
 		component: MyFocus
 	},
 	{
-		component: () => <div>404</div>
+		component: NotFound
 	}
 ];
 export default () => (

@@ -5,12 +5,13 @@ import Dialog from "./components/Dialog";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SlideOnBar from "./components/SlideOnBar";
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import Article from "./pages/article";
-import Discovery from "./pages/Discovery";
-import Me from "./pages/Me";
+import Discovery from "./pages/discovery";
+import Me from "./pages/me";
 import User from "./pages/user";
 import Setting from "./pages/setting";
+import Other from "./pages/other";
 import {setUser} from "./actions";
 import {setCategory} from "./actions/article";
 import {RouteWithSubRoutes} from "./utils";
@@ -37,23 +38,11 @@ export const routes = [
 		component: Setting
 	},
 	{
-		path: "/info",
-		component: () => <div className="page">产品信息</div>
-	},
-	{
-		path: "/about",
-		component: () => <div className="page">关于我们</div>
-	},
-	{
-		path: "/help",
-		component: () => <div className="page">帮助中心</div>
-	},
-	{
-		path: "/:id",
+		path: "/u/:id",
 		component: User
 	},
 	{
-		component: () => <div>404</div>
+		component: Other
 	}
 ];
 @withRouter

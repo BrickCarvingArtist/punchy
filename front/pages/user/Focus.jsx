@@ -5,7 +5,8 @@ import {connect} from "react-redux";
 import Scroller from "../../components/Scroller";
 import {basis, setSlideOnBar} from "../../actions";
 import {setMyFocuses, focus, updateMyFocuses} from "../../actions/user";
-@connect(({user}) => ({
+@connect(({me, user}) => ({
+	user: me.tel || 19999999999,
 	data: user.focuses
 }), dispatch => bindActionCreators({
 	...basis,
@@ -42,8 +43,19 @@ export default class Focus extends Component{
 			ending: data.length == nextLength || nextLength % size
 		});
 	}
-	async getData(){
-		this.props.dispatch(await setMyFocuses(...arguments));
+	async getData(index, isRefresh){
+		const {
+			dispatch,
+			size,
+			user
+		} = this.props;
+		dispatch(await setMyFocuses({
+			user_id: user,
+			index,
+			size
+		}, isRefresh)).ok || this.setState({
+			ending: 1
+		});
 	}
 	async cancelFocus(author, index){
 		const {

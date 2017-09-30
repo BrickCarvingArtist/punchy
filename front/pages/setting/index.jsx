@@ -9,6 +9,7 @@ import {setAvator} from "../../actions/setting";
 import {RouteWithSubRoutes} from "../../utils";
 import {SERVER_NAME, AUTH_SERVER} from "../../configs";
 import Profile from "./Profile";
+import NotFound from "../other/NotFound";
 try{
 	require("../../styles/setting");
 }catch(e){}
@@ -90,7 +91,7 @@ const routes = [
 		component: Profile
 	},
 	{
-		component: () => <div>404</div>
+		component: NotFound
 	}
 ];
 export default () => (

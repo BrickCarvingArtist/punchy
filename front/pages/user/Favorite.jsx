@@ -9,7 +9,7 @@ import {setMyFavorites, updateMyFavorites} from "../../actions/user";
 import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
 @connect(({me, user}) => ({
-	user: me.tel,
+	user: me.tel || 19999999999,
 	articles: user.favorites
 }), dispatch => bindActionCreators({
 	...basis,
@@ -56,7 +56,9 @@ export default class Article extends Component{
 			user_id: user,
 			index,
 			size
-		}, isRefresh));
+		}, isRefresh)).ok || this.setState({
+			ending: 1
+		});
 	}
 	render(){
 		const {
@@ -67,7 +69,7 @@ export default class Article extends Component{
 			articles
 		} = this.props;
 		return (
-			<Scroller className="page with-footer" loadData={this::this.getData} ending={this.state.ending}>
+			<Scroller className="page with-footer" loadData={::this.getData} ending={this.state.ending}>
 				{
 					articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={
 						articleId => {
