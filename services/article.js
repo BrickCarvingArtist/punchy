@@ -311,13 +311,13 @@ export const getRelation = async ({user_id, article_id}) => {
 	return (await sequelize.transaction(t => Promise.all([
 		Favorite.findOne({
 			where,
-			attributes: [[sequelize.fn("COUNT", sequelize.col("*")), "favorite"]],
+			attributes: [[sequelize.fn("COUNT", 0), "favorite"]],
 			transaction: t,
 			raw: true
 		}),
 		Thumb.findOne({
 			where,
-			attributes: [[sequelize.fn("COUNT", sequelize.col("*")), "thumb"]],
+			attributes: [[sequelize.fn("COUNT", 0), "thumb"]],
 			transaction: t,
 			raw: true
 		}),

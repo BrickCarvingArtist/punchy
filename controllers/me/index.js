@@ -33,5 +33,5 @@ export default () => new Router({
 .patch("/avator", authorize(), multer({
 	storage: multer.memoryStorage()
 }).single("avator"), setAvator())
-.get("/out", authorize(), out())
+.get("/out", out())
 .routes();
