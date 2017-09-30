@@ -155,7 +155,7 @@ export const getDetail = async id => {
 	delete detail["user.name"];
 	return detail;
 };
-export const getFavorites = async ({index, size, sup_label, sub_label, user_id, from, to}) => {
+export const getFavorites = async ({index, size, user_id}) => {
 	let articleIds;
 	try{
 		articleIds = await Favorite.findAll(filter({
@@ -171,13 +171,9 @@ export const getFavorites = async ({index, size, sup_label, sub_label, user_id, 
 	}
 	return (await Article.findAll({
 		where: filter({
-			sup_label,
-			sub_label,
 			id: {
 				in: articleIds
-			},
-			from,
-			to
+			}
 		}),
 		include: [
 			{

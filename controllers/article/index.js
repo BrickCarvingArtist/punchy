@@ -152,33 +152,9 @@ export default () => {
 				comment: "每页信息条数"
 			},
 			{
-				name: "sup_label",
-				alias: "number",
-				required: false,
-				comment: "一级类目"
-			},
-			{
-				name: "sub_label",
-				alias: "number",
-				required: false,
-				comment: "二级类目"
-			},
-			{
 				name: "user_id",
 				alias: "tel",
 				comment: "用户id"
-			},
-			{
-				name: "from",
-				alias: "time",
-				required: false,
-				comment: "开始时间"
-			},
-			{
-				name: "to",
-				alias: "time",
-				required: false,
-				comment: "截止时间"
 			}
 		]
 	}), getFavorite())
