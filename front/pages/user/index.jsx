@@ -135,7 +135,7 @@ class User extends Component{
 				<icon className="medium back-white" onClick={::history.goBack}></icon>
 				<div className="main">
 					<div className="left">
-						<img className="avatar" src={avatar || "/avatar.png"} alt="作者头像" />
+						<img className="avatar" src={avatar || "/avatars/avatar"} alt="作者头像" />
 						<div className="center">
 							<strong>{name || author}</strong>
 							<p>
