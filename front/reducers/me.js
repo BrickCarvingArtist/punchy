@@ -4,9 +4,9 @@ export default (state = {}, {type, value}) => ({
 		...value
 	},
 	NOT_AUTHORIZED: {},
-	USER_AVATOR: {
+	USER_avatar: {
 		...state,
-		avator: value
+		avatar: value
 	},
 	USER_NAME: {
 		...state,

@@ -1,11 +1,11 @@
 import {stringify} from "querystring";
 import {asyncAction, asyncFormAction} from "./utils";
-export const setAvator = file => asyncAction({
+export const setAvatar = file => asyncAction({
 	method: "PATCH",
-	path: "/api/avator",
+	path: "/api/avatar",
 	body: file
 }, data => ({
-	type: "USER_AVATOR",
+	type: "USER_avatar",
 	value: data,
 	ok: 1
 }))();

@@ -13,16 +13,16 @@ export default () => async ctx => {
 			mimetype,
 			buffer
 		} = ctx.req.file;
-		const {url} = await co(store.put(`avators/${fieldname}_${randomBytes(8).toString("hex")}`, buffer));
+		const {url} = await co(store.put(`avatars/${fieldname}_${randomBytes(8).toString("hex")}`, buffer));
 		try{
-			ctx.body = await (await fetch(`${AUTH_SERVER}/api/avator`, {
+			ctx.body = await (await fetch(`${AUTH_SERVER}/api/avatar`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/x-www-form-urlencoded",
 					Authorization: `Bearer ${ctx.cookies.get("sso_token")}`
 				},
 				body: stringify({
-					avator: url.replace("http", "https")
+					avatar: url.replace("http", "https")
 				})
 			})).json();
 		}catch(e){

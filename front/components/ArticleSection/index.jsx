@@ -5,11 +5,11 @@ import {Time} from "../../utils";
 try{
 	require("./article_section");
 }catch(e){}
-export default ({id, avator, author_id, author_name, title, description, updated_at, favorite_sum, thumb_sum, viewed_times, cover, handleOption}) => (
+export default ({id, avatar, author_id, author_name, title, description, updated_at, favorite_sum, thumb_sum, viewed_times, cover, handleOption}) => (
 	<section className="article">
 		<header>
 			<Link className="author" to={`/u/${author_id}`}>
-				<img className="avator" src={avator || "/avator.png"} alt="作者头像" />
+				<img className="avatar" src={avatar || "/avatar.png"} alt="作者头像" />
 				<strong>{author_name || author_id}</strong>
 			</Link>
 			<icon className="medium option" onClick={

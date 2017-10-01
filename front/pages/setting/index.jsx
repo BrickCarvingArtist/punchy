@@ -5,7 +5,7 @@ import {Link, Switch} from "react-router-dom";
 import classNames from "classnames";
 import {parse} from "querystring";
 import {basis} from "../../actions";
-import {setAvator} from "../../actions/setting";
+import {setAvatar} from "../../actions/setting";
 import {RouteWithSubRoutes} from "../../utils";
 import {SERVER_NAME, AUTH_SERVER} from "../../configs";
 import Profile from "./Profile";
@@ -15,7 +15,7 @@ try{
 }catch(e){}
 @connect(({core, me}) => ({
 	name: me.name,
-	avator: me.avator || "/avator.png"
+	avatar: me.avatar || "/avatar.png"
 }), dispatch => bindActionCreators(basis, dispatch))
 @connect()
 class Setting extends Component{
@@ -36,10 +36,10 @@ class Setting extends Component{
 		setHeaderRightButton();
 		setFooterType();
 	}
-	async handleAvator(e){
+	async handleavatar(e){
 		const file = new FormData();
-		file.append("avator", e.target.files[0]);
-		this.props.dispatch(await setAvator(file));
+		file.append("avatar", e.target.files[0]);
+		this.props.dispatch(await setAvatar(file));
 	}
 	clearCaches(){
 		const {length} = localStorage.ik_punchy;
@@ -50,18 +50,18 @@ class Setting extends Component{
 		const {
 			location,
 			name,
-			avator
+			avatar
 		} = this.props;
 		return (
 			<div className="page setting with-footer">
 				<Link className="profile" to="/setting/profile">
-					<input className="avator" type="file" accept="image/*" onChange={::this.handleAvator} onClick={
+					<input className="avatar" type="file" accept="image/*" onChange={::this.handleavatar} onClick={
 						e => {
 							e.stopPropagation();
 						}
 					} style={
 						{
-							backgroundImage: `url("${avator}")`
+							backgroundImage: `url("${avatar}")`
 						}
 					} />
 					<div className="basis">

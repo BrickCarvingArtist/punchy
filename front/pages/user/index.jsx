@@ -111,7 +111,7 @@ class User extends Component{
 	renderProfile(){
 		const {
 			history,
-			avator,
+			avatar,
 			name,
 			author,
 			article_sum,
@@ -123,7 +123,7 @@ class User extends Component{
 				<icon className="medium back-white" onClick={::history.goBack}></icon>
 				<div className="main">
 					<div className="left">
-						<img className="avator" src={avator || "/avator.png"} alt="作者头像" />
+						<img className="avatar" src={avatar || "/avatar.png"} alt="作者头像" />
 						<div className="center">
 							<strong>{name || author}</strong>
 							<p>

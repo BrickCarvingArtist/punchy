@@ -21,7 +21,7 @@ const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
 @connect(({core, me}) => ({
 	tel: me.tel,
 	name: me.name,
-	avator: me.avator
+	avatar: me.avatar
 }), dispatch => bindActionCreators({
 	...basis,
 	authorize
@@ -89,12 +89,12 @@ export default class Me extends Component{
 			entrances,
 			name,
 			tel,
-			avator
+			avatar
 		} = this.props;
 		return (
 			<div className="page me without-footer">
 				<div className="profile">
-					<img className="avator" src={avator || "/avator.png"} alt="用户头像" />
+					<img className="avatar" src={avatar || "/avatar.png"} alt="用户头像" />
 					{
 						tel ? <strong>{name || tel}</strong> : (
 							<a href={`${AUTH_SERVER}?referer=${SERVER_NAME}${location.pathname}`}>点击登录</a>

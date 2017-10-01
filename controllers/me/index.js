@@ -6,7 +6,7 @@ import validate from "../middlewares/validate";
 import {authorize} from "../middlewares";
 import getMyProfile from "./get_my_profile";
 import getProfile from "./get_profile";
-import setAvator from "./set_avator";
+import setAvatar from "./set_avatar";
 import setProfile from "./set_profile";
 import out from "./out";
 export default () => new Router({
@@ -30,8 +30,8 @@ export default () => new Router({
 		}
 	]
 }), setProfile())
-.patch("/avator", authorize(), multer({
+.patch("/avatar", authorize(), multer({
 	storage: multer.memoryStorage()
-}).single("avator"), setAvator())
+}).single("avatar"), setAvatar())
 .get("/out", out())
 .routes();

@@ -60,7 +60,7 @@ export default class Detail extends Component{
 			title,
 			author_id,
 			author_name,
-			avator,
+			avatar,
 			updated_at,
 			content,
 			sup_label,
@@ -87,7 +87,7 @@ export default class Detail extends Component{
 					<h1>{title}</h1>
 					<div className="base">
 						<Link to={`/${author_id}`}>
-							<img className="avator small" src={avator || "/avator.png"} />
+							<img className="avatar small" src={avatar || "/avatar.png"} />
 							<strong>{author_name || author_id}</strong>
 						</Link>
 						<time>{Time.toDash(updated_at)}</time>

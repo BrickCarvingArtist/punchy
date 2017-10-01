@@ -60,7 +60,7 @@ export const fetch = async ({index, size, sup_label, sub_label, author, from, to
 		},
 		{
 			model: UserInfo,
-			attributes: ["avator"],
+			attributes: ["avatar"],
 			as: "info"
 		}
 	],
@@ -70,17 +70,17 @@ export const fetch = async ({index, size, sup_label, sub_label, author, from, to
 		[sequelize.literal("(SELECT COUNT(0) FROM `thumbs` AS `thumb` WHERE `thumb`.`article_id` = `article`.`id` AND (`thumb`.`deleted_at` > CURRENT_TIMESTAMP OR `thumb`.`deleted_at` IS NULL))"), "thumb_sum"]
 	],
 	order: [["updated_at", "DESC"]],
-	group: ["article.id", "user.name", "info.avator"],
+	group: ["article.id", "user.name", "info.avatar"],
 	raw: true,
 	offset: index * size,
 	limit: +size
 })).filter(article => {
 	article.author_id = article["user.tel"];
 	article.author_name = article["user.name"];
-	article.avator = article["info.avator"];
+	article.avatar = article["info.avatar"];
 	delete article["user.tel"];
 	delete article["user.name"];
-	delete article["info.avator"];
+	delete article["info.avatar"];
 	return article;
 });
 export const insert = async ({title, author, sup_label, sub_label, content}) => pick(await Article.create(filter({
@@ -183,7 +183,7 @@ export const getFavorites = async ({index, size, user_id}) => {
 			},
 			{
 				model: UserInfo,
-				attributes: ["avator"],
+				attributes: ["avatar"],
 				as: "info"
 			}
 		],
@@ -193,17 +193,17 @@ export const getFavorites = async ({index, size, user_id}) => {
 			[sequelize.literal("(SELECT COUNT(0) FROM `thumbs` WHERE `thumbs`.`article_id` = `article`.`id`)"), "thumb_sum"]
 		],
 		order: [["updated_at", "DESC"]],
-		group: ["article.id", "user.name", "info.avator"],
+		group: ["article.id", "user.name", "info.avatar"],
 		raw: true,
 		offset: index * size,
 		limit: +size
 	})).map(article => {
 		article.author_id = article["user.tel"];
 		article.author_name = article["user.name"];
-		article.avator = article["info.avator"];
+		article.avatar = article["info.avatar"];
 		delete article["user.tel"];
 		delete article["user.name"];
-		delete article["info.avator"];
+		delete article["info.avatar"];
 		return article;
 	});
 };
