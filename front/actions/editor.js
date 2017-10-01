@@ -12,7 +12,7 @@ export const insert = article => asyncFormAction({
 	type: "ARTICLE_DETAIL",
 	value: data,
 	ok: 1
-}), 1)();
+}))();
 export const update = article => asyncFormAction({
 	method: "PATCH",
 	path: "/api/article",
@@ -21,7 +21,7 @@ export const update = article => asyncFormAction({
 	type: "ARTICLE_DETAIL",
 	value: data,
 	ok: 1
-}), 1)();
+}))();
 export const clearDraft = value => ({
 	type: "CLEAR_DRAFT",
 	value

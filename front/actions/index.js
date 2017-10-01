@@ -1,5 +1,5 @@
 
-import {asyncAction} from "./utils";
+import {asyncAction, SHOULD_NOT_FEEDBACK} from "./utils";
 export const setMessage = value => ({
 	type: "DIALOG_MESSAGE",
 	value
@@ -39,7 +39,7 @@ export const setUser = asyncAction({
 	type: "USER",
 	value: data,
 	ok: 1
-});
+}, SHOULD_NOT_FEEDBACK);
 export const authorize = tel => tel ? {
 	type: "WHATEVER"
 } : {

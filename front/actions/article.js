@@ -6,7 +6,7 @@ export const setCategory = asyncAction({
 	type: "ARTICLE_CATEGORY",
 	value: data,
 	ok: 1
-}), 1);
+}));
 export const setArticles = (queries, isRefresh) => asyncAction({
 	path: `/api/article?${stringify(queries)}`
 }, data => ({
@@ -14,20 +14,20 @@ export const setArticles = (queries, isRefresh) => asyncAction({
 	value: data,
 	isRefresh,
 	ok: 1
-}), 1)();
+}))();
 export const getDetail = id => asyncAction({
 	path: `/api/article/${id}`
 }, data => ({
 	type: "ARTICLE_DETAIL",
 	value: data,
 	ok: 1
-}), 1)();
+}))();
 export const getUserRelationsToArticle = id => asyncAction({
 	path: `/api/article/relation/${id}`
 }, data => ({
 	type: "USER_RELATIONS_TO_ARTICLE",
 	value: data
-}), 1)();
+}))();
 export const addFavorite = id => asyncFormAction({
 	method: "PATCH",
 	path: "/api/article/favorite",
@@ -38,7 +38,7 @@ export const addFavorite = id => asyncFormAction({
 	type: "FAVORITE_ARTICLE",
 	value: data,
 	ok: 1
-}), 1)();
+}))();
 export const saySix = id => asyncFormAction({
 	method: "PATCH",
 	path: "/api/article/say_six",
@@ -48,4 +48,4 @@ export const saySix = id => asyncFormAction({
 }, data => ({
 	type: "SIX_ARTICLE",
 	value: data
-}), 1)();
+}))();

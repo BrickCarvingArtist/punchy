@@ -4,7 +4,7 @@ import ExtractTextPlugin from "extract-text-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 const getCoreConfig = () => ({
 	entry: {
-		dependencies: ["react", "react-dom", "react-router-dom", "redux", "react-redux", "react-router-redux", "classnames", "querystring", "isomorphic-fetch"],
+		dependencies: ["react", "react-dom", "react-router-dom", "redux", "react-redux", "react-router-redux", "classnames", "querystring", "isomorphic-fetch", "lodash/core"],
 		index: "./"
 	},
 	output: {

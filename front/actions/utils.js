@@ -1,6 +1,7 @@
 import fetch from "isomorphic-fetch";
 import {SERVER_NAME} from "../configs";
-export const asyncAction = (setting, callback, shouldErrorAlert) => async () => {
+export const SHOULD_NOT_FEEDBACK = 0;
+export const asyncAction = (setting, callback, shouldFeedback = 1) => async () => {
 	try{
 		const {
 			path,
@@ -15,7 +16,7 @@ export const asyncAction = (setting, callback, shouldErrorAlert) => async () => 
 			credentials: "include",
 			...settings
 		})).json();
-		if(code && shouldErrorAlert){
+		if(code && shouldFeedback){
 			return {
 				type: "DIALOG_MESSAGE",
 				value: message

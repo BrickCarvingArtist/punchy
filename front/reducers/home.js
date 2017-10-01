@@ -1,8 +1,19 @@
 export default (state = {
 	articles: []
-}, {type, value}) => ({
-	ARTICLES: {
-		...state,
-		articles: value
+}, {type, value, isRefresh}) => {
+	switch(type){
+		case "ARTICLES": 
+			return isRefresh ? {
+				...state,
+				articles: value
+			} : {
+				...state,
+				articles: [
+					...state.articles,
+					...value
+				]
+			};
+		default:
+			return state;
 	}
-}[type]) || state;
+};

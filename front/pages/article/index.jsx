@@ -2,8 +2,6 @@ import React, {Component} from "react";
 import {Switch} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import classNames from "classnames";
-import {parse} from "querystring";
 import ArticleSection from "../../components/ArticleSection";
 import Scroller from "../../components/Scroller";
 import {RouteWithSubRoutes} from "../../utils";
@@ -55,48 +53,47 @@ class Article extends Component{
 			ending: articles.length == nextLength || nextLength % size
 		});
 	}
-	render(){
+	async getData(index, isRefresh){
 		const {
 			dispatch,
+			size
+		} = this.props;
+		dispatch(await setArticles({
+			index,
+			size
+		}, isRefresh));
+	}
+	handleSlideOnBarOption(articleId, author){
+		const {
 			setMessage,
 			setSlideOnBar,
-			user,
-			size,
-			articles
+			user
 		} = this.props;
-		return (
-			<Scroller className="page article without-footer" loadData={
-				async (index, isRefresh) => {
-					dispatch(await setArticles({
-						index,
-						size
-					}, isRefresh));
+		setSlideOnBar(author == user ? [
+			{
+				name: "编辑",
+				to: `/article/edit/${articleId}`
+			},
+			{
+				name: "删除",
+				onClick(){
+					setMessage("确定删除这篇文章？");
 				}
-			} ending={this.state.ending}>
+			}
+		] : [
+			{
+				name: "举报",
+				onClick(){
+					setMessage("举报成功");
+				}
+			}
+		]);
+	}
+	render(){
+		return (
+			<Scroller className="page article without-footer" loadData={::this.getData} ending={this.state.ending}>
 				{
-					articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={
-						(articleId, author) => {
-							setSlideOnBar(author == user ? [
-								{
-									name: "编辑",
-									to: `/article/edit/${articleId}`
-								},
-								{
-									name: "删除",
-									onClick(){
-										setMessage("确定删除这篇文章？");
-									}
-								}
-							] : [
-								{
-									name: "举报",
-									onClick(){
-										setMessage("举报成功");
-									}
-								}
-							]);
-						}
-					} />)
+					this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={::this.handleSlideOnBarOption} />)
 				}
 			</Scroller>
 		);

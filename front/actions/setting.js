@@ -8,7 +8,7 @@ export const setAvator = file => asyncAction({
 	type: "USER_AVATOR",
 	value: data,
 	ok: 1
-}), 1)();
+}))();
 export const updateUserName = name => asyncFormAction({
 	method: "PATCH",
 	path: "/api/profile",
@@ -19,4 +19,4 @@ export const updateUserName = name => asyncFormAction({
 	type: "USER_NAME",
 	value: name,
 	ok: 1
-}), 1)();
+}))();

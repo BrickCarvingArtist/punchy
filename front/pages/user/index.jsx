@@ -83,71 +83,71 @@ class User extends Component{
 			ending: 1
 		});
 	}
-	render(){
+	handleSlideOnBarOption(articleId, author){
+		this.props.setSlideOnBar([
+			{
+				name: "举报",
+				onClick(){
+					setMessage("举报成功");
+				}
+			}
+		]);
+	}
+	async focus(){
 		const {
 			dispatch,
 			setMessage,
-			setSlideOnBar,
+			author
+		} = this.props;
+		const {
+			ok,
+			value
+		} = dispatch(await focus(author));
+		if(ok){
+			setMessage(`${["取消", ""][value.focus]}关注成功`);
+			this.setAuthorProfile();
+		}
+	}
+	renderProfile(){
+		const {
 			history,
 			avator,
 			name,
 			author,
-			tel,
 			article_sum,
 			focus_sum,
-			focused,
-			size,
-			articles
+			focused
 		} = this.props;
 		return (
-			<div className="page user-profile with-both">
-				<div className="profile">
-					<icon className="medium back-white" onClick={
-						() => {
-							history.goBack();
-						}
-					}></icon>
-					<div className="main">
-						<div className="left">
-							<img className="avator" src={avator || "/avator.png"} alt="作者头像" />
-							<div className="center">
-								<strong>{name || author}</strong>
-								<p>
-									<span>文章 {article_sum || 0}</span>
-									<span>粉丝 {focus_sum || 0}</span>
-								</p>
-							</div>
+			<div className="profile">
+				<icon className="medium back-white" onClick={::history.goBack}></icon>
+				<div className="main">
+					<div className="left">
+						<img className="avator" src={avator || "/avator.png"} alt="作者头像" />
+						<div className="center">
+							<strong>{name || author}</strong>
+							<p>
+								<span>文章 {article_sum || 0}</span>
+								<span>粉丝 {focus_sum || 0}</span>
+							</p>
 						</div>
-						<a className="border-button white" onClick={
-							async () => {
-								const {
-									ok,
-									value
-								} = dispatch(await focus(author));
-								if(ok){
-									setMessage(`${["取消", ""][value.focus]}关注成功`);
-									this.setAuthorProfile();
-								}
-							}
-						}>{
-							["关注", "取消关注"][focused]
-						}</a>
 					</div>
+					<a className="border-button white" onClick={::this.focus}>{
+						["关注", "取消关注"][focused]
+					}</a>
 				</div>
+			</div>
+		);
+	}
+	render(){
+		return (
+			<div className="page user-profile with-both">
+				{
+					this.renderProfile()
+				}
 				<Scroller className="article" loadData={::this.getData} ending={this.state.ending}>
 					{
-						articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={
-							articleId => {
-								setSlideOnBar([
-									{
-										name: "举报",
-										onClick(){
-											setMessage("举报成功");
-										}
-									}
-								]);
-							}
-						} />)
+						this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={this.handleSlideOnBarOption} />)
 					}
 				</Scroller>
 			</div>
