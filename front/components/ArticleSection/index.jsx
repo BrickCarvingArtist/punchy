@@ -32,9 +32,9 @@ export default ({id, avator, author_id, author_name, title, description, updated
 		<footer>
 			<time>{Time.diff(Date.now(), updated_at)}</time>
 			<div className="right">
-				<icon className="small off-favorite"></icon>
+				<icon className="small favorite"></icon>
 				<span>{favorite_sum}</span>
-				<icon className="small off-six"></icon>
+				<icon className="small six"></icon>
 				<span>{thumb_sum}</span>
 				<icon className="small view"></icon>
 				<span>{viewed_times}</span>
