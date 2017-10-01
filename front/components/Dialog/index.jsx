@@ -1,29 +1,72 @@
 import React, {Component} from "react";
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
 import classNames from "classnames";
-import {setMessage} from "../../actions";
+import {delay} from "../../utils";
 try{
 	require("./dialog");
 }catch(e){}
-@connect(({core}) => ({
-	message: core.message
-}), dispatch => bindActionCreators({setMessage}, dispatch))
 export default class Dialog extends Component{
-	static confirm(){}
+	state = {
+		message: "",
+		handleSure: 0
+	};
+	static async alert(message){
+		await Dialog.component.setState({
+			message
+		});
+		await delay(1250);
+		await Dialog.component.setState({
+			message: ""
+		});
+		return 1;
+	}
+	static confirm(message, handleSure){
+		Dialog.component.setState({
+			message,
+			handleSure
+		});
+	}
+	async handleSure(handleSure){
+		this.setState({
+			handleSure: 0
+		});
+		handleSure();
+	}
+	handleCancel(){
+		this.setState({
+			message: ""
+		});
+	}
+	componentWillUnmount(){
+		this.setState({
+			handleSure: 0
+		});
+	}
 	render(){
+		Dialog.component = this;
 		const {
 			message,
-			setMessage
-		} = this.props;
-		message && setTimeout(setMessage, 1000);
+			handleSure,
+			handleCancel
+		} = this.state;
 		return (
 			<dialog className={
 				classNames({
-					display: message,
-					hidden: !message
+					hidden: !message,
+					display: message
 				})
-			}>{message}</dialog>
-		);
+			}>
+				<p>{message}</p>
+				{
+					handleSure ? (
+						<div className="operator">
+							<a onClick={this.handleSure.bind(this, handleSure)}>确定</a>
+							<a onClick={::this.handleCancel}>取消</a>
+						</div>
+					) : null
+				}
+			</dialog>
+		)
 	}
 };
+export const alert = Dialog.alert;
+export const confirm = Dialog.confirm;

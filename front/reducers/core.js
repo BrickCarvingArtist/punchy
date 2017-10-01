@@ -4,11 +4,6 @@ export default (state = {
 	slideOnBars: []
 }, {type, value}) => {
 	switch(type){
-		case "DIALOG_MESSAGE":
-			return {
-				...state,
-				message: value
-			};
 		case "PAGE_TITLE":
 			process.title === "node" || (document.title = value);
 			return {

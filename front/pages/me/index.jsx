@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
-import {authorize, basis} from "../../actions";
+import {basis} from "../../actions";
 import {SERVER_NAME, AUTH_SERVER} from "../../configs";
 try{
 	require("../../styles/me");
@@ -22,10 +22,7 @@ const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
 	tel: me.tel,
 	name: me.name,
 	avatar: me.avatar
-}), dispatch => bindActionCreators({
-	...basis,
-	authorize
-}, dispatch))
+}), dispatch => bindActionCreators(basis, dispatch))
 export default class Me extends Component{
 	static defaultProps = {
 		entrances: [
@@ -68,12 +65,10 @@ export default class Me extends Component{
 	};
 	componentWillMount(){
 		const {
-			dispatch,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			setFooterType,
-			authorize
+			setFooterType
 		} = this.props;
 		setTitle("我的");
 		setHeaderLeftButton();

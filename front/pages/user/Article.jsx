@@ -7,7 +7,7 @@ import {basis, setSlideOnBar} from "../../actions";
 import {setMyArticles, removeMyArticle} from "../../actions/user";
 import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
-import Dialog from "../../components/Dialog";
+import {alert, confirm} from "../../components/Dialog";
 @connect(({me, user}) => ({
 	user: me.tel || 19999999999,
 	articles: user.articles
@@ -51,19 +51,21 @@ export default class Article extends Component{
 			size,
 			user
 		} = this.props;
-		dispatch(await setMyArticles({
-			author: user,
-			index,
-			size
-		}, isRefresh)) || this.setState({
-			ending: 1
-		});
+		try{
+			dispatch(await setMyArticles({
+				author: user,
+				index,
+				size
+			}, isRefresh)) || this.setState({
+				ending: 1
+			});
+		}catch(e){
+			alert(e);
+		}
 	}
 	render(){
 		const {
-			dispatch,
 			setSlideOnBar,
-			setMessage,
 			articles
 		} = this.props;
 		return (
@@ -79,7 +81,9 @@ export default class Article extends Component{
 								{
 									name: "删除",
 									async onClick(){
-										Dialog.confirm("确认删除这篇文章？")(async () => disatch(await removeMyArticle(articleId)));
+										confirm("确认删除这篇文章？", () => {
+											alert("操作成功");
+										});
 									}
 								}
 							])

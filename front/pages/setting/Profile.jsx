@@ -2,10 +2,11 @@ import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
+import {alert} from "../../components/Dialog";
 import {basis} from "../../actions";
 import {updateUserName} from "../../actions/setting";
 @connect(({core, me}) => ({
-	name: me.name
+	name: me.name || ""
 }), dispatch => bindActionCreators(basis, dispatch))
 @connect()
 export default class User extends Component{
@@ -15,7 +16,6 @@ export default class User extends Component{
 	componentWillMount(){
 		const {
 			dispatch,
-			setMessage,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
@@ -34,10 +34,15 @@ export default class User extends Component{
 					if(isEquals){
 						return resolve(isEquals);
 					}
-					resolve(dispatch(await updateUserName(value)).ok);
+					try{
+						resolve(dispatch(await updateUserName(value)).ok);
+					}catch(e){
+						alert(e);
+					}
+
 				});
 				if(ok){
-					setMessage("修改成功");
+					alert("修改成功");
 					history.goBack();
 				}
 			}

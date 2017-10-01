@@ -4,6 +4,7 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import ArticleSection from "../../components/ArticleSection";
 import Scroller from "../../components/Scroller";
+import {alert, confirm} from "../../components/Dialog";
 import {RouteWithSubRoutes} from "../../utils";
 import {basis, setSlideOnBar} from "../../actions";
 import {setArticles} from "../../actions/article";
@@ -28,7 +29,6 @@ class Article extends Component{
 	async componentWillMount(){
 		const {
 			setTitle,
-			setMessage,
 			setHeaderLeftButton,
 			setHeaderRightButton,
 			setFooterType
@@ -38,7 +38,7 @@ class Article extends Component{
 		setHeaderRightButton({
 			icon: "search",
 			onClick(){
-				setMessage("功能暂未开通");
+				alert("功能暂未开通");
 			}
 		});
 		setFooterType(1);
@@ -58,14 +58,17 @@ class Article extends Component{
 			dispatch,
 			size
 		} = this.props;
-		dispatch(await setArticles({
-			index,
-			size
-		}, isRefresh));
+		try{
+			dispatch(await setArticles({
+				index,
+				size
+			}, isRefresh));
+		}catch(e){
+			alert(e);
+		}
 	}
 	handleSlideOnBarOption(articleId, author){
 		const {
-			setMessage,
 			setSlideOnBar,
 			user
 		} = this.props;
@@ -77,14 +80,16 @@ class Article extends Component{
 			{
 				name: "删除",
 				onClick(){
-					setMessage("确定删除这篇文章？");
+					confirm("确定删除这篇文章？", () => {
+						alert("选择成功");
+					});
 				}
 			}
 		] : [
 			{
 				name: "举报",
 				onClick(){
-					setMessage("举报成功");
+					alert("举报成功");
 				}
 			}
 		]);

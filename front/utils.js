@@ -7,6 +7,9 @@ export const RouteWithSubRoutes = route => (
 		)
 	} />
 );
+export const delay = milliseconds => new Promise((resolve, reject) => {
+	setTimeout(resolve, milliseconds);
+});
 export const Time = ((format = a => a < 10 ? `0${a}` : a, diff = ((PRECISION = ["second", "minute", "hour", "date", "month"]) => (s, precision, type = 0, result = "刚刚") => {
 	type = ["前", "后"][type];
 	const mins = s / 60000 | 0;

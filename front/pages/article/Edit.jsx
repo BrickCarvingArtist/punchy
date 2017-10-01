@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {Link, Switch} from "react-router-dom";
 import classNames from "classnames";
 import {pick} from "lodash/core";
+import {alert} from "../../components/Dialog";
 import {basis} from "../../actions";
 import {getDetail} from "../../actions/article";
 import {saveAll, insert, update, clearDraft} from "../../actions/editor";
@@ -25,7 +26,6 @@ class Editor extends Component{
 	async componentWillMount(){
 		const {
 			dispatch,
-			setMessage,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
@@ -44,21 +44,29 @@ class Editor extends Component{
 				if(!this.validate(article)){
 					return;
 				}
-				let {ok} = +id ? dispatch(await update({
-					id,
-					...article
-				})) : dispatch(await insert(article));
-				if(ok){
-					setMessage("发表成功");
-					clearDraft(id);
-					history.push("/article");
+				try{
+					let {ok} = +id ? dispatch(await update({
+						id,
+						...article
+					})) : dispatch(await insert(article));
+					if(ok){
+						alert("发表成功");
+						clearDraft(id);
+						history.push("/article");
+					}
+				}catch(e){
+					alert(e);
 				}
 			}
 		});
 		setFooterType();
 		if(+id){
-			dispatch(await getDetail(id));
-			this.saveAll();
+			try{
+				dispatch(await getDetail(id));
+				this.saveAll();
+			}catch(e){
+				alert(e);
+			}
 		}
 	}
 	saveAll(obj){
@@ -75,15 +83,14 @@ class Editor extends Component{
 		}));
 	}
 	validate({title, sup_label, sub_label, content}){
-		const {setMessage} = this.props;
 		if(!/^\S{1,40}$/.test(title)){
-			return setMessage("文章标题不能包含空格"), 0;
+			return alert("文章标题不能包含空格"), 0;
 		}
 		if(!/^\d+$/.test(sup_label) && !/^\d+$/.test(sub_label)){
-			return setMessage("文章类目还未选择"), 0;
+			return alert("文章类目还未选择"), 0;
 		}
 		if(!/./.test(content)){
-			return setMessage("文章内容不能为空"), 0;
+			return alert("文章内容不能为空"), 0;
 		}
 		return 1;
 	}

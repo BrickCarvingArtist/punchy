@@ -10,7 +10,6 @@ try{
 export default class User extends Component{
 	componentWillMount(){
 		const {
-			dispatch,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,

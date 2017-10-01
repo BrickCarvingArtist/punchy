@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import classNames from "classnames";
 import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
+import {alert, confirm} from "../../components/Dialog";
 import {basis, setSlideOnBar} from "../../actions";
 import {setArticles} from "../../actions/home";
 import {Time} from "../../utils";
@@ -53,16 +54,19 @@ export default class Home extends Component{
 			dispatch,
 			size
 		} = this.props;
-		dispatch(await setArticles({
-			index,
-			size
-		}, isRefresh)).ok || this.setState({
-			ending: 1
-		});
+		try{
+			dispatch(await setArticles({
+				index,
+				size
+			}, isRefresh)).ok || this.setState({
+				ending: 1
+			});
+		}catch(e){
+			alert(e);
+		}
 	}
 	handleSlideOnBarOption(articleId, author){
 		const {
-			setMessage,
 			setSlideOnBar,
 			user
 		} = this.props;
@@ -74,14 +78,16 @@ export default class Home extends Component{
 			{
 				name: "删除",
 				onClick(){
-					setMessage("确定删除这篇文章？");
+					confirm("确定删除这篇文章？", () => {
+						alert("操作成功");
+					});
 				}
 			}
 		] : [
 			{
 				name: "举报",
 				onClick(){
-					setMessage("举报成功");
+					alert("举报成功");
 				}
 			}
 		]);

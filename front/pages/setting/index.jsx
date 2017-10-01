@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {Link, Switch} from "react-router-dom";
 import classNames from "classnames";
 import {parse} from "querystring";
+import {alert} from "../../components/Dialog";
 import {basis} from "../../actions";
 import {setAvatar} from "../../actions/setting";
 import {RouteWithSubRoutes} from "../../utils";
@@ -21,12 +22,10 @@ try{
 class Setting extends Component{
 	componentWillMount(){
 		const {
-			dispatch,
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			setFooterType,
-			location
+			setFooterType
 		} = this.props;
 		setTitle("设置");
 		setHeaderLeftButton({
@@ -36,15 +35,20 @@ class Setting extends Component{
 		setHeaderRightButton();
 		setFooterType();
 	}
-	async handleavatar(e){
+	async handleAvatar(e){
 		const file = new FormData();
 		file.append("avatar", e.target.files[0]);
-		this.props.dispatch(await setAvatar(file));
+		try{
+			const {ok} = this.props.dispatch(await setAvatar(file));
+			ok && alert("头像修改成功");
+		}catch(e){
+			alert(e);
+		}
 	}
 	clearCaches(){
 		const {length} = localStorage.ik_punchy;
 		localStorage.clear();
-		this.props.setMessage(`已为您清除${length / 1000}KB缓存`);
+		alert(`已为您清除${length / 1000}KB缓存`);
 	}
 	render(){
 		const {
@@ -55,7 +59,7 @@ class Setting extends Component{
 		return (
 			<div className="page setting with-footer">
 				<Link className="profile" to="/setting/profile">
-					<input className="avatar" type="file" accept="image/*" onChange={::this.handleavatar} onClick={
+					<input className="avatar" type="file" accept="image/*" onChange={::this.handleAvatar} onClick={
 						e => {
 							e.stopPropagation();
 						}

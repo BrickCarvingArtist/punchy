@@ -5,6 +5,7 @@ import {Switch} from "react-router-dom";
 import classNames from "classnames";
 import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
+import {alert} from "../../components/Dialog";
 import {basis, setSlideOnBar} from "../../actions";
 import {getAuthorProfile, setAuthorArticles, focus} from "../../actions/user";
 import {RouteWithSubRoutes} from "../../utils";
@@ -67,7 +68,11 @@ class User extends Component{
 			author,
 			dispatch
 		} = this.props;
-		dispatch(await getAuthorProfile(author));
+		try{
+			dispatch(await getAuthorProfile(author));
+		}catch(e){
+			alert(e);
+		}
 	}
 	async getData(index, isRefresh){
 		const {
@@ -75,20 +80,24 @@ class User extends Component{
 			size,
 			author
 		} = this.props;
-		dispatch(await setAuthorArticles({
-			author,
-			index,
-			size
-		}, isRefresh)).ok || this.setState({
-			ending: 1
-		});
+		try{
+			dispatch(await setAuthorArticles({
+				author,
+				index,
+				size
+			}, isRefresh)).ok || this.setState({
+				ending: 1
+			});
+		}catch(e){
+			alert(e);
+		}
 	}
 	handleSlideOnBarOption(articleId, author){
 		this.props.setSlideOnBar([
 			{
 				name: "举报",
 				onClick(){
-					setMessage("举报成功");
+					alert("举报成功");
 				}
 			}
 		]);
@@ -96,16 +105,19 @@ class User extends Component{
 	async focus(){
 		const {
 			dispatch,
-			setMessage,
 			author
 		} = this.props;
-		const {
-			ok,
-			value
-		} = dispatch(await focus(author));
-		if(ok){
-			setMessage(`${["取消", ""][value.focus]}关注成功`);
-			this.setAuthorProfile();
+		try{
+			const {
+				ok,
+				value
+			} = dispatch(await focus(author));
+			if(ok){
+				alert(`${["取消", ""][value.focus]}关注成功`);
+				this.setAuthorProfile();
+			}
+		}catch(e){
+			alert(e);
 		}
 	}
 	renderProfile(){
@@ -147,7 +159,7 @@ class User extends Component{
 				}
 				<Scroller className="article" loadData={::this.getData} ending={this.state.ending}>
 					{
-						this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={this.handleSlideOnBarOption} />)
+						this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={::this.handleSlideOnBarOption} />)
 					}
 				</Scroller>
 			</div>

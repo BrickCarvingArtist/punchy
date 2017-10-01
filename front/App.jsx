@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {Switch, withRouter} from "react-router-dom";
 import Dialog from "./components/Dialog";
@@ -50,8 +51,12 @@ export const routes = [
 export default class App extends Component{
 	async componentWillMount(){
 		const {dispatch} = this.props;
-		dispatch(await setUser());
-		dispatch(await setCategory());
+		try{
+			dispatch(await setUser());
+			dispatch(await setCategory());
+		}catch(e){
+			Dialog.alert(e);
+		}
 	}
 	render(){
 		return (

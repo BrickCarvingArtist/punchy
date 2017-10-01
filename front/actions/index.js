@@ -1,11 +1,6 @@
 
 import {asyncAction, SHOULD_NOT_FEEDBACK} from "./utils";
-export const setMessage = value => ({
-	type: "DIALOG_MESSAGE",
-	value
-});
 export const basis = {
-	setMessage,
 	setTitle: value => ({
 		type: "PAGE_TITLE",
 		value
@@ -40,9 +35,3 @@ export const setUser = asyncAction({
 	value: data,
 	ok: 1
 }, SHOULD_NOT_FEEDBACK);
-export const authorize = tel => tel ? {
-	type: "WHATEVER"
-} : {
-	type: "DIALOG_MESSAGE",
-	value: "请先登录一下下"
-};

@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
+import {alert} from "../../components/Dialog";
 import {basis} from "../../actions";
 import {getDetail, getUserRelationsToArticle, addFavorite, saySix} from "../../actions/article";
 import {Time, copy} from "../../utils";
@@ -27,7 +28,6 @@ export default class Detail extends Component{
 		const {
 			dispatch,
 			setTitle,
-			setMessage,
 			setHeaderLeftButton,
 			setHeaderRightButton,
 			setFooterType,
@@ -40,13 +40,17 @@ export default class Detail extends Component{
 			level: 1,
 			onClick(){
 				try{
-					copy(location.href) && setMessage("文章地址已成功复制到剪贴板");
+					copy(location.href) && alert("文章地址已成功复制到剪贴板");
 				}catch(e){}
 			}
 		});
 		setFooterType();
-		dispatch(await getDetail(id));
-		dispatch(await getUserRelationsToArticle(id));
+		try{
+			dispatch(await getDetail(id));
+			dispatch(await getUserRelationsToArticle(id));
+		}catch(e){
+			alert(e);
+		}
 	}
 	componentWillReceiveProps(nextProps){
 		this.props.setTitle(nextProps.title);
@@ -104,7 +108,11 @@ export default class Detail extends Component{
 				}>
 					<div className="button" onClick={
 						async () => {
-							dispatch(await addFavorite(id));
+							try{
+								dispatch(await addFavorite(id));
+							}catch(e){
+								alert(e);
+							}
 						}
 					}>
 						<icon className={
@@ -117,7 +125,11 @@ export default class Detail extends Component{
 					</div>
 					<div className="button" onClick={
 						async () => {
-							dispatch(await saySix(id));
+							try{
+								dispatch(await saySix(id));
+							}catch(e){
+								alert(e);
+							}
 						}
 					}>
 						<icon className={

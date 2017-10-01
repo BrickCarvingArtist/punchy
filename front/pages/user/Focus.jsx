@@ -3,6 +3,7 @@ import {bindActionCreators} from "redux";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import Scroller from "../../components/Scroller";
+import {alert} from "../../components/Dialog";
 import {basis, setSlideOnBar} from "../../actions";
 import {setMyFocuses, focus, updateMyFocuses} from "../../actions/user";
 @connect(({me, user}) => ({
@@ -49,24 +50,31 @@ export default class Focus extends Component{
 			size,
 			user
 		} = this.props;
-		dispatch(await setMyFocuses({
-			user_id: user,
-			index,
-			size
-		}, isRefresh)).ok || this.setState({
-			ending: 1
-		});
+		try{
+			dispatch(await setMyFocuses({
+				user_id: user,
+				index,
+				size
+			}, isRefresh)).ok || this.setState({
+				ending: 1
+			});
+		}catch(e){
+			alert(e);
+		}
 	}
 	async cancelFocus(author, index){
 		const {
 			dispatch,
-			setMessage,
 			updateMyFocuses
 		} = this.props;
-		const {ok} = dispatch(await focus(author));
-		if(ok){
-			updateMyFocuses(index);
-			setMessage("取消关注成功");
+		try{
+			const {ok} = dispatch(await focus(author));
+			if(ok){
+				updateMyFocuses(index);
+				alert("取消关注成功");
+			}
+		}catch(e){
+			alert(e);
 		}
 	}
 	renderAuthors({tel, name, avatar}, index){

@@ -8,6 +8,7 @@ import {addFavorite} from "../../actions/article";
 import {setMyFavorites, updateMyFavorites} from "../../actions/user";
 import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
+import {alert} from "../../components/Dialog";
 @connect(({me, user}) => ({
 	user: me.tel || 19999999999,
 	articles: user.favorites
@@ -52,18 +53,21 @@ export default class Article extends Component{
 			size,
 			user
 		} = this.props;
-		dispatch(await setMyFavorites({
-			user_id: user,
-			index,
-			size
-		}, isRefresh)).ok || this.setState({
-			ending: 1
-		});
+		try{
+			dispatch(await setMyFavorites({
+				user_id: user,
+				index,
+				size
+			}, isRefresh)).ok || this.setState({
+				ending: 1
+			});
+		}catch(e){
+			alert(e);
+		}
 	}
 	render(){
 		const {
 			dispatch,
-			setMessage,
 			setSlideOnBar,
 			updateMyFavorites,
 			articles
@@ -77,9 +81,13 @@ export default class Article extends Component{
 								{
 									name: "取消收藏",
 									onClick: async e => {
-										if(dispatch(await addFavorite(articleId)).ok){
-											updateMyFavorites(i);
-											setMessage("取消收藏成功");
+										try{
+											if(dispatch(await addFavorite(articleId)).ok){
+												updateMyFavorites(i);
+												alert("取消收藏成功");
+											}
+										}catch(e){
+											alert(e);
 										}
 									}
 								}
