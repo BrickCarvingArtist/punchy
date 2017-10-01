@@ -27,12 +27,14 @@ export const getAuthorProfile = author => asyncAction({
 	value: data,
 	ok: 1
 }))();
-export const removeMyArticle = article_id => {};/*asyncAction({
+export const removeMyArticle = (articleId, index) => asyncAction({
 	method: "DELETE",
-	path: `/api/article/${article_id}`
-}, data => ({
-	type: "UPDATE"
-}), 1)();*/
+	path: `/api/article/${articleId}`
+}, () => ({
+	type: "UPDATE_MY_ARTICLES",
+	value: index,
+	ok: 1
+}))();
 export const setAuthorArticles = (queries, isRefresh) => asyncAction({
 	path: `/api/article?${stringify(queries)}`
 }, data => ({

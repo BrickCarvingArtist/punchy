@@ -63,6 +63,30 @@ export default class Article extends Component{
 			alert(e);
 		}
 	}
+	handleSlideOnBarOption(articleId, index){
+		const {
+			dispatch,
+			setSlideOnBar
+		} = this.props;
+		setSlideOnBar([
+			{
+				name: "编辑",
+				to: `/article/edit/${articleId}`
+			},
+			{
+				name: "删除",
+				onClick(){
+					confirm("确认删除这篇文章？", async () => {
+						try{
+							dispatch(await removeMyArticle(articleId, index)).ok && alert("操作成功");
+						}catch(e){
+							alert(e);
+						}
+					});
+				}
+			}
+		]);
+	}
 	render(){
 		const {
 			setSlideOnBar,
@@ -71,24 +95,7 @@ export default class Article extends Component{
 		return (
 			<Scroller className="page with-footer" loadData={::this.getData} ending={this.state.ending}>
 				{
-					articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={
-						articleId => {
-							setSlideOnBar([
-								{
-									name: "编辑",
-									to: `/article/edit/${articleId}`
-								},
-								{
-									name: "删除",
-									async onClick(){
-										confirm("确认删除这篇文章？", () => {
-											alert("操作成功");
-										});
-									}
-								}
-							])
-						}
-					} />)
+					articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={this.handleSlideOnBarOption.bind(this, article.id, i)} />)
 				}
 			</Scroller>
 		);

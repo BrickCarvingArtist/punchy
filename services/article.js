@@ -115,22 +115,25 @@ export const update = async ({id, title, author, sup_label, sub_label, content})
 		individualHooks: true
 	}))[1][0], ["id", "title", "author", "sup_label", "sub_label", "content"]);
 };
-export const remove = id => sequelize.transaction(t => Promise.all([
-	Article.destroy({
-		where: {
-			id
+export const remove = id => Article.destroy({
+	where: {
+		id
+	},
+	include: [
+		{
+			model: View,
+			as: "view"
+		},
+		{
+			model: Favorite,
+			as: "favorite"
+		},
+		{
+			model: Thumb,
+			as: "thumb"
 		}
-	}, {
-		transcation: t
-	}),
-	View.destroy({
-		where: {
-			article_id: id
-		}
-	}, {
-		transcation: t
-	})
-]));
+	]
+});
 export const random = () => sequelize.query("SELECT * FROM (SELECT id, title, author as author_id, description, updated_at, IFNULL(t1.viewed_times, 0) AS viewed_times FROM articles LEFT JOIN (SELECT article_id, COUNT(ip) AS viewed_times FROM article_views GROUP BY article_id)t1 ON id=t1.article_id ORDER BY RAND() DESC LIMIT 10)t2 ORDER BY t2.updated_at DESC;", {
 	type: sequelize.QueryTypes.SELECT
 });

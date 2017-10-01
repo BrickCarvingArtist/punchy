@@ -15,6 +15,15 @@ export default (state = {
 					...value
 				]
 			};
+		case "UPDATE_MY_ARTICLES":
+			return {
+				...state, 
+				articles: (() => {
+					const articles = [...state.articles];
+					articles.splice(value, 1);
+					return articles;
+				})()
+			};
 		case "MY_FAVORITES":
 			return isRefresh ? {
 				...state,

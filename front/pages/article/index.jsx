@@ -7,7 +7,7 @@ import Scroller from "../../components/Scroller";
 import {alert, confirm} from "../../components/Dialog";
 import {RouteWithSubRoutes} from "../../utils";
 import {basis, setSlideOnBar} from "../../actions";
-import {setArticles} from "../../actions/article";
+import {setArticles, removeArticle} from "../../actions/article";
 import Detail from "./Detail";
 import Edit from "./Edit";
 import NotFound from "../other/NotFound";
@@ -67,8 +67,9 @@ class Article extends Component{
 			alert(e);
 		}
 	}
-	handleSlideOnBarOption(articleId, author){
+	handleSlideOnBarOption(articleId, index, author){
 		const {
+			dispatch,
 			setSlideOnBar,
 			user
 		} = this.props;
@@ -80,8 +81,12 @@ class Article extends Component{
 			{
 				name: "删除",
 				onClick(){
-					confirm("确定删除这篇文章？", () => {
-						alert("选择成功");
+					confirm("确认删除这篇文章？", async () => {
+						try{
+							dispatch(await removeArticle(articleId, index)).ok && alert("操作成功");
+						}catch(e){
+							alert(e);
+						}
 					});
 				}
 			}
@@ -98,7 +103,7 @@ class Article extends Component{
 		return (
 			<Scroller className="page article without-footer" loadData={::this.getData} ending={this.state.ending}>
 				{
-					this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={::this.handleSlideOnBarOption} />)
+					this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={this.handleSlideOnBarOption.bind(this, article.id, i, article.author_id)} />)
 				}
 			</Scroller>
 		);

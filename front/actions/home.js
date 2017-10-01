@@ -8,3 +8,11 @@ export const setArticles = (queries, isRefresh) => asyncAction({
 	isRefresh,
 	ok: 1
 }))();
+export const removeArticle = (articleId, index) => asyncAction({
+	method: "DELETE",
+	path: `/api/article/${articleId}`
+}, () => ({
+	type: "UPDATE_RANDOM_ARTICLES",
+	value: index,
+	ok: 1
+}))();

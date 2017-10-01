@@ -14,6 +14,15 @@ export default (state = {
 					...value
 				]
 			};
+		case "UPDATE_ARTICLES":
+			return {
+				...state,
+				articles: (() => {
+					const articles = [...state.articles];
+					articles.splice(value, 1);
+					return articles;
+				})()
+			};
 		case "ARTICLE_DETAIL":
 			return {
 				...state,
