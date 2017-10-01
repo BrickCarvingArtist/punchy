@@ -89,7 +89,7 @@ export default class Me extends Component{
 		return (
 			<div className="page me without-footer">
 				<div className="profile">
-					<img className="avatar" src={avatar || "/avatar.png"} alt="用户头像" />
+					<img className="avatar" src={avatar || "/avatars/avatar.png"} alt="用户头像" />
 					{
 						tel ? <strong>{name || tel}</strong> : (
 							<a href={`${AUTH_SERVER}?referer=${SERVER_NAME}${location.pathname}`}>点击登录</a>

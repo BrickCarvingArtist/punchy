@@ -9,7 +9,7 @@ export default ({id, avatar, author_id, author_name, title, description, updated
 	<section className="article">
 		<header>
 			<Link className="author" to={`/u/${author_id}`}>
-				<img className="avatar" src={avatar || "/avatars/avatar"} alt="作者头像" />
+				<img className="avatar" src={avatar || "/avatars/avatar.png"} alt="作者头像" />
 				<strong>{author_name || author_id}</strong>
 			</Link>
 			<icon className="medium option" onClick={
