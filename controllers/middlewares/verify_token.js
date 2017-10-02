@@ -1,10 +1,10 @@
 import {verify} from "jsonwebtoken";
 import {TOKEN_SECRET} from "../../configs";
 import {error} from "../../utils";
-export default () => async (ctx, next) => {
+export default () => (ctx, next) => {
 	const sso_token = ctx.query.sso_token || ctx.cookies.get("sso_token");
 	if(!sso_token){
-		return await next();
+		return next();
 	}
 	try{
 		const {
@@ -12,7 +12,7 @@ export default () => async (ctx, next) => {
 			exp
 		} = verify(sso_token, TOKEN_SECRET);
 		ctx.cookies.set("sso_token", sso_token, {
-			 expires: new Date(exp * 1000)
+			expires: new Date(exp * 1000)
 		});
 		ctx.state.tel = tel;
 	}catch(e){
@@ -22,5 +22,5 @@ export default () => async (ctx, next) => {
 			e
 		});
 	}
-	await next();
+	next();
 };

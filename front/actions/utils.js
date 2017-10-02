@@ -4,18 +4,18 @@ export const SHOULD_NOT_FEEDBACK = 0;
 export const asyncAction = (setting, callback, shouldFeedback = 1) => async () => {
 	try{
 		const {
-			path,
-			...settings
-		} = setting,
-		{
-			code,
-			data,
-			message
-		} = await (await fetch(`${SERVER_NAME}${path}`, {
-			method: "GET",
-			credentials: "include",
-			...settings
-		})).json();
+				path,
+				...settings
+			} = setting,
+			{
+				code,
+				data,
+				message
+			} = await (await fetch(`${SERVER_NAME}${path}`, {
+				method: "GET",
+				credentials: "include",
+				...settings
+			})).json();
 		if(code && shouldFeedback){
 			throw message;
 		}
@@ -24,7 +24,7 @@ export const asyncAction = (setting, callback, shouldFeedback = 1) => async () =
 		throw e || "网络异常";
 	}
 };
-export const asyncFormAction = (setting, ...rest) => asyncAction.call(null, {
+export const asyncFormAction = (setting, ...rest) => asyncAction({
 	headers: {
 		"Content-Type": "application/x-www-form-urlencoded"
 	},

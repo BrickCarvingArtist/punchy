@@ -65,5 +65,5 @@ export default () => async (ctx, next) => {
 			e
 		});
 	}
-	await next();
+	next();
 };

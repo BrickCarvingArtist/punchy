@@ -4,38 +4,38 @@ export default (state = {
 	slideOnBars: []
 }, {type, value}) => {
 	switch(type){
-		case "PAGE_TITLE":
-			process.title === "node" || (document.title = value);
-			return {
-				...state,
-				title: value
-			};
-		case "HEADER_LEFT_BUTTON":
-			return {
-				...state,
-				headerLeftButton: value
-			};
-		case "HEADER_RIGHT_BUTTON":
-			return {
-				...state,
-				headerRightButton: value
-			};
-		case "HEADER_TYPE":
-			return {
-				...state,
-				headerType: value
-			};
-		case "FOOTER_TYPE":
-			return {
-				...state,
-				footerType: value
-			};
-		case "SLIDE_ON_BARS":
-			return {
-				...state,
-				slideOnBars: value
-			};
-		default:
-			return state;
+	case "PAGE_TITLE":
+		process.title === "node" || (document.title = value);
+		return {
+			...state,
+			title: value
+		};
+	case "HEADER_LEFT_BUTTON":
+		return {
+			...state,
+			headerLeftButton: value
+		};
+	case "HEADER_RIGHT_BUTTON":
+		return {
+			...state,
+			headerRightButton: value
+		};
+	case "HEADER_TYPE":
+		return {
+			...state,
+			headerType: value
+		};
+	case "FOOTER_TYPE":
+		return {
+			...state,
+			footerType: value
+		};
+	case "SLIDE_ON_BARS":
+		return {
+			...state,
+			slideOnBars: value
+		};
+	default:
+		return state;
 	}
 };

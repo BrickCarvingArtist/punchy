@@ -12,26 +12,26 @@ import out from "./out";
 export default () => new Router({
 	prefix: "/api"
 })
-.get("/profile", authorize(), getMyProfile())
-.get("/profile/:id", validate({
-	params: [
-		{
-			name: "id",
-			alias: "tel",
-			comment: "作者id"
-		}
-	]
-}), getProfile())
-.patch("/profile", authorize(), body(), validate({
-	body: [
-		{
-			name: "name",
-			alias: "user"
-		}
-	]
-}), setProfile())
-.patch("/avatar", authorize(), multer({
-	storage: multer.memoryStorage()
-}).single("avatar"), setAvatar())
-.get("/out", out())
-.routes();
+	.get("/profile", authorize(), getMyProfile())
+	.get("/profile/:id", validate({
+		params: [
+			{
+				name: "id",
+				alias: "tel",
+				comment: "作者id"
+			}
+		]
+	}), getProfile())
+	.patch("/profile", authorize(), body(), validate({
+		body: [
+			{
+				name: "name",
+				alias: "user"
+			}
+		]
+	}), setProfile())
+	.patch("/avatar", authorize(), multer({
+		storage: multer.memoryStorage()
+	}).single("avatar"), setAvatar())
+	.get("/out", out())
+	.routes();

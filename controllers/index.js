@@ -1,7 +1,7 @@
 import {sequelize} from "../services";
 import {SERVER} from "../configs";
 import {error} from "../utils";
-import {crossDomain, verifyToken, page} from "./middlewares";
+import {verifyToken, page} from "./middlewares";
 import article from "./article";
 import lottery from "./lottery";
 import me from "./me";
@@ -15,7 +15,6 @@ export default async app => {
 		process.exit();
 	}
 	app
-		// .use(crossDomain("http://localhost:5501"))
 		.use(verifyToken())
 		.use(article())
 		.use(lottery())

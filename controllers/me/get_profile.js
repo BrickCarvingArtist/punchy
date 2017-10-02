@@ -8,10 +8,10 @@ export default () => async ctx => {
 		try{
 			ctx.body = success({
 				...data,
-				...(await getAuthorAdditions({
+				...await getAuthorAdditions({
 					author: data.tel,
 					user_id: ctx.state.tel || 0
-				}))
+				})
 			});
 		}catch(e){
 			ctx.body = error({

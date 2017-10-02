@@ -16,7 +16,7 @@ try{
 }catch(e){}
 @connect(({core, me}) => ({
 	name: me.name,
-	avatar: me.avatar || "/avatar.png"
+	avatar: me.avatar || "/avatars/avatar.png"
 }), dispatch => bindActionCreators(basis, dispatch))
 @connect()
 class Setting extends Component{

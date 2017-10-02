@@ -4,7 +4,7 @@ export default () => async (ctx, next) => {
 	// true 接口
 	// false 页面
 	if(ctx.state.tel){
-		return await next();
+		return next();
 	}
 	return ctx.body = error({
 		code: 5000000203,

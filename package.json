@@ -1,10 +1,14 @@
 {
   "name": "punchy",
   "version": "0.0.1",
-  "description": "about front-end",
+  "description": "a blog system named punchy.",
   "main": "app.js",
   "scripts": {
+    "prestart": "npm run eslint",
     "start": "node server.js",
+    "build:develop": "npm install",
+    "build:product": "npm install --production",
+    "eslint": "./node_modules/.bin/eslint ./",
     "test": "./node_modules/.bin/mocha"
   },
   "keywords": [],
@@ -49,6 +53,9 @@
     "sequelize": "^4.8.2"
   },
   "devDependencies": {
+    "babel-eslint": "^8.0.1",
+    "eslint": "^4.8.0",
     "mocha": "^3.5.2"
-  }
+  },
+  "repository": "https://github.com/BrickCarvingArtist/punchy.git"
 }

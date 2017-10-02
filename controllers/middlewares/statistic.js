@@ -1,9 +1,9 @@
 import collect from "../../services/statistics";
 import {error} from "../../utils";
-export default (action, cb) => async (ctx, next) => {
+export default (action, then) => (ctx, next) => {
 	if(!~ctx.request.header["user-agent"].indexOf("node-fetch")){
 		try{
-			collect(action)(cb(ctx));
+			collect(action)(then(ctx));
 		}catch(e){
 			error({
 				code: e.code || 5009700000,
@@ -13,5 +13,5 @@ export default (action, cb) => async (ctx, next) => {
 			});
 		}
 	}
-	await next();
+	next();
 };

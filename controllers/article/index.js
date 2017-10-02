@@ -14,10 +14,9 @@ import getRelation from "./get_relation";
 import validate from "../middlewares/validate";
 import authorize from "../middlewares/authorize";
 import statistic from "../middlewares/statistic";
-export default () => {
-	return new Router({
-		prefix: "/api/article"
-	})
+export default () => new Router({
+	prefix: "/api/article"
+})
 	// 类目接口
 	.get("/category", category())
 	// 所有文章接口
@@ -203,4 +202,3 @@ export default () => {
 		]
 	}), getRelation())
 	.routes();
-};

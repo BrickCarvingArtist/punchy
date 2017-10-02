@@ -16,7 +16,7 @@ export const formatSQLAddress = ({dialect, user, password, host, port, dbname}) 
 export const filter = (option, data = {}) => {
 	for(let i in option){
 		if(isUndefined(option[i])){
-			delete option[i]
+			delete option[i];
 		}
 	}
 	return {
