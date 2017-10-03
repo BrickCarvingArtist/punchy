@@ -1,4 +1,3 @@
-import {resolve} from "path";
 import {readFile as rf, appendFile as af} from "fs";
 import error from "./error";
 export const promisify = fn => (...args) => new Promise((resolve, reject) => fn(...args, (e, data) => {

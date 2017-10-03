@@ -57,5 +57,6 @@
     "eslint": "^4.8.0",
     "mocha": "^3.5.2"
   },
-  "repository": "https://github.com/BrickCarvingArtist/punchy.git"
+  "repository": "https://github.com/BrickCarvingArtist/punchy.git",
+  "private": true
 }
