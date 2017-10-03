@@ -91,7 +91,7 @@ export default class Detail extends Component{
 					<h1>{title}</h1>
 					<div className="base">
 						<Link to={`/${author_id}`}>
-							<img className="avatar small" src={avatar || "/avatar.png"} />
+							<img className="avatar small" src={avatar || "/avatars/avatar.png"} />
 							<strong>{author_name || author_id}</strong>
 						</Link>
 						<time>{Time.toDash(updated_at)}</time>

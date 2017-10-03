@@ -1,2 +1,2 @@
-export const SERVER_NAME = process.env.NODE_ENV === "production" ? "https://punchy.ikindness.cn" : "http://localhost:5500";
-export const AUTH_SERVER = process.env.NODE_ENV === "production" ? "https://auth.ikindness.cn" : "http://localhost:4501";
+export const SERVER_NAME = "https://punchy.ikindness.cn";
+export const AUTH_SERVER = "https://auth.ikindness.cn";

@@ -4,7 +4,6 @@
   "description": "a blog system named punchy.",
   "main": "app.js",
   "scripts": {
-    "prestart": "npm run eslint",
     "start": "node server.js",
     "build:develop": "npm install",
     "build:product": "npm install --production",
@@ -50,7 +49,7 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.2",
-    "sequelize": "^4.8.2"
+    "sequelize": "^4.13.2"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.1",
