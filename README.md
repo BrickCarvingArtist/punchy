@@ -4,7 +4,7 @@
 * UI(todo): `Sketch`
 * JavaScript: `ECMAScript *`
 * Main front side frameworks:
-	1. `React ^15`
+	1. `React ^16`
 	2. `React-Router ^4`
 	3. `Redux ^3`
 	4. `React-Redux`
