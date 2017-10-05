@@ -68,6 +68,9 @@ export default class Search extends Component{
 			editable,
 			content
 		} = this.state;
+		const {
+			results
+		} = this.props;
 		return (
 			<div className={
 				classNames("search-result", {
@@ -75,7 +78,12 @@ export default class Search extends Component{
 				})
 			}>
 				{
-					this.props.results.map(({id, title}) => <Link to={`/article/${id}`}>{title}</Link>)
+					results.length ? 
+						results.map(({id, title}) => <Link to={`/article/${id}`}>{title}</Link>)
+						: [
+							<icon className="empty"></icon>,
+							<p className="note">不好，没有相关内容...</p>
+						]
 				}
 			</div>
 		);

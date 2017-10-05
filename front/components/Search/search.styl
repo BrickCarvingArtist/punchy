@@ -83,12 +83,14 @@
 	left 0
 	display flex
 	flex-direction column
+	align-items center
 	padding 0 w(15)
 	background-color #fff
 	&.hidden
 		display none
 	a
 		position relative
+		width w(345)
 		line-height h(43)
 		font-size h(13)
 		color #666
@@ -100,3 +102,11 @@
 			height h(1)
 			background-color $bdGray
 			content ""
+	> p.note
+		line-height h(22)
+		font-size h(13)
+		color #999
+	> icon.empty
+		margin 50% 0 h(10)
+		width w(80)
+		height h(80)
