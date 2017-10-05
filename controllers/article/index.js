@@ -4,6 +4,8 @@ import get from "./get";
 import insert from "./insert";
 import category from "./category";
 import random from "./random";
+import search from "./search";
+import recommand from "./recommand";
 import update from "./update";
 import remove from "./remove";
 import detail from "./detail";
@@ -135,6 +137,26 @@ export default () => new Router({
 	}), remove())
 	// 随机文章接口
 	.get("/random", random())
+	// 搜索接口
+	.get("/search/:word", validate({
+		params: [
+			{
+				name: "word",
+				alias: "notEmpty",
+				comment: "搜索关键字"
+			}
+		]
+	}), search())
+	// 推荐文章接口
+	.get("/recommendation", validate({
+		query: [
+			{
+				name: "size",
+				alias: "number",
+				comment: "文章条数"
+			}
+		]
+	}), recommand())
 	// 查询收藏接口
 	.get("/favorite", validate({
 		query: [

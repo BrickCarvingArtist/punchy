@@ -1,6 +1,6 @@
 import {resolve} from "path";
 import React from "react";
-import ReactDOMServer from "react-dom/server";
+import {renderToString} from "react-dom/server";
 import {StaticRouter} from "react-router";
 import {Provider} from "react-redux";
 import {createStore, combineReducers} from "redux";
@@ -35,7 +35,7 @@ export default () => async (ctx, next) => {
 	try{
 		await fetchBranchData(store, path);
 		const context = {};
-		const html = ReactDOMServer.renderToString(
+		const html = renderToString(
 			<Provider store={store}>
 				<StaticRouter
 					location={path}

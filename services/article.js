@@ -1,6 +1,7 @@
 import {pick} from "lodash";
 import {sequelize, Article, View, User, UserInfo, Favorite, Thumb, Focus} from "./";
 import {filter} from "./utils";
+const {and, or, regexp} = sequelize.Op;
 User.hasOne(Article, {
 	foreignKey: "author"
 });
@@ -136,6 +137,46 @@ export const remove = id => Article.destroy({
 });
 export const random = () => sequelize.query("SELECT * FROM (SELECT id, title, author as author_id, description, updated_at, IFNULL(t1.viewed_times, 0) AS viewed_times FROM articles LEFT JOIN (SELECT article_id, COUNT(ip) AS viewed_times FROM article_views GROUP BY article_id)t1 ON id=t1.article_id ORDER BY RAND() DESC LIMIT 10)t2 ORDER BY t2.updated_at DESC;", {
 	type: sequelize.QueryTypes.SELECT
+});
+export const search = word => Article.findAll({
+	where: {
+		// [and]及[or]本身有bug(2017/10/05)，https://github.com/sequelize/sequelize/issues/8423
+		$or: [
+			{
+				id: {
+					[regexp]: word.split("%20").join("|")
+				}
+			},
+			{
+				title: {
+					[regexp]: word.split("%20").join("|")
+				}
+			},
+			{
+				author: {
+					[regexp]: word.split("%20").join("|")
+				}
+			}
+		]
+	},
+	attributes: ["id", "title",
+		[sequelize.literal("(SELECT COUNT(0) FROM `article_views` WHERE `article_views`.`article_id` = `article`.`id` AND (`article`.`deleted_at` > CURRENT_TIMESTAMP OR `article`.`deleted_at` IS NULL))"), "viewed_times"]
+	],
+	group: "article.id",
+	order: sequelize.literal("`viewed_times` DESC"),
+	raw: true,
+	offset: 0,
+	limit: 10
+});
+export const recommand = size => Article.findAll({
+	attributes: ["id", "title", 
+		[sequelize.literal("(SELECT COUNT(0) FROM `article_views` WHERE `article_views`.`article_id` = `article`.`id` AND (`article`.`deleted_at` > CURRENT_TIMESTAMP OR `article`.`deleted_at` IS NULL))"), "viewed_times"]
+	],
+	group: "article.id",
+	order: sequelize.literal("`viewed_times` DESC"),
+	raw: true,
+	offset: 0,
+	limit: +size
 });
 export const getDetail = async id => {
 	const detail = await Article.findOne({
