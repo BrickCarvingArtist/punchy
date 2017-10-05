@@ -1,0 +1,102 @@
+@import "../../styles/mixin"
+.search-header
+	position fixed
+	top 0
+	display flex
+	width w(375)
+	height h(45)
+	align-items center
+	background-color #fff
+	border-bottom 1px solid $bdGray
+	.logo
+		margin-left w(15)
+		width w(67)
+		height h(18)
+		&.hidden
+			display none
+	input.search
+		margin 0 w(15)
+		height h(30)
+		padding 0 w(10) 0 w(35)
+		background-color #eee
+		background-repeat no-repeat
+		background-size w(18) h(18)
+		background-position w(8) center
+		bg('data:image/svg+xml;utf-8,%3Csvg%20viewBox=%220%200%2013%2013%22%20version=%221.1%22%20xmlns=%22http://www.w3.org/2000/svg%22%20xmlns:xlink=%22http://www.w3.org/1999/xlink%22%3E%0A%09%3Cg%20fill=%22#999999%22%3E%0A%09%09%3Cpath%20d=%22M5.39762074,9.42495844%20C7.62185794,9.42495844%209.42495844,7.62185794%209.42495844,5.39762074%20C9.42495844,3.17338355%207.62185794,1.37028304%205.39762074,1.37028304%20C3.17338355,1.37028304%201.37028304,3.17338355%201.37028304,5.39762074%20C1.37028304,7.62185794%203.17338355,9.42495844%205.39762074,9.42495844%20Z%20M5.39762074,10.2559674%20C2.71442995,10.2559674%200.539274039,8.08081154%200.539274039,5.39762074%20C0.539274039,2.71442995%202.71442995,0.539274039%205.39762074,0.539274039%20C8.08081154,0.539274039%2010.2559674,2.71442995%2010.2559674,5.39762074%20C10.2559674,8.08081154%208.08081154,10.2559674%205.39762074,10.2559674%20Z%22%3E%3C/path%3E%0A%09%09%3Cpath%20transform=%22translate(10.655240,%2010.655240)%20rotate(-45.000000)%20translate(-10.655240,%20-10.655240)%22%20d=%22M10.1909542,7.86952561%20L11.1195256,7.86952561%20L11.1195256,12.9766685%20L11.1195256,12.9766685%20C11.1195256,13.2330864%2010.9116578,13.4409542%2010.6552399,13.4409542%20L10.6552399,13.4409542%20L10.6552399,13.4409542%20C10.398822,13.4409542%2010.1909542,13.2330864%2010.1909542,12.9766685%20L10.1909542,7.86952561%20Z%22%3E%3C/path%3E%0A%09%3C/g%3E%0A%3C/svg%3E')
+		border-radius 4px
+		font-size h(13)
+		color #999
+		transition width .25s
+		&.shrink
+			width w(260)
+		&.expand
+			width w(295)
+	.cancel
+		color $blue
+		font-size 0
+		opacity 0
+		transition font-size, opacity 0s .2s
+		&.display
+			font-size h(15)
+			opacity 1
+.search-addition
+	position fixed
+	top h(45)
+	right 0
+	bottom 0
+	left 0
+	background-color $bgGray
+	&.hidden
+		display none
+	section
+		margin-bottom h(10)
+		display flex
+		flex-direction column
+		overflow hidden
+		padding 0 w(15)
+		background-color #fff
+		h1
+			display flex
+			justify-content space-between
+			align-items center
+			margin h(15) 0 h(5)
+			font-size h(13)
+		a
+			position relative
+			line-height h(43)
+			font-size h(13)
+			color #666
+			&:not(:last-of-type)
+				&:after
+					position absolute
+					bottom 0
+					left 0
+					width w(360)
+					height h(1)
+					background-color $bdGray
+					content ""
+.search-result
+	position fixed
+	top h(45)
+	right 0
+	bottom 0
+	left 0
+	display flex
+	flex-direction column
+	padding 0 w(15)
+	background-color #fff
+	&.hidden
+		display none
+	a
+		position relative
+		line-height h(43)
+		font-size h(13)
+		color #666
+		&:after
+			position absolute
+			bottom 0
+			left 0
+			width w(360)
+			height h(1)
+			background-color $bdGray
+			content ""

@@ -5,19 +5,21 @@ import {connect} from "react-redux";
 import classNames from "classnames";
 import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
+import Search from "../../components/Search";
 import {alert, confirm} from "../../components/Dialog";
 import {basis, setSlideOnBar} from "../../actions";
-import {setArticles, removeArticle} from "../../actions/home";
+import {setArticles, removeArticle, search, setRecommendations, clearHistory} from "../../actions/home";
 import {Time} from "../../utils";
 try{
 	require("../../styles/home");
 }catch(e){}
 @connect(({me, home, core}) => ({
 	use: me.user,
-	articles: home.articles
+	...home
 }), dispatch => bindActionCreators({
 	...basis,
-	setSlideOnBar
+	setSlideOnBar,
+	clearHistory
 }, dispatch))
 @connect()
 export default class Home extends Component{
@@ -27,17 +29,17 @@ export default class Home extends Component{
 	state = {
 		ending: 0
 	};
-	async componentWillMount(){
+	async componentDidMount(){
 		const {
+			dispatch,
 			setTitle,
-			setHeaderLeftButton,
-			setHeaderRightButton,
+			setHeaderType,
 			setFooterType
 		} = this.props;
 		setTitle("首页 | Punchy");
-		setHeaderLeftButton();
-		setHeaderRightButton();
+		setHeaderType();
 		setFooterType(1);
+		dispatch(await setRecommendations(3));
 	}
 	componentWillReceiveProps(nextProps){
 		const nextLength = nextProps.articles.length,
@@ -48,6 +50,9 @@ export default class Home extends Component{
 		this.setState({
 			ending: articles.length == nextLength || nextLength % size
 		});
+	}
+	componentWillUnmount(){
+		this.props.setSlideOnBar([]);
 	}
 	async getData(index, isRefresh){
 		const {
@@ -97,13 +102,29 @@ export default class Home extends Component{
 			}
 		]);
 	}
+	async handleSearch(value){
+		try{
+			return this.props.dispatch(await search(value));
+		}catch(e){
+			alert(e);
+		}
+	}
 	render(){
+		const {
+			results,
+			recommendations,
+			histories,
+			clearHistory
+		} = this.props;
 		return (
-			<Scroller className="page home without-footer" loadData={::this.getData} ending={this.state.ending}>
-				{
-					this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={this.handleSlideOnBarOption.bind(this, article.id, i, article.author_id)} />)
-				}
-			</Scroller>
+			<div className="page home without-footer">
+				<Search handleSearch={::this.handleSearch} results={results} recommendations={recommendations} histories={histories} clearHistory={clearHistory} />
+				<Scroller loadData={::this.getData} ending={this.state.ending}>
+					{
+						this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={this.handleSlideOnBarOption.bind(this, article.id, i, article.author_id)} />)
+					}
+				</Scroller>
+			</div>
 		);
 	}
 }

@@ -1,15 +1,111 @@
 import React, {Component} from "react";
+import {Link} from "react-router-dom";
+import classNames from "classnames";
+try{
+	require("./search");
+}catch(e){}
 export default class Search extends Component{
+	state = {
+		editable: 0,
+		content: "",
+		results: []
+	};
 	handleCancel(){
-
+		this.setState({
+			editable: 0
+		});
 	}
-	render(){
+	showSearchPage(){
+		this.state.editable || this.setState({
+			editable: 1
+		});
+	}
+	async handleChange({target}){
+		const {value} = target;
+		this.setState({
+			content: value
+		});
+		value && this.props.handleSearch(value);
+	}
+	renderAdditions(){
+		const {
+			recommendations,
+			histories,
+			clearHistory
+		} = this.props;
 		return (
-			<div className="search">
-				<img src="/logo" alt="logo" />
-				<input className="search"/>
-				<a onClick={::this.handleCancel}>取消</a>
+			<div className={
+				classNames("search-addition", {
+					hidden: !this.state.editable
+				})
+			}>
+				<section>
+					<h1>热门推荐</h1>
+					{
+						recommendations.map(({id, title}) => <Link to={`/article/${id}`}>{title}</Link>)
+					}
+				</section>
+				{
+					histories.length ? 
+						<section>
+							<h1>
+								<strong>历史记录</strong>
+								{
+									clearHistory ? <icon className="small dustbin" onClick={clearHistory}></icon> : null
+								}
+							</h1>
+							{
+								histories.map(({id, title}) => <Link to={`/article/${id}`}>{title}</Link>)
+							}
+						</section>
+						: null
+				}
 			</div>
 		);
+	}
+	renderSearchResult(){
+		const {
+			editable,
+			content
+		} = this.state;
+		return (
+			<div className={
+				classNames("search-result", {
+					hidden: !(content && editable)
+				})
+			}>
+				{
+					this.props.results.map(({id, title}) => <Link to={`/article/${id}`}>{title}</Link>)
+				}
+			</div>
+		);
+	}
+	render(){
+		const {
+			editable,
+			content
+		} = this.state;
+		return [
+			<div className="search-header">
+				<img className={
+					classNames("logo", {
+						hidden: editable
+					})
+				} src="/logo.svg" alt="logo" />
+				<input type="text" className={
+					classNames("search", {
+						shrink: !editable,
+						expand: editable
+					})
+				} onFocus={::this.showSearchPage} placeholder={(this.props.recommendations[0] || {}).title} onChange={::this.handleChange} />
+				<a className={
+					classNames("cancel", {
+						display: editable
+					})
+				} onClick={::this.handleCancel}>取消</a>
+			</div>,
+			this.renderAdditions(),
+			this.renderSearchResult()
+		];
 	}
 }

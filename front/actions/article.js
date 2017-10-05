@@ -57,3 +57,7 @@ export const saySix = id => asyncFormAction({
 	type: "SIX_ARTICLE",
 	value: data
 }))();
+export const appendHistory = article => ({
+	type: "VIEWED_HISTORY",
+	value: article
+});
