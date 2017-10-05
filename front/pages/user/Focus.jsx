@@ -22,7 +22,7 @@ export default class Focus extends Component{
 	state = {
 		ending: 0
 	};
-	async componentWillMount(){
+	componentDidMount(){
 		const {
 			setTitle,
 			setHeaderLeftButton,

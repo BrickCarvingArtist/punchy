@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import classNames from "classnames";
 import {alert} from "../../components/Dialog";
 import {basis} from "../../actions";
-import {getDetail, getUserRelationsToArticle, addFavorite, saySix} from "../../actions/article";
+import {getDetail, getUserRelationsToArticle, addFavorite, saySix, appendHistory} from "../../actions/article";
 import {Time, copy} from "../../utils";
 @connect(({article, articleRelation, router}) => {
 	let id;
@@ -18,13 +18,16 @@ import {Time, copy} from "../../utils";
 		...article[id],
 		...articleRelation[id]
 	};
-}, dispatch => bindActionCreators(basis, dispatch))
+}, dispatch => bindActionCreators({
+	...basis,
+	appendHistory
+}, dispatch))
 @connect()
 export default class Detail extends Component{
 	state = {
 		isHold: 0
 	};
-	async componentWillMount(){
+	async componentDidMount(){
 		const {
 			dispatch,
 			setTitle,
@@ -48,6 +51,14 @@ export default class Detail extends Component{
 		try{
 			dispatch(await getDetail(id));
 			dispatch(await getUserRelationsToArticle(id));
+			const {
+				appendHistory,
+				title
+			} = this.props;
+			appendHistory({
+				id,
+				title
+			});
 		}catch(e){
 			alert(e);
 		}

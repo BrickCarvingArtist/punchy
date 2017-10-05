@@ -1,16 +1,14 @@
 import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {Link, Switch} from "react-router-dom";
-import classNames from "classnames";
-import {basis, setSlideOnBar} from "../../actions";
-import {setMyArticles, removeMyArticle} from "../../actions/user";
-import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
+import Scroller from "../../components/Scroller";
 import {alert, confirm} from "../../components/Dialog";
-@connect(({me, user}) => ({
-	user: me.tel || 19999999999,
-	articles: user.articles
+import {basis, setSlideOnBar} from "../../actions";
+import {setArticles, removeArticle} from "../../actions/article";
+@connect(({article, me}) => ({
+	user: me.tel,
+	articles: article.articles
 }), dispatch => bindActionCreators({
 	...basis,
 	setSlideOnBar
@@ -26,14 +24,12 @@ export default class Article extends Component{
 	componentDidMount(){
 		const {
 			setTitle,
-			setHeaderLeftButton,
-			setHeaderRightButton,
+			setHeaderType,
 			setFooterType
 		} = this.props;
-		setTitle("我的文章");
-		setHeaderLeftButton("back");
-		setHeaderRightButton();
-		setFooterType();
+		setTitle("所有文章");
+		setHeaderType(1);
+		setFooterType(1);
 	}
 	componentWillReceiveProps(nextProps){
 		const nextLength = nextProps.articles.length,
@@ -48,27 +44,24 @@ export default class Article extends Component{
 	async getData(index, isRefresh){
 		const {
 			dispatch,
-			size,
-			user
+			size
 		} = this.props;
 		try{
-			dispatch(await setMyArticles({
-				author: user,
+			dispatch(await setArticles({
 				index,
 				size
-			}, isRefresh)) || this.setState({
-				ending: 1
-			});
+			}, isRefresh));
 		}catch(e){
 			alert(e);
 		}
 	}
-	handleSlideOnBarOption(articleId, index){
+	handleSlideOnBarOption(articleId, index, author){
 		const {
 			dispatch,
-			setSlideOnBar
+			setSlideOnBar,
+			user
 		} = this.props;
-		setSlideOnBar([
+		setSlideOnBar(author == user ? [
 			{
 				name: "编辑",
 				to: `/article/edit/${articleId}`
@@ -78,24 +71,30 @@ export default class Article extends Component{
 				onClick(){
 					confirm("确认删除这篇文章？", async () => {
 						try{
-							dispatch(await removeMyArticle(articleId, index)).ok && alert("操作成功");
+							dispatch(await removeArticle(articleId, index)).ok && alert("操作成功");
 						}catch(e){
 							alert(e);
 						}
 					});
 				}
 			}
+		] : [
+			{
+				name: "举报",
+				onClick(){
+					alert("举报成功");
+				}
+			}
 		]);
 	}
+	componentWillUnmount(){
+		this.props.setSlideOnBar([]);
+	}
 	render(){
-		const {
-			setSlideOnBar,
-			articles
-		} = this.props;
 		return (
-			<Scroller className="page with-footer" loadData={::this.getData} ending={this.state.ending}>
+			<Scroller className="page article without-footer" loadData={::this.getData} ending={this.state.ending}>
 				{
-					articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={this.handleSlideOnBarOption.bind(this, article.id, i)} />)
+					this.props.articles.map((article, i) => <ArticleSection key={i} {...article} handleOption={this.handleSlideOnBarOption.bind(this, article.id, i, article.author_id)} />)
 				}
 			</Scroller>
 		);

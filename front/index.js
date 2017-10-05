@@ -1,5 +1,5 @@
 import React from "react";
-import {render} from "react-dom";
+import {hydrate} from "react-dom";
 import {createStore, combineReducers, applyMiddleware} from "redux";
 import {Provider} from "react-redux";
 import {ConnectedRouter, routerReducer, routerMiddleware} from "react-router-redux";
@@ -18,7 +18,7 @@ store.subscribe(() => {
 	localStorage.ik_punchy = JSON.stringify(states);
 	console.log(states);
 });
-render(
+hydrate(
 	<Provider store={store}>
 		<ConnectedRouter history={history}>
 			<App />

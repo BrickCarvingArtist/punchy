@@ -1,16 +1,13 @@
 import React, {Component} from "react";
 import {NavLink, withRouter} from "react-router-dom";
-import {connect} from "react-redux";
 import classNames from "classnames";
 try{
 	require("./footer");
 }catch(e){}
 @withRouter
-@connect(({core}) => ({
-	footerType: core.footerType
-}))
 export default class Footer extends Component{
 	static defaultProps = {
+		footerType: 1,
 		entrances: [
 			{
 				icon: "home",
@@ -47,7 +44,7 @@ export default class Footer extends Component{
 		return (
 			<footer className={
 				classNames({
-					fixed: footerType
+					hidden: !footerType
 				})
 			}>
 				{

@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
 import {Link, withRouter} from "react-router-dom";
 import classNames from "classnames";
 try{
@@ -34,12 +33,6 @@ const Button = ({icon, label, to, onClick = function(){}, level = 0}) => {
 	return <icon></icon>;
 };
 @withRouter
-@connect(({core}) => ({
-	title: core.title,
-	headerLeftButton: core.headerLeftButton,
-	headerRightButton: core.headerRightButton,
-	headerType: core.headerType
-}))
 export default class Header extends Component{
 	static defaultProps = {
 		headerType: 1
@@ -51,7 +44,9 @@ export default class Header extends Component{
 			headerType,
 			title
 		} = this.props;
-		let {headerLeftButton} = this.props;
+		let {
+			headerLeftButton
+		} = this.props;
 		headerLeftButton === "back" && (headerLeftButton = {
 			icon: "medium back",
 			onClick(){
@@ -61,7 +56,7 @@ export default class Header extends Component{
 		return (
 			<header className={
 				classNames({
-					hidden: !headerType
+					hidden: !(headerType || Reflect.ownKeys(headerLeftButton).length || Reflect.ownKeys(headerRightButton).length)
 				})
 			}>
 				<Button {...headerLeftButton} />
@@ -70,4 +65,4 @@ export default class Header extends Component{
 			</header>
 		);
 	}
-};
+}

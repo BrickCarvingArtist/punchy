@@ -25,7 +25,7 @@ export default class Article extends Component{
 	state = {
 		ending: 0
 	};
-	componentWillMount(){
+	componentDidMount(){
 		const {
 			setTitle,
 			setHeaderLeftButton,

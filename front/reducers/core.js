@@ -23,6 +23,8 @@ export default (state = {
 	case "HEADER_TYPE":
 		return {
 			...state,
+			headerLeftButton: {},
+			headerRightButton: {},
 			headerType: value
 		};
 	case "FOOTER_TYPE":

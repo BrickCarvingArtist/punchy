@@ -47,9 +47,9 @@ export const routes = [
 	}
 ];
 @withRouter
-@connect()
+@connect(({core}) => core)
 export default class App extends Component{
-	async componentWillMount(){
+	async componentDidMount(){
 		const {dispatch} = this.props;
 		try{
 			dispatch(await setUser());
@@ -59,16 +59,24 @@ export default class App extends Component{
 		}
 	}
 	render(){
+		const {
+			title,
+			headerLeftButton,
+			headerRightButton,
+			headerType,
+			footerType,
+			slideOnBars
+		} = this.props;
 		return (
 			<main>
-				<Header />
+				<Header title={title} headerLeftButton={headerLeftButton} headerRightButton={headerRightButton} headerType={headerType} />
+				<Footer footerType={footerType} />
 				<Switch>
 					{
 						routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
 					}
 				</Switch>
-				<Footer />
-				<SlideOnBar />
+				<SlideOnBar bars={slideOnBars} />
 				<Dialog />
 			</main>
 		);

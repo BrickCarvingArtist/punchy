@@ -1,13 +1,9 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import {connect} from "react-redux";
 import classNames from "classnames";
 try{
 	require("./slide_on_bar");
 }catch(e){}
-@connect(({core}) => ({
-	bars: core.slideOnBars
-}))
 export default class SlideOnBar extends Component{
 	state = {
 		display: 0

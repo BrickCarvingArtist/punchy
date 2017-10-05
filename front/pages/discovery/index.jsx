@@ -8,16 +8,18 @@ try{
 }catch(e){}
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class User extends Component{
-	componentWillMount(){
+	componentDidMount(){
 		const {
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
+			setHeaderType,
 			setFooterType
 		} = this.props;
 		setTitle("发现");
 		setHeaderLeftButton();
 		setHeaderRightButton();
+		setHeaderType(1);
 		setFooterType(1);
 	}
 	render(){

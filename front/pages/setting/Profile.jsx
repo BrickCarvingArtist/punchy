@@ -13,7 +13,7 @@ export default class User extends Component{
 	static defaultProps = {
 		name: ""
 	};
-	componentWillMount(){
+	componentDidMount(){
 		const {
 			dispatch,
 			setTitle,
@@ -48,9 +48,6 @@ export default class User extends Component{
 			}
 		});
 		setFooterType();
-	}
-	componentWillUnmount(){
-		this.props.setHeaderRightButton();
 	}
 	componentDidMount(){
 		const {input} = this;

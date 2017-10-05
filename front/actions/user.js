@@ -20,7 +20,7 @@ export const updateMyFavorites = value => ({
 	type: "UPDATE_MY_FAVORITES",
 	value
 });
-export const getAuthorProfile = author => asyncAction({
+export const setAuthorProfile = author => asyncAction({
 	path: `/api/profile/${author}`
 }, data => ({
 	type: "AUTHOR_PROFILE",

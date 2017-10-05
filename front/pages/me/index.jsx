@@ -18,11 +18,7 @@ const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
 		<icon className="small go"></icon>
 	</Link>
 );
-@connect(({core, me}) => ({
-	tel: me.tel,
-	name: me.name,
-	avatar: me.avatar
-}), dispatch => bindActionCreators(basis, dispatch))
+@connect(({me}) => me, dispatch => bindActionCreators(basis, dispatch))
 export default class Me extends Component{
 	static defaultProps = {
 		entrances: [
@@ -63,7 +59,7 @@ export default class Me extends Component{
 			]
 		]
 	};
-	componentWillMount(){
+	componentDidMount(){
 		const {
 			setTitle,
 			setHeaderLeftButton,

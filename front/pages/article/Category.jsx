@@ -15,7 +15,7 @@ export default class Category extends Component{
 	state = {
 		supLabel: undefined
 	};
-	componentWillMount(){
+	componentDidMount(){
 		const {
 			setTitle,
 			setHeaderLeftButton,

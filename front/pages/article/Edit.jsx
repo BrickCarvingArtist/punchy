@@ -23,7 +23,7 @@ try{
 }, dispatch))
 @connect()
 class Editor extends Component{
-	async componentWillMount(){
+	async componentDidMount(){
 		const {
 			dispatch,
 			setTitle,
