@@ -48,7 +48,7 @@ export default class Header extends Component{
 			headerLeftButton
 		} = this.props;
 		headerLeftButton === "back" && (headerLeftButton = {
-			icon: "medium back",
+			icon: "back",
 			onClick(){
 				history.goBack();
 			}
