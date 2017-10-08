@@ -1,5 +1,4 @@
 import {goBack} from "react-router-redux";
-import {store} from "../store";
 export default (state = {
 	headerType: 1,
 	headerLeftButton: {},
@@ -20,7 +19,7 @@ export default (state = {
 			value === "back" && (value = {
 				icon: "back",
 				onClick(){
-					store.dispatch(goBack());
+					require("../store").store.dispatch(goBack());
 				}
 			});
 			return {
