@@ -13,8 +13,8 @@ import {Time} from "../../utils";
 try{
 	require("../../styles/home");
 }catch(e){}
-@connect(({me, home, core}) => ({
-	use: me.user,
+@connect(({me, home}) => ({
+	user: me.tel,
 	...home
 }), dispatch => bindActionCreators({
 	...basis,
