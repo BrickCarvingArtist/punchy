@@ -27,13 +27,11 @@ export default class Article extends Component{
 		const {
 			setTitle,
 			setHeaderLeftButton,
-			setHeaderRightButton,
-			setFooterType
+			setHeaderRightButton
 		} = this.props;
 		setTitle("我的文章");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
-		setFooterType();
 	}
 	componentWillReceiveProps(nextProps){
 		const nextLength = nextProps.articles.length,

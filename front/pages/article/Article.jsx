@@ -24,12 +24,10 @@ export default class Article extends Component{
 	componentDidMount(){
 		const {
 			setTitle,
-			setHeaderType,
-			setFooterType
+			setHeaderType
 		} = this.props;
 		setTitle("所有文章");
 		setHeaderType(1);
-		setFooterType(1);
 	}
 	componentWillReceiveProps(nextProps){
 		const nextLength = nextProps.articles.length,

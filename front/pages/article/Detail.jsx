@@ -33,7 +33,6 @@ export default class Detail extends Component{
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			setFooterType,
 			id
 		} = this.props;
 		setTitle("文章详情页");
@@ -47,7 +46,6 @@ export default class Detail extends Component{
 				}catch(e){}
 			}
 		});
-		setFooterType();
 		try{
 			dispatch(await getDetail(id));
 			dispatch(await getUserRelationsToArticle(id));

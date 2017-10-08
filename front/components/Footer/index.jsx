@@ -7,7 +7,6 @@ try{
 @withRouter
 export default class Footer extends Component{
 	static defaultProps = {
-		footerType: 1,
 		entrances: [
 			{
 				icon: "home",
@@ -37,14 +36,16 @@ export default class Footer extends Component{
 	};
 	render(){
 		const {
-			location,
-			footerType,
-			entrances
-		} = this.props;
+				location,
+				entrances
+			} = this.props,
+			{
+				pathname
+			} = location;
 		return (
 			<footer className={
 				classNames({
-					hidden: !footerType
+					hidden: !entrances.some(({to}) => to === pathname)
 				})
 			}>
 				{
@@ -52,7 +53,7 @@ export default class Footer extends Component{
 						<NavLink key={i} to={to} exact>
 							<icon className={
 								classNames("big", icon, {
-									"active": location.pathname === to
+									"active": pathname === to
 								})
 							}></icon>
 							<strong>{label}</strong>

@@ -1,20 +1,33 @@
+import {goBack} from "react-router-redux";
+import {store} from "../store";
 export default (state = {
+	headerType: 1,
 	headerLeftButton: {},
 	headerRightButton: {},
 	slideOnBars: []
 }, {type, value}) => {
 	switch(type){
 	case "PAGE_TITLE":
-		process.title === "node" || (document.title = value);
+		try{
+			document.title = value;
+		}catch(e){}
 		return {
 			...state,
 			title: value
 		};
 	case "HEADER_LEFT_BUTTON":
-		return {
-			...state,
-			headerLeftButton: value
-		};
+		return function(){
+			value === "back" && (value = {
+				icon: "back",
+				onClick(){
+					store.dispatch(goBack());
+				}
+			});
+			return {
+				...state,
+				headerLeftButton: value
+			};
+		}();
 	case "HEADER_RIGHT_BUTTON":
 		return {
 			...state,
@@ -26,11 +39,6 @@ export default (state = {
 			headerLeftButton: {},
 			headerRightButton: {},
 			headerType: value
-		};
-	case "FOOTER_TYPE":
-		return {
-			...state,
-			footerType: value
 		};
 	case "SLIDE_ON_BARS":
 		return {

@@ -16,12 +16,11 @@ export const basis = {
 	setHeaderType: (value = 0) => ({
 		type: "HEADER_TYPE",
 		value
-	}),
-	setFooterType: (value = 0) => ({
-		type: "FOOTER_TYPE",
-		value
 	})
 };
+export const clearCaches = () => ({
+	type: "CLEAR_CACHES"
+});
 export const setSlideOnBar = value => ({
 	type: "SLIDE_ON_BARS",
 	value

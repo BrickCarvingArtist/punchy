@@ -33,12 +33,10 @@ export default class Home extends Component{
 		const {
 			dispatch,
 			setTitle,
-			setHeaderType,
-			setFooterType
+			setHeaderType
 		} = this.props;
 		setTitle("首页 | Punchy");
 		setHeaderType();
-		setFooterType(1);
 		dispatch(await setRecommendations(3));
 	}
 	componentWillReceiveProps(nextProps){

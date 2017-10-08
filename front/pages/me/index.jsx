@@ -50,12 +50,12 @@ export default class Me extends Component{
 					icon: "about",
 					label: "关于我们",
 					to: "/about"
-				},
+				}/*,
 				{
 					icon: "help",
 					label: "帮助中心",
 					to: "/help"
-				}
+				}*/
 			]
 		]
 	};
@@ -63,8 +63,7 @@ export default class Me extends Component{
 		const {
 			setTitle,
 			setHeaderLeftButton,
-			setHeaderRightButton,
-			setFooterType
+			setHeaderRightButton
 		} = this.props;
 		setTitle("我的");
 		setHeaderLeftButton();
@@ -72,7 +71,6 @@ export default class Me extends Component{
 			label: "设置",
 			to: "/setting"
 		});
-		setFooterType(1);
 	}
 	render(){
 		const {

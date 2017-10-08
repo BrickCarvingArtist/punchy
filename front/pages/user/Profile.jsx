@@ -36,12 +36,10 @@ export default class Profile extends Component{
 		const {
 			setTitle,
 			setHeaderType,
-			setFooterType,
 			author
 		} = this.props;
 		setTitle(`${author}的个人主页`);
 		setHeaderType();
-		setFooterType();
 		this.setAuthorProfile();
 	}
 	componentWillReceiveProps(nextProps){

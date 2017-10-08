@@ -19,7 +19,6 @@ export default class User extends Component{
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			setFooterType,
 			history
 		} = this.props;
 		setTitle("新用户名");
@@ -47,7 +46,6 @@ export default class User extends Component{
 				}
 			}
 		});
-		setFooterType();
 	}
 	componentDidMount(){
 		const {input} = this;

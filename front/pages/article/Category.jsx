@@ -19,13 +19,11 @@ export default class Category extends Component{
 		const {
 			setTitle,
 			setHeaderLeftButton,
-			setHeaderRightButton,
-			setFooterType
+			setHeaderRightButton
 		} = this.props;
 		setTitle("选择类目");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
-		setFooterType();
 	}
 	saveAll(sup_label, sub_label){
 		const {

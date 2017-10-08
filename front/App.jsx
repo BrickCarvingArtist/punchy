@@ -16,6 +16,9 @@ import Other from "./pages/other";
 import {setUser} from "./actions";
 import {setCategory} from "./actions/article";
 import {RouteWithSubRoutes} from "./utils";
+try{
+	require("./styles");
+}catch(e){}
 export const routes = [
 	{
 		path: "/",
@@ -64,21 +67,18 @@ export default class App extends Component{
 			headerLeftButton,
 			headerRightButton,
 			headerType,
-			footerType,
 			slideOnBars
 		} = this.props;
-		return (
-			<main>
-				<Header title={title} headerLeftButton={headerLeftButton} headerRightButton={headerRightButton} headerType={headerType} />
-				<Footer footerType={footerType} />
-				<Switch>
-					{
-						routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
-					}
-				</Switch>
-				<SlideOnBar bars={slideOnBars} />
-				<Dialog />
-			</main>
-		);
+		return [
+			<Header title={title} headerLeftButton={headerLeftButton} headerRightButton={headerRightButton} headerType={headerType} />,
+			<Footer />,
+			<Switch>
+				{
+					routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
+				}
+			</Switch>,
+			<SlideOnBar bars={slideOnBars} />,
+			<Dialog />
+		];
 	}
 }

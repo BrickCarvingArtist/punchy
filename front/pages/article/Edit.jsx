@@ -29,7 +29,6 @@ class Editor extends Component{
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			setFooterType,
 			match,
 			clearDraft,
 			history
@@ -59,7 +58,6 @@ class Editor extends Component{
 				}
 			}
 		});
-		setFooterType();
 		if(+id){
 			try{
 				dispatch(await getDetail(id));

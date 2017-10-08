@@ -8,13 +8,11 @@ export default class NotFound extends Component{
 		const {
 			setTitle,
 			setHeaderLeftButton,
-			setHeaderRightButton,
-			setFooterType
+			setHeaderRightButton
 		} = this.props;
 		setTitle("走丢了");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
-		setFooterType();
 	}
 	render(){
 		return (

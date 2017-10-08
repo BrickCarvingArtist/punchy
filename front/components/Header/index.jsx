@@ -5,7 +5,7 @@ try{
 	require("./header");
 }catch(e){}
 const LEVELS = ["normal", "blue", "red"];
-const Button = ({icon, label, to, onClick = function(){}, level = 0}) => {
+const Button = ({icon, label, to, onClick = function(){}, level = 0, history}) => {
 	if(icon){
 		if(to){
 			return (
@@ -32,27 +32,14 @@ const Button = ({icon, label, to, onClick = function(){}, level = 0}) => {
 	}
 	return <icon></icon>;
 };
-@withRouter
-export default class Header extends Component{
-	static defaultProps = {
-		headerType: 1
-	};
+class Header extends Component{
 	render(){
 		const {
-			history,
+			headerLeftButton,
 			headerRightButton,
 			headerType,
 			title
 		} = this.props;
-		let {
-			headerLeftButton
-		} = this.props;
-		headerLeftButton === "back" && (headerLeftButton = {
-			icon: "back",
-			onClick(){
-				history.goBack();
-			}
-		});
 		return (
 			<header className={
 				classNames({
@@ -66,3 +53,4 @@ export default class Header extends Component{
 		);
 	}
 }
+export default withRouter(Header);

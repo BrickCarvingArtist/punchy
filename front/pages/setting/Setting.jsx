@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import classNames from "classnames";
 import {parse} from "querystring";
 import {alert} from "../../components/Dialog";
-import {basis} from "../../actions";
+import {basis, clearCaches} from "../../actions";
 import {setAvatar} from "../../actions/setting";
 import {SERVER_NAME, AUTH_SERVER} from "../../configs";
 try{
@@ -14,15 +14,17 @@ try{
 @connect(({core, me}) => ({
 	name: me.name,
 	avatar: me.avatar || "/avatars/avatar.png"
-}), dispatch => bindActionCreators(basis, dispatch))
+}), dispatch => bindActionCreators({
+	...basis,
+	clearCaches
+}, dispatch))
 @connect()
 export default class Setting extends Component{
 	componentDidMount(){
 		const {
 			setTitle,
 			setHeaderLeftButton,
-			setHeaderRightButton,
-			setFooterType
+			setHeaderRightButton
 		} = this.props;
 		setTitle("设置");
 		setHeaderLeftButton({
@@ -30,7 +32,6 @@ export default class Setting extends Component{
 			to: "/me"
 		});
 		setHeaderRightButton();
-		setFooterType();
 	}
 	async handleAvatar(e){
 		const file = new FormData();
@@ -43,8 +44,8 @@ export default class Setting extends Component{
 		}
 	}
 	clearCaches(){
-		const {length} = localStorage.ik_punchy;
-		localStorage.clear();
+		const {length} = JSON.stringify(localStorage);
+		this.props.clearCaches();
 		alert(`已为您清除${length / 1000}KB缓存`);
 	}
 	render(){

@@ -13,14 +13,12 @@ export default class User extends Component{
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			setHeaderType,
-			setFooterType
+			setHeaderType
 		} = this.props;
 		setTitle("发现");
 		setHeaderLeftButton();
 		setHeaderRightButton();
 		setHeaderType(1);
-		setFooterType(1);
 	}
 	render(){
 		return (

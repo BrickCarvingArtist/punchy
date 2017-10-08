@@ -26,13 +26,11 @@ export default class Focus extends Component{
 		const {
 			setTitle,
 			setHeaderLeftButton,
-			setHeaderRightButton,
-			setFooterType
+			setHeaderRightButton
 		} = this.props;
 		setTitle("我的关注");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
-		setFooterType();
 	}
 	componentWillReceiveProps(nextProps){
 		const nextLength = nextProps.data.length,
