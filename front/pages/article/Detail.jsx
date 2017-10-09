@@ -7,22 +7,24 @@ import {alert} from "../../components/Dialog";
 import {basis} from "../../actions";
 import {getDetail, getUserRelationsToArticle, addFavorite, saySix, appendHistory} from "../../actions/article";
 import {Time, copy} from "../../utils";
-@connect(({article, articleRelation, router}) => {
-	let id;
-	try{
-		id = router.location.pathname.match(/\d+/)[0];
-	}catch(e){}
+@connect(({article, articleRelation}) => ({
+	article,
+	articleRelation
+}), dispatch => bindActionCreators({
+	...basis,
+	appendHistory,
+	dispatch
+}, dispatch), ({article, articleRelation}, dispatchProps, ownProps) => {
+	const {id} = ownProps.match.params;
 	return {
 		category: article.category,
 		id,
 		...article[id],
-		...articleRelation[id]
+		...articleRelation[id],
+		...dispatchProps,
+		...ownProps
 	};
-}, dispatch => bindActionCreators({
-	...basis,
-	appendHistory
-}, dispatch))
-@connect()
+})
 export default class Detail extends Component{
 	state = {
 		isHold: 0
@@ -41,9 +43,7 @@ export default class Detail extends Component{
 			label: "分享",
 			level: 1,
 			onClick(){
-				try{
-					copy(location.href) && alert("文章地址已成功复制到剪贴板");
-				}catch(e){}
+				copy(location.href) && alert("文章地址已成功复制到剪贴板");
 			}
 		});
 		try{
@@ -67,7 +67,6 @@ export default class Detail extends Component{
 	render(){
 		const {
 			dispatch,
-			match,
 			category,
 			id,
 			title,
@@ -81,7 +80,7 @@ export default class Detail extends Component{
 			favorite,
 			thumb,
 		} = this.props;
-		const supLabel = category[sup_label] || {sub:[]};
+		const supLabel = category[sup_label];
 		return (
 			<article className="page detail with-footer" onScroll={
 				() => {

@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {Link, Switch} from "react-router-dom";
+import {push} from "react-router-redux";
 import classNames from "classnames";
-import {pick} from "lodash/core";
 import {alert} from "../../components/Dialog";
 import {basis} from "../../actions";
 import {getDetail} from "../../actions/article";
@@ -19,9 +19,19 @@ try{
 }), dispatch => bindActionCreators({
 	...basis,
 	saveAll,
-	clearDraft
-}, dispatch))
-@connect()
+	clearDraft,
+	dispatch
+}, dispatch), ({article, editor}, dispatchProps, ownProps) => {
+	const {id} = ownProps.match.params;
+	return {
+		category: article.category,
+		id,
+		...article[id],
+		...editor[id],
+		...dispatchProps,
+		...ownProps
+	};
+})
 class Editor extends Component{
 	async componentDidMount(){
 		const {
@@ -29,17 +39,24 @@ class Editor extends Component{
 			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
-			match,
-			clearDraft,
-			history
+			id,
+			title,
+			sup_label,
+			sub_label,
+			content,
+			clearDraft
 		} = this.props;
-		const {id} = match.params;
 		setTitle("编辑文章");
 		setHeaderLeftButton("back");
 		setHeaderRightButton({
 			label: "发表",
 			onClick: async () => {
-				const article = this.props.editor[id] || {};
+				const article = {
+					title,
+					sup_label,
+					sub_label,
+					content
+				};
 				if(!this.validate(article)){
 					return;
 				}
@@ -51,34 +68,38 @@ class Editor extends Component{
 					if(ok){
 						alert("发表成功");
 						clearDraft(id);
-						history.push("/article");
+						dispatch(push("/article"));
 					}
 				}catch(e){
 					alert(e);
 				}
 			}
 		});
-		if(+id){
-			try{
-				dispatch(await getDetail(id));
-				this.saveAll();
-			}catch(e){
-				alert(e);
-			}
+		try{
+			dispatch(await getDetail(id));
+			this.saveAll();
+		}catch(e){
+			alert(e);
 		}
 	}
 	saveAll(obj){
 		const {
-			saveAll,
-			article,
-			editor,
-			match
-		} = this.props;
-		const {id} = match.params;
-		saveAll(Object.assign(pick(article[id], ["id", "title", "sup_label", "sub_label", "content"]), editor[id], {
 			id,
+			title,
+			sup_label,
+			sub_label,
+			content,
+			saveAll
+		} = this.props;
+		saveAll({
+			id,
+			title,
+			sup_label,
+			sub_label,
+			content,
+			saveAll,
 			...obj
-		}));
+		});
 	}
 	validate({title, sup_label, sub_label, content}){
 		if(!/^\S{1,40}$/.test(title)){
@@ -94,18 +115,15 @@ class Editor extends Component{
 	}
 	render(){
 		const {
-			saveLabels,
-			match,
-			editor
-		} = this.props;
-		const {id} = match.params;
-		const {
+			category,
+			id,
 			title,
 			sup_label,
 			sub_label,
-			content
-		} = editor[id] || {};
-		const setting = this.props.article.category[sup_label];
+			content,
+			saveLabels
+		} = this.props;
+		const setting = category[sup_label];
 		return (
 			<article className="page article-editor with-footer">
 				<input type="text" className="full" maxLength="40" placeholder="请输入标题" value={title} onChange={
@@ -153,8 +171,8 @@ const routes = [
 ];
 export default () => (
 	<Switch>
-	{
-		routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
-	}
+		{
+			routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
+		}
 	</Switch>
 );

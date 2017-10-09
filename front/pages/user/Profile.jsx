@@ -10,21 +10,22 @@ import {setAuthorProfile, setAuthorArticles, focus} from "../../actions/user";
 try{
 	require("../../styles/user");
 }catch(e){}
-@connect(({user, router}) => {
-	let id;
-	try{
-		id = router.location.pathname.match(/\d+/)[0];
-	}catch(e){}
-	return {
-		author: id,
-		articles: [],
-		...user[id]
-	};
-}, dispatch => bindActionCreators({
+@connect(({user}) => ({
+	user
+}), dispatch => bindActionCreators({
 	...basis,
-	setSlideOnBar
-}, dispatch))
-@connect()
+	setSlideOnBar,
+	dispatch
+}, dispatch), ({user}, dispatchProps, ownProps) => {
+	const {id} = ownProps.match.params;
+	return {
+		...user,
+		...user[id],
+		author: id,
+		...dispatchProps,
+		...ownProps
+	};
+})
 export default class Profile extends Component{
 	static defaultProps = {
 		size: 10
@@ -36,9 +37,10 @@ export default class Profile extends Component{
 		const {
 			setTitle,
 			setHeaderType,
-			author
+			author,
+			name
 		} = this.props;
-		setTitle(`${author}的个人主页`);
+		setTitle(`${name || author}的个人主页`);
 		setHeaderType();
 		this.setAuthorProfile();
 	}
