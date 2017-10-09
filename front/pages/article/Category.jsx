@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import classNames from "classnames";
-import {pick} from "lodash/core";
 import {basis} from "../../actions";
 import {saveAll} from "../../actions/editor";
 @connect(({article}) => ({
