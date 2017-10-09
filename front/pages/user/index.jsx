@@ -6,23 +6,54 @@ import MyArticle from "./Article";
 import MyFavorite from "./Favorite";
 import MyFocus from "./Focus";
 import NotFound from "../other/NotFound";
-const routes = [
+import {setAuthorProfile, setAuthorArticles, setMyFavorites, setMyFocuses} from "../../actions/user";
+export const routes = [
 	{
 		path: "/u/:id",
 		exact: true,
-		component: Profile
+		component: Profile,
+		async fetchData({dispatch}, {params}){
+			const {id} = params;
+			dispatch(await setAuthorProfile(id));
+			dispatch(await setAuthorArticles({
+				author: id,
+				index: 0,
+				size: 10
+			}, 1));
+		}
 	},
 	{
 		path: "/u/:id/article",
-		component: MyArticle
+		component: MyArticle,
+		async fetchData({dispatch}, {params}){
+			dispatch(await setMyArticles({
+				author: params.id,
+				index: 0,
+				size: 10
+			}, 1));
+		}
 	},
 	{
 		path: "/u/:id/favorite",
-		component: MyFavorite
+		component: MyFavorite,
+		async fetchData({dispatch}, {params}){
+			dispatch(await setMyFavorites({
+				user_id: params.id,
+				index: 0,
+				size: 10
+			}, 1));
+		}
 	},
 	{
 		path: "/u/:id/focus",
-		component: MyFocus
+		component: MyFocus,
+		async fetchData({dispatch}, {params}){
+			dispatch(await setMyFocuses({
+				user_id: params.id,
+				index: 0,
+				size: 10
+			}, 1));
+		}
 	},
 	{
 		component: NotFound

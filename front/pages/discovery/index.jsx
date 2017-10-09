@@ -6,6 +6,7 @@ import {basis} from "../../actions";
 try{
 	require("../../styles/discovery");
 }catch(e){}
+export const routes = [];
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class User extends Component{
 	componentDidMount(){

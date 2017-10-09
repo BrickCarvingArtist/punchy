@@ -6,13 +6,13 @@ import Dialog from "./components/Dialog";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SlideOnBar from "./components/SlideOnBar";
-import Home from "./pages/home";
-import Article from "./pages/article";
-import Discovery from "./pages/discovery";
-import Me from "./pages/me";
-import User from "./pages/user";
-import Setting from "./pages/setting";
-import Other from "./pages/other";
+import Home, {routes as homeRoutes} from "./pages/home";
+import Article, {routes as articleRoutes} from "./pages/article";
+import Discovery, {routes as discoveryRoutes} from "./pages/discovery";
+import Me, {routes as meRoutes} from "./pages/me";
+import User, {routes as userRoutes} from "./pages/user";
+import Setting, {routes as settingRoutes} from "./pages/setting";
+import Other, {routes as otherRoutes} from "./pages/other";
 import {setUser} from "./actions";
 import {setCategory} from "./actions/article";
 import {RouteWithSubRoutes} from "./utils";
@@ -23,30 +23,46 @@ export const routes = [
 	{
 		path: "/",
 		exact: true,
-		component: Home
+		component: Home,
+		routes: homeRoutes,
+		async fetchData({dispatch}){
+			dispatch(await setCategory());
+		}
 	},
 	{
 		path: "/article",
-		component: Article
+		component: Article,
+		routes: articleRoutes,
+		async fetchData({dispatch}){
+			dispatch(await setCategory());
+		}
 	},
 	{
 		path: "/discovery",
-		component: Discovery
+		component: Discovery,
+		routes: discoveryRoutes
 	},
 	{
 		path: "/me",
-		component: Me
+		component: Me,
+		routes: meRoutes
 	},
 	{
 		path: "/setting",
-		component: Setting
+		component: Setting,
+		routes: settingRoutes
 	},
 	{
 		path: "/u/:id",
-		component: User
+		component: User,
+		routes: userRoutes,
+		async fetchData({dispatch}){
+			dispatch(await setCategory());
+		}
 	},
 	{
-		component: Other
+		component: Other,
+		routes: otherRoutes
 	}
 ];
 @withRouter

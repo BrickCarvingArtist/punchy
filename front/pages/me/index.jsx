@@ -8,6 +8,7 @@ import {SERVER_NAME, AUTH_SERVER} from "../../configs";
 try{
 	require("../../styles/me");
 }catch(e){}
+export const routes = [];
 const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
 	<Link className="entrance with-icon" to={tel ? `${to.replace(":id", tel)}` : to} onClick={onClick}>
 		<icon className={

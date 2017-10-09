@@ -13,15 +13,26 @@ import {Time} from "../../utils";
 try{
 	require("../../styles/home");
 }catch(e){}
+export const routes = [
+	{
+		path: "/",
+		async fetchData({dispatch}, match){
+			dispatch(await setArticles({
+				index: 0,
+				size: 10
+			}, 1));
+		}
+	}
+];
 @connect(({me, home}) => ({
 	user: me.tel,
 	...home
 }), dispatch => bindActionCreators({
 	...basis,
 	setSlideOnBar,
-	clearHistory
+	clearHistory,
+	dispatch
 }, dispatch))
-@connect()
 export default class Home extends Component{
 	static defaultProps = {
 		size: 10

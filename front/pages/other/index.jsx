@@ -5,7 +5,7 @@ import Info from "./Info";
 import About from "./About";
 import Help from "./Help";
 import NotFound from "./NotFound";
-const routes = [
+export const routes = [
 	{
 		path: "/info",
 		component: Info

@@ -5,19 +5,32 @@ import Article from "./Article";
 import Detail from "./Detail";
 import Edit from "./Edit";
 import NotFound from "../other/NotFound";
-const routes = [
+import {setArticles, getDetail} from "../../actions/article";
+export const routes = [
 	{
 		path: "/article",
 		exact: true,
-		component: Article
+		component: Article,
+		async fetchData({dispatch}){
+			dispatch(await setArticles({
+				index: 0,
+				size: 10
+			}, 1));
+		}
 	},
 	{
 		path: "/article/edit/:id",
-		component: Edit
+		component: Edit,
+		async fetchData({dispatch}, {params}){
+			dispatch(await getDetail(params.id));
+		}
 	},
 	{
 		path: "/article/:id",
-		component: Detail
+		component: Detail,
+		async fetchData({dispatch}, {params}){
+			dispatch(await getDetail(params.id));
+		}
 	},
 	{
 		component: NotFound

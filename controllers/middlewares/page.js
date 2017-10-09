@@ -15,7 +15,7 @@ const fetchBranchData = (store, path) => {
 		if(route.fetchData){
 			return route.fetchData(store, match);
 		}
-		return Promise.resolve(null);
+		return Promise.resolve();
 	});
 	return Promise.all(promises);
 };
@@ -34,12 +34,11 @@ export default () => async (ctx, next) => {
 	const {path} = ctx;
 	try{
 		await fetchBranchData(store, path);
-		const context = {};
 		const html = renderToString(
 			<Provider store={store}>
 				<StaticRouter
 					location={path}
-					context={context}
+					context={{}}
 				>
 					<App />
 				</StaticRouter>

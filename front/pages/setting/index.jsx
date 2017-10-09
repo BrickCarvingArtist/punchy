@@ -4,7 +4,7 @@ import {RouteWithSubRoutes} from "../../utils";
 import Setting from "./Setting";
 import Profile from "./Profile";
 import NotFound from "../other/NotFound";
-const routes = [
+export const routes = [
 	{
 		path: "/setting",
 		exact: true,

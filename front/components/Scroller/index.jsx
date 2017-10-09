@@ -13,10 +13,8 @@ export default class Scroller extends Component{
 		canloadable: 0,
 		loading: 0
 	};
-	componentWillMount(){
-		this.loadData(1);
-	}
 	componentDidMount(){
+		this.loadData(1);
 		window.addEventListener("scroll", this.scroll);
 	}
 	componentWillUnmount(){
