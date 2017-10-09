@@ -6,38 +6,11 @@ try{
 }catch(e){}
 @withRouter
 export default class Footer extends Component{
-	static defaultProps = {
-		entrances: [
-			{
-				icon: "home",
-				label: "首页",
-				to: "/"
-			},
-			{
-				icon: "article",
-				label: "文章",
-				to: "/article"
-			},
-			{
-				icon: "add",
-				to: "/article/edit/0"
-			},
-			{
-				icon: "discovery",
-				label: "发现",
-				to: "/discovery"
-			},
-			{
-				icon: "me",
-				label: "我的",
-				to: "/me"
-			}
-		]
-	};
 	render(){
 		const {
 				location,
-				entrances
+				entrances,
+				hiddenIndex
 			} = this.props,
 			{
 				pathname
@@ -45,7 +18,7 @@ export default class Footer extends Component{
 		return (
 			<footer className={
 				classNames({
-					hidden: !entrances.some(({to}) => to === pathname)
+					hidden: !entrances.some(({to}, i) => to === pathname && i !== hiddenIndex)
 				})
 			}>
 				{

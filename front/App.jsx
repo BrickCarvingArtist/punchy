@@ -87,14 +87,41 @@ export default class App extends Component{
 		} = this.props;
 		return [
 			<Header title={title} headerLeftButton={headerLeftButton} headerRightButton={headerRightButton} headerType={headerType} />,
-			<Footer />,
+			<Footer entrances={
+				[
+					{
+						icon: "home",
+						label: "首页",
+						to: "/"
+					},
+					{
+						icon: "article",
+						label: "文章",
+						to: "/article"
+					},
+					{
+						icon: "add",
+						to: "/article/edit/0"
+					},
+					{
+						icon: "discovery",
+						label: "发现",
+						to: "/discovery"
+					},
+					{
+						icon: "me",
+						label: "我的",
+						to: "/me"
+					}
+				]
+			} hiddenIndex={2} />,
 			<Switch>
 				{
 					routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
 				}
 			</Switch>,
 			<SlideOnBar bars={slideOnBars} />,
-			<Dialog />
+			<Dialog  />
 		];
 	}
 }
