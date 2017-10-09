@@ -7,8 +7,10 @@ import {basis} from "../../actions";
 import {updateUserName} from "../../actions/setting";
 @connect(({core, me}) => ({
 	name: me.name || ""
-}), dispatch => bindActionCreators(basis, dispatch))
-@connect()
+}), dispatch => bindActionCreators({
+	...basis,
+	dispatch
+}, dispatch))
 export default class User extends Component{
 	static defaultProps = {
 		name: ""
@@ -51,7 +53,7 @@ export default class User extends Component{
 		const {input} = this;
 		const {length} = this.props.name;
 		input.focus();
-		input.setSelectionRange(length, length);
+		input.setSelectionRange(0, length);
 	}
 	render(){
 		const {

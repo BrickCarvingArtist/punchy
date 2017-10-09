@@ -12,9 +12,9 @@ import {setMyFocuses, focus, updateMyFocuses} from "../../actions/user";
 }), dispatch => bindActionCreators({
 	...basis,
 	setSlideOnBar,
-	updateMyFocuses
+	updateMyFocuses,
+	dispatch
 }, dispatch))
-@connect()
 export default class Focus extends Component{
 	static defaultProps = {
 		size: 10

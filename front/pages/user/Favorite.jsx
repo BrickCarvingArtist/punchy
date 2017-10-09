@@ -15,9 +15,9 @@ import {alert} from "../../components/Dialog";
 }), dispatch => bindActionCreators({
 	...basis,
 	setSlideOnBar,
-	updateMyFavorites
+	updateMyFavorites,
+	dispatch
 }, dispatch))
-@connect()
 export default class Article extends Component{
 	static defaultProps = {
 		size: 10

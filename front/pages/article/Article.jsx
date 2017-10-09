@@ -11,9 +11,9 @@ import {setArticles, removeArticle} from "../../actions/article";
 	articles: article.articles
 }), dispatch => bindActionCreators({
 	...basis,
-	setSlideOnBar
+	setSlideOnBar,
+	dispatch
 }, dispatch))
-@connect()
 export default class Article extends Component{
 	static defaultProps = {
 		size: 10

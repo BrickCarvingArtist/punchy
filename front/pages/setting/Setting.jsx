@@ -16,9 +16,9 @@ try{
 	avatar: me.avatar || "/avatars/avatar.png"
 }), dispatch => bindActionCreators({
 	...basis,
-	clearCaches
+	clearCaches,
+	dispatch
 }, dispatch))
-@connect()
 export default class Setting extends Component{
 	componentDidMount(){
 		const {
