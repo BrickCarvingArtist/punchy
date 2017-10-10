@@ -6,7 +6,7 @@ import MyArticle from "./Article";
 import MyFavorite from "./Favorite";
 import MyFocus from "./Focus";
 import NotFound from "../other/NotFound";
-import {setAuthorProfile, setAuthorArticles, setMyFavorites, setMyFocuses} from "../../actions/user";
+import {setAuthorProfile, setAuthorArticles, setMyArticles, setMyFavorites, setMyFocuses} from "../../actions/user";
 export const routes = [
 	{
 		path: "/u/:id",
