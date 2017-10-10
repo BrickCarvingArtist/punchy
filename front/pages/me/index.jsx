@@ -5,12 +5,10 @@ import {connect} from "react-redux";
 import classNames from "classnames";
 import {basis} from "../../actions";
 import {SERVER_NAME, AUTH_SERVER} from "../../configs";
-try{
-	require("../../styles/me");
-}catch(e){}
+import {attachStyles} from "../../utils";
 export const routes = [];
 const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
-	<Link className="entrance with-icon" to={tel ? `${to.replace(":id", tel)}` : to} onClick={onClick}>
+	<Link className="entrance with-icon" to={to.replace(":id", tel)} onClick={onClick}>
 		<icon className={
 			classNames(["medium", icon])
 		}></icon>
@@ -19,6 +17,7 @@ const Entrance = ({icon, label, to, name, onClick, tel, count}) => (
 		<icon className="small go"></icon>
 	</Link>
 );
+@attachStyles(() => require("../../styles/me"))
 @connect(({me}) => me, dispatch => bindActionCreators(basis, dispatch))
 export default class Me extends Component{
 	static defaultProps = {

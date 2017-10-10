@@ -4,6 +4,7 @@ import {RouteWithSubRoutes} from "../../utils";
 import Setting from "./Setting";
 import Profile from "./Profile";
 import NotFound from "../other/NotFound";
+import {attachStyles} from "../../utils";
 export const routes = [
 	{
 		path: "/setting",
@@ -18,10 +19,10 @@ export const routes = [
 		component: NotFound
 	}
 ];
-export default () => (
+export default attachStyles(() => require("../../styles/setting"))(() => (
 	<Switch>
 		{
 			routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
 		}
 	</Switch>
-);
+));

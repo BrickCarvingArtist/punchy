@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import classNames from "classnames";
-try{
-	require("./slide_on_bar");
-}catch(e){}
+import {attachStyles} from "../utils";
+@attachStyles(() => require("./slide_on_bar"))
 export default class SlideOnBar extends Component{
 	state = {
 		display: 0

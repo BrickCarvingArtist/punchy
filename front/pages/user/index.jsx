@@ -1,6 +1,6 @@
 import React from "react";
 import {Switch} from "react-router-dom";
-import {RouteWithSubRoutes} from "../../utils";
+import {RouteWithSubRoutes, attachStyles} from "../../utils";
 import Profile from "./Profile";
 import MyArticle from "./Article";
 import MyFavorite from "./Favorite";
@@ -59,10 +59,10 @@ export const routes = [
 		component: NotFound
 	}
 ];
-export default () => (
+export default attachStyles(() => require("../../styles/user"))(() => (
 	<Switch>
 		{
 			routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
 		}
 	</Switch>
-);
+));

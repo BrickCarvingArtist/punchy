@@ -2,9 +2,8 @@ import React, {Component} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {basis} from "../../actions";
-try{
-	require("../../styles/info");
-}catch(e){}
+import {attachStyles} from "../../utils";
+@attachStyles(() => require("../../styles/info"))
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class NotFound extends Component{
 	componentDidMount(){

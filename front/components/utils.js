@@ -1,8 +1,3 @@
-import React from "react";
-import {Route, Switch} from "react-router-dom";
-export const RouteWithSubRoutes = route => <Route path={route.path} exact={route.exact} strict={route.strict} render={
-	props => <route.component {...props} routes={route.routes} fetchData={route.fetchData} />
-} />;
 export const attachStyles = styleRequirement => {
 	try{
 		styleRequirement();
@@ -72,16 +67,3 @@ export const Time = ((format = a => a < 10 ? `0${a}` : a, diff = ((PRECISION = [
 		return diff(s, precision, type);
 	}
 }))();
-export const copy = valueToCopy => {
-	let link = document.body.lastChild;
-	if(!/^input$/i.test(link.nodeName)){
-		link = document.createElement("input");
-		link.value = valueToCopy;
-		document.body.appendChild(link);
-	}
-	link.focus();
-	link.setSelectionRange(0, link.value.length);
-	const result = document.execCommand("copy");
-	link.blur();
-	return result;
-};

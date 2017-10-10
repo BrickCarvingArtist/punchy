@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import classNames from "classnames";
-try{
-	require("./search");
-}catch(e){}
+import {attachStyles} from "../utils";
+@attachStyles(() => require("./search"))
 export default class Search extends Component{
 	state = {
 		editable: 0,

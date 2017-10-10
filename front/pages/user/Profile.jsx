@@ -7,12 +7,7 @@ import ArticleSection from "../../components/ArticleSection";
 import {alert} from "../../components/Dialog";
 import {basis, setSlideOnBar} from "../../actions";
 import {setAuthorProfile, setAuthorArticles, focus} from "../../actions/user";
-try{
-	require("../../styles/user");
-}catch(e){}
-@connect(({user}) => ({
-	user
-}), dispatch => bindActionCreators({
+@connect(({user}) => ({user}), dispatch => bindActionCreators({
 	...basis,
 	setSlideOnBar,
 	dispatch

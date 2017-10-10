@@ -9,10 +9,7 @@ import Search from "../../components/Search";
 import {alert, confirm} from "../../components/Dialog";
 import {basis, setSlideOnBar} from "../../actions";
 import {setArticles, removeArticle, search, setRecommendations, clearHistory} from "../../actions/home";
-import {Time} from "../../utils";
-try{
-	require("../../styles/home");
-}catch(e){}
+import {attachStyles, Time} from "../../utils";
 export const routes = [
 	{
 		path: "/",
@@ -24,6 +21,7 @@ export const routes = [
 		}
 	}
 ];
+@attachStyles(() => require("../../styles/home"))
 @connect(({me, home}) => ({
 	user: me.tel,
 	...home

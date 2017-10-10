@@ -1,11 +1,9 @@
 import React, {Component} from "react";
 import {NavLink, withRouter} from "react-router-dom";
 import classNames from "classnames";
-try{
-	require("./footer");
-}catch(e){}
-@withRouter
-export default class Footer extends Component{
+import {attachStyles} from "../utils";
+@attachStyles(() => require("./footer"))
+export class Footer extends Component{
 	render(){
 		const {
 				location,
@@ -37,3 +35,4 @@ export default class Footer extends Component{
 		);
 	}
 }
+export default withRouter(Footer);

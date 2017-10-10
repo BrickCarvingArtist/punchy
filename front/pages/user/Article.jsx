@@ -9,7 +9,7 @@ import Scroller from "../../components/Scroller";
 import ArticleSection from "../../components/ArticleSection";
 import {alert, confirm} from "../../components/Dialog";
 @connect(({me, user}) => ({
-	user: me.tel || 19999999999,
+	user: me.tel,
 	articles: user.articles
 }), dispatch => bindActionCreators({
 	...basis,

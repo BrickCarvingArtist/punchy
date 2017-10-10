@@ -1,11 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import classNames from "classnames";
-import {Time} from "../../utils";
-try{
-	require("./article_section");
-}catch(e){}
-export default ({id, avatar, author_id, author_name, title, description, updated_at, favorite_sum, thumb_sum, viewed_times, cover, handleOption}) => (
+import {attachStyles, Time} from "../utils";
+export default attachStyles(() => require("./article_section"))(({id, avatar, author_id, author_name, title, description, updated_at, favorite_sum, thumb_sum, viewed_times, cover, handleOption}) => (
 	<section className="article">
 		<header>
 			<Link className="author" to={`/u/${author_id}`}>
@@ -41,4 +38,4 @@ export default ({id, avatar, author_id, author_name, title, description, updated
 			</div>
 		</footer>
 	</section>
-);
+));

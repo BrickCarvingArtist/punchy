@@ -4,9 +4,8 @@ import {connect} from "react-redux";
 import classNames from "classnames";
 import {basis} from "../../actions";
 import {BAIDU_ACCESS_KEY} from "../../configs/index";
-try{
-	require("../../styles/about");
-}catch(e){}
+import {attachStyles} from "../../utils";
+@attachStyles(() => require("../../styles/about"))
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class About extends Component{
 	componentDidMount(){

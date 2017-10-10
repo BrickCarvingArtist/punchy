@@ -10,9 +10,6 @@ import {getDetail} from "../../actions/article";
 import {saveAll, insert, update, clearDraft} from "../../actions/editor";
 import {RouteWithSubRoutes} from "../../utils";
 import Category from "./Category";
-try{
-	require("../../styles/article");
-}catch(e){}
 @connect(({article, editor}) => ({
 	article,
 	editor

@@ -7,7 +7,7 @@ import {alert} from "../../components/Dialog";
 import {basis, setSlideOnBar} from "../../actions";
 import {setMyFocuses, focus, updateMyFocuses} from "../../actions/user";
 @connect(({me, user}) => ({
-	user: me.tel || 19999999999,
+	user: me.tel,
 	data: user.focuses
 }), dispatch => bindActionCreators({
 	...basis,

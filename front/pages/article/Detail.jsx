@@ -80,7 +80,7 @@ export default class Detail extends Component{
 			favorite,
 			thumb,
 		} = this.props;
-		const supLabel = category[sup_label];
+		const supLabel = category[sup_label] || {sub: []};
 		return (
 			<article className="page detail with-footer" onScroll={
 				() => {

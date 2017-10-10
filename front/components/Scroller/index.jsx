@@ -1,9 +1,8 @@
 import React, {Component, Children} from "react";
 import {findDOMNode} from "react-dom";
 import classNames from "classnames";
-try{
-	require("./scroller");
-}catch(e){}
+import {attachStyles} from "../utils";
+@attachStyles(() => require("./scroller"))
 export default class Scroller extends Component{
 	static defaultProps = {
 		loadingHeight: 30

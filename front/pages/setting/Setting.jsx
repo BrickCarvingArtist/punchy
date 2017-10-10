@@ -8,9 +8,6 @@ import {alert} from "../../components/Dialog";
 import {basis, clearCaches} from "../../actions";
 import {setAvatar} from "../../actions/setting";
 import {SERVER_NAME, AUTH_SERVER} from "../../configs";
-try{
-	require("../../styles/setting");
-}catch(e){}
 @connect(({core, me}) => ({
 	name: me.name,
 	avatar: me.avatar || "/avatars/avatar.png"
