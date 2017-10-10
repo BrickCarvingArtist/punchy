@@ -15,10 +15,7 @@ import Setting, {routes as settingRoutes} from "./pages/setting";
 import Other, {routes as otherRoutes} from "./pages/other";
 import {setUser} from "./actions";
 import {setCategory} from "./actions/article";
-import {RouteWithSubRoutes} from "./utils";
-try{
-	require("./styles");
-}catch(e){}
+import {RouteWithSubRoutes, attachStyles} from "./utils";
 export const routes = [
 	{
 		path: "/",
@@ -65,6 +62,7 @@ export const routes = [
 		routes: otherRoutes
 	}
 ];
+@attachStyles(() => require("./styles"))
 @withRouter
 @connect(({core}) => core)
 export default class App extends Component{

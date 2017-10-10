@@ -1,5 +1,6 @@
 import {goBack} from "react-router-redux";
 export default (state = {
+	title: "",
 	headerType: 1,
 	headerLeftButton: {},
 	headerRightButton: {},
