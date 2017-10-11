@@ -8,13 +8,14 @@ import {attachStyles} from "../../utils";
 @attachStyles(() => require("../../styles/about"))
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class About extends Component{
+	componentWillMount(){
+		this.props.setTitle("关于我们");
+	}
 	componentDidMount(){
 		const {
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton
 		} = this.props;
-		setTitle("关于我们");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
 		this.renderMap();

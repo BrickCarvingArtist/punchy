@@ -15,15 +15,16 @@ export default class User extends Component{
 	static defaultProps = {
 		name: ""
 	};
+	componentWillMount(){
+		this.props.setTitle("新用户名");
+	}
 	componentDidMount(){
 		const {
 			dispatch,
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
 			history
 		} = this.props;
-		setTitle("新用户名");
 		setHeaderLeftButton("back");
 		setHeaderRightButton({
 			label: "完成",

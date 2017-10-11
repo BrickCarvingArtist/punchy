@@ -22,13 +22,14 @@ export default class Focus extends Component{
 	state = {
 		ending: 0
 	};
+	componentWillMount(){
+		this.props.setTitle("我的关注");
+	}
 	componentDidMount(){
 		const {
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton
 		} = this.props;
-		setTitle("我的关注");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
 	}

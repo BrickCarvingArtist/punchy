@@ -28,14 +28,19 @@ export default class Profile extends Component{
 	state = {
 		ending: 0
 	};
-	componentDidMount(){
+	componentWillMount(){
 		const {
 			setTitle,
-			setHeaderType,
 			author,
 			name
 		} = this.props;
 		setTitle(`${name || author}的个人主页`);
+	}
+	componentDidMount(){
+		const {
+			setTitle,
+			setHeaderType
+		} = this.props;
 		setHeaderType();
 		this.setAuthorProfile();
 	}

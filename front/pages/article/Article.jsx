@@ -21,13 +21,11 @@ export default class Article extends Component{
 	state = {
 		ending: 0
 	};
+	componentWillMount(){
+		this.props.setTitle("所有文章");
+	}
 	componentDidMount(){
-		const {
-			setTitle,
-			setHeaderType
-		} = this.props;
-		setTitle("所有文章");
-		setHeaderType(1);
+		this.props.setHeaderType(1);
 	}
 	componentWillReceiveProps(nextProps){
 		const nextLength = nextProps.articles.length,

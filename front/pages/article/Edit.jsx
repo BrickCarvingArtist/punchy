@@ -30,10 +30,12 @@ import Category from "./Category";
 	};
 })
 class Editor extends Component{
+	componentWillMount(){
+		this.props.setTitle("编辑文章");
+	}
 	async componentDidMount(){
 		const {
 			dispatch,
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
 			id,
@@ -43,7 +45,6 @@ class Editor extends Component{
 			content,
 			clearDraft
 		} = this.props;
-		setTitle("编辑文章");
 		setHeaderLeftButton("back");
 		setHeaderRightButton({
 			label: "发表",

@@ -6,13 +6,14 @@ import {attachStyles} from "../../utils";
 @attachStyles(() => require("../../styles/info"))
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class NotFound extends Component{
+	componentWillMount(){
+		this.props.setTitle("产品信息");
+	}
 	componentDidMount(){
 		const {
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton
 		} = this.props;
-		setTitle("产品信息");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
 	}

@@ -4,13 +4,14 @@ import {connect} from "react-redux";
 import {basis} from "../../actions";
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class NotFound extends Component{
+	componentWillMount(){
+		this.props.setTitle("走丢了");
+	}
 	componentDidMount(){
 		const {
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton
 		} = this.props;
-		setTitle("走丢了");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
 	}

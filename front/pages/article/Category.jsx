@@ -14,13 +14,14 @@ export default class Category extends Component{
 	state = {
 		supLabel: undefined
 	};
+	componentWillMount(){
+		this.props.setTitle("选择类目");
+	}
 	componentDidMount(){
 		const {
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton
 		} = this.props;
-		setTitle("选择类目");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
 	}

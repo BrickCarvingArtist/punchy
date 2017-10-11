@@ -7,14 +7,15 @@ import {attachStyles} from "../../utils";
 @attachStyles(() => require("../../styles/discovery"))
 @connect(() => ({}), dispatch => bindActionCreators(basis, dispatch))
 export default class User extends Component{
+	componentWillMount(){
+		this.props.setTitle("发现");
+	}
 	componentDidMount(){
 		const {
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
 			setHeaderType
 		} = this.props;
-		setTitle("发现");
 		setHeaderLeftButton();
 		setHeaderRightButton();
 		setHeaderType(1);

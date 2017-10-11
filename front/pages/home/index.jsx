@@ -38,13 +38,14 @@ export default class Home extends Component{
 	state = {
 		ending: 0
 	};
+	componentWillMount(){
+		this.props.setTitle("首页 | Punchy");
+	}
 	async componentDidMount(){
 		const {
 			dispatch,
-			setTitle,
 			setHeaderType
 		} = this.props;
-		setTitle("首页 | Punchy");
 		setHeaderType();
 		dispatch(await setRecommendations(3));
 	}

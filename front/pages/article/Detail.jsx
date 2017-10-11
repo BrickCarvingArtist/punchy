@@ -29,15 +29,16 @@ export default class Detail extends Component{
 	state = {
 		isHold: 0
 	};
+	componentWillMount(){
+		this.props.setTitle("文章详情页");
+	}
 	async componentDidMount(){
 		const {
 			dispatch,
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton,
 			id
 		} = this.props;
-		setTitle("文章详情页");
 		setHeaderLeftButton("back");
 		setHeaderRightButton({
 			label: "分享",

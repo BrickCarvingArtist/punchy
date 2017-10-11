@@ -59,13 +59,14 @@ export default class Me extends Component{
 			]
 		]
 	};
+	componentWillMount(){
+		this.props.setTitle("我的");
+	}
 	componentDidMount(){
 		const {
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton
 		} = this.props;
-		setTitle("我的");
 		setHeaderLeftButton();
 		setHeaderRightButton({
 			label: "设置",

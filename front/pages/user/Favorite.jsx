@@ -25,13 +25,14 @@ export default class Article extends Component{
 	state = {
 		ending: 0
 	};
+	componentWillMount(){
+		this.props.setTitle("我的收藏");
+	}
 	componentDidMount(){
 		const {
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton
 		} = this.props;
-		setTitle("我的收藏");
 		setHeaderLeftButton("back");
 		setHeaderRightButton();
 	}

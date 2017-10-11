@@ -17,13 +17,14 @@ import {SERVER_NAME, AUTH_SERVER} from "../../configs";
 	dispatch
 }, dispatch))
 export default class Setting extends Component{
+	componentWillMount(){
+		this.props.setTitle("设置");
+	}
 	componentDidMount(){
 		const {
-			setTitle,
 			setHeaderLeftButton,
 			setHeaderRightButton
 		} = this.props;
-		setTitle("设置");
 		setHeaderLeftButton({
 			icon: "back",
 			to: "/me"

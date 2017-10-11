@@ -18,6 +18,7 @@ export const store = configureStore({
 		for(let i in localStorage){
 			storage[i.replace("ik_punchy_", "")] = parseJSONString(localStorage[i])
 		}
+		delete storage.core;
 		return storage;
 	})({}),
 	enhancers: [
