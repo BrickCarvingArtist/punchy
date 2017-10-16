@@ -50,7 +50,7 @@ export default class Focus extends Component{
 			user
 		} = this.props;
 		try{
-			dispatch(await setMyFocuses({
+			user && dispatch(await setMyFocuses({
 				user_id: user,
 				index,
 				size

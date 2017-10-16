@@ -53,7 +53,7 @@ export default class Article extends Component{
 			user
 		} = this.props;
 		try{
-			dispatch(await setMyFavorites({
+			user && dispatch(await setMyFavorites({
 				user_id: user,
 				index,
 				size

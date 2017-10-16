@@ -51,7 +51,7 @@ export default class Article extends Component{
 			user
 		} = this.props;
 		try{
-			dispatch(await setMyArticles({
+			user && dispatch(await setMyArticles({
 				author: user,
 				index,
 				size
