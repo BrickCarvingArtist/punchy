@@ -84,8 +84,8 @@ export default class App extends Component{
 			slideOnBars
 		} = this.props;
 		return [
-			<Header title={title} headerLeftButton={headerLeftButton} headerRightButton={headerRightButton} headerType={headerType} />,
-			<Footer entrances={
+			<Header key={0} title={title} headerLeftButton={headerLeftButton} headerRightButton={headerRightButton} headerType={headerType} />,
+			<Footer key={1} entrances={
 				[
 					{
 						icon: "home",
@@ -113,13 +113,13 @@ export default class App extends Component{
 					}
 				]
 			} hiddenIndex={2} />,
-			<Switch>
+			<Switch key={2}>
 				{
 					routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
 				}
 			</Switch>,
-			<SlideOnBar bars={slideOnBars} />,
-			<Dialog  />
+			<SlideOnBar key={3} bars={slideOnBars} />,
+			<Dialog key={4} />
 		];
 	}
 }

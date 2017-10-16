@@ -15,9 +15,9 @@ export const store = configureStore({
 		router: routerReducer
 	},
 	initialState: ((storage) => {
-		for(let i in localStorage){
-			storage[i.replace("ik_punchy_", "")] = parseJSONString(localStorage[i])
-		}
+		Reflect.ownKeys(localStorage).forEach(key => {
+			storage[key.replace("ik_auth_", "")] = parseJSONString(localStorage[key])
+		});
 		delete storage.core;
 		return storage;
 	})({}),

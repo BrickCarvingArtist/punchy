@@ -26,14 +26,14 @@ export default class Search extends Component{
 		});
 		value && this.props.handleSearch(value);
 	}
-	renderAdditions(){
+	renderAdditions(key){
 		const {
 			recommendations,
 			histories,
 			clearHistory
 		} = this.props;
 		return (
-			<div className={
+			<div key={key} className={
 				classNames("search-addition", {
 					hidden: !this.state.editable
 				})
@@ -41,7 +41,7 @@ export default class Search extends Component{
 				<section>
 					<h1>热门推荐</h1>
 					{
-						recommendations.map(({id, title}) => <Link to={`/article/${id}`}>{title}</Link>)
+						recommendations.map(({id, title}, i) => <Link key={i} to={`/article/${id}`}>{title}</Link>)
 					}
 				</section>
 				{
@@ -54,7 +54,7 @@ export default class Search extends Component{
 								}
 							</h1>
 							{
-								histories.map(({id, title}) => <Link to={`/article/${id}`}>{title}</Link>)
+								histories.map(({id, title}, i) => <Link key={i} to={`/article/${id}`}>{title}</Link>)
 							}
 						</section>
 						: null
@@ -62,7 +62,7 @@ export default class Search extends Component{
 			</div>
 		);
 	}
-	renderSearchResult(){
+	renderSearchResult(key){
 		const {
 			editable,
 			content
@@ -71,17 +71,17 @@ export default class Search extends Component{
 			results
 		} = this.props;
 		return (
-			<div className={
+			<div key={key} className={
 				classNames("search-result", {
 					hidden: !(content && editable)
 				})
 			}>
 				{
 					results.length ? 
-						results.map(({id, title}) => <Link to={`/article/${id}`}>{title}</Link>)
+						results.map(({id, title}, i) => <Link key={i} to={`/article/${id}`}>{title}</Link>)
 						: [
-							<icon className="empty"></icon>,
-							<p className="note">不好，没有相关内容...</p>
+							<icon key={0} className="empty"></icon>,
+							<p key={1} className="note">不好，没有相关内容...</p>
 						]
 				}
 			</div>
@@ -93,7 +93,7 @@ export default class Search extends Component{
 			content
 		} = this.state;
 		return [
-			<div className="search-header">
+			<div key={0} className="search-header">
 				<img className={
 					classNames("logo", {
 						hidden: editable
@@ -111,8 +111,8 @@ export default class Search extends Component{
 					})
 				} onClick={::this.handleCancel}>取消</a>
 			</div>,
-			this.renderAdditions(),
-			this.renderSearchResult()
+			this.renderAdditions(1),
+			this.renderSearchResult(2)
 		];
 	}
 }

@@ -46,33 +46,44 @@ const {NODE_ENV} = process.env;
 let config;
 if(NODE_ENV === "development"){
 	config = getCoreConfig();
-	config.output.path = resolve(__dirname, "./statics/");
-	config.module.rules.push({
-		test: /\.html$/,
-		use: ["html-loader"]
+	Object.assign(config.output, {
+		path: resolve(__dirname, "../../statics_dev/punchy"),
+		publicPath: "/punchy/"
 	});
-	config.plugins.push(new HtmlWebpackPlugin({
-		template: "./template.html"
-	}), new webpack.HotModuleReplacementPlugin);
-	config.devServer = {
-		historyApiFallback: {
-			rewrites: [
-				{
-					from: /^[^.]+$/,
-					to: "/index.html"
-				},
-				{
-					from: /(\/[^/]+)(\.[jc]ss?)$/,
-					to({match}){
-						return `${match[1]}${match[2]}`;
-					}
-				}
-			]
-		},
-		port: 5501,
-		hot: true,
-		contentBase: resolve(__dirname, "../../statics")
-	};
+	config.plugins.push(new webpack.DefinePlugin({
+		process: {
+			env: {
+				NODE_ENV: JSON.stringify("development")
+			}
+		}
+	}));
+	// config.output.path = resolve(__dirname, "./statics/");
+	// config.module.rules.push({
+	// 	test: /\.html$/,
+	// 	use: ["html-loader"]
+	// });
+	// config.plugins.push(new HtmlWebpackPlugin({
+	// 	template: "./template.html"
+	// }), new webpack.HotModuleReplacementPlugin);
+	// config.devServer = {
+	// 	historyApiFallback: {
+	// 		rewrites: [
+	// 			{
+	// 				from: /^[^.]+$/,
+	// 				to: "/index.html"
+	// 			},
+	// 			{
+	// 				from: /(\/[^/]+)(\.[jc]ss?)$/,
+	// 				to({match}){
+	// 					return `${match[1]}${match[2]}`;
+	// 				}
+	// 			}
+	// 		]
+	// 	},
+	// 	port: 5501,
+	// 	hot: true,
+	// 	contentBase: resolve(__dirname, "../../statics")
+	// };
 	config.watch = true;
 }
 if(NODE_ENV === "production"){
@@ -81,13 +92,6 @@ if(NODE_ENV === "production"){
 		path: resolve(__dirname, "../../statics/punchy"),
 		publicPath: "/punchy/"
 	});
-	// why not work?
-	config.module.rules[0].use = {
-		loader: "babel-loader",
-		options: {
-			minified: true
-		}
-	};
 	config.module.rules[1].use = ExtractTextPlugin.extract({
 		fallback: "style-loader",
 		use: [
