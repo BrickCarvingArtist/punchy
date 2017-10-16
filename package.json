@@ -10,6 +10,8 @@
     "build:dev": "yarn install",
     "build:test": "yarn install --production",
     "build:pro": "yarn install --production",
+    "pregit:add": "yarn test",
+    "git:add": "git add *",
     "eslint": "./node_modules/.bin/eslint ./",
     "test": "./node_modules/.bin/mocha"
   },
