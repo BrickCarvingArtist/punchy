@@ -70,12 +70,12 @@ cd ./front && yarn run build:pro
 
 Designing is based on Apple 6 (375 * 667), others scaled from it.
 
-1. medium-big
-	* size: 25 * 25
-2. medium
-	* size: 20 * 20
-3. small
-	* size: 15 * 15
+type | size | description
+-- | -- | --
+big | 30 * 30 | icons in Footer component
+medium-big | 25 * 25
+medium | 20 * 20 | icons in Header, ArticleSection component and footer of page article/Detail
+small | 15 * 15 | icons in ArticleSection component and footer of page article/Edit
 
 ### colors
 
