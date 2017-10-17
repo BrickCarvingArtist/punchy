@@ -16,7 +16,7 @@ export const store = configureStore({
 	},
 	initialState: ((storage) => {
 		Reflect.ownKeys(localStorage).forEach(key => {
-			storage[key.replace("ik_auth_", "")] = parseJSONString(localStorage[key])
+			storage[key.replace("ik_punchy_", "")] = parseJSONString(localStorage[key])
 		});
 		delete storage.core;
 		return storage;

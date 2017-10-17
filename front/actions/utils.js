@@ -24,9 +24,10 @@ export const asyncAction = (setting, callback, shouldFeedback = 1) => async () =
 		throw e || "网络异常";
 	}
 };
-export const asyncFormAction = (setting, ...rest) => asyncAction({
+export const asyncFormAction = ({headers, ...others}, ...rest) => asyncAction({
 	headers: {
-		"Content-Type": "application/x-www-form-urlencoded"
+		"Content-Type": "application/x-www-form-urlencoded",
+		...headers
 	},
-	...setting
+	...others
 }, ...rest);

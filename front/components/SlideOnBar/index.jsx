@@ -27,11 +27,11 @@ export default class SlideOnBar extends Component{
 				<div className="shadow"></div>
 				<div className="bars">
 					{
-						this.props.bars.map(({name, to, onClick}) => {
+						this.props.bars.map(({name, to, onClick}, i) => {
 							if(to){
-								return <Link to={to}>{name}</Link>
+								return <Link key={i} to={to}>{name}</Link>
 							}
-							return <a onClick={
+							return <a key={i} onClick={
 								async e => {
 									e.stopPropagation();
 									await onClick(e);

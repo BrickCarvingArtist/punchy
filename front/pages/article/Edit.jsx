@@ -17,6 +17,7 @@ import Category from "./Category";
 	...basis,
 	saveAll,
 	clearDraft,
+	push,
 	dispatch
 }, dispatch), ({article, editor}, dispatchProps, ownProps) => {
 	const {id} = ownProps.match.params;
@@ -43,7 +44,8 @@ class Editor extends Component{
 			sup_label,
 			sub_label,
 			content,
-			clearDraft
+			clearDraft,
+			push
 		} = this.props;
 		setHeaderLeftButton("back");
 		setHeaderRightButton({
@@ -66,7 +68,7 @@ class Editor extends Component{
 					if(ok){
 						alert("发表成功");
 						clearDraft(id);
-						dispatch(push("/article"));
+						push("/article");
 					}
 				}catch(e){
 					alert(e);
@@ -74,7 +76,7 @@ class Editor extends Component{
 			}
 		});
 		try{
-			dispatch(await getDetail(id));
+			+id && dispatch(await getDetail(id));
 			this.saveAll();
 		}catch(e){
 			alert(e);
@@ -95,7 +97,6 @@ class Editor extends Component{
 			sup_label,
 			sub_label,
 			content,
-			saveAll,
 			...obj
 		});
 	}

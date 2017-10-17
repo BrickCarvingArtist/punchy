@@ -8,18 +8,18 @@ export const insert = article => asyncFormAction({
 	method: "PUT",
 	path: "/api/article",
 	body: stringify(article)
-}, data => ({
+}, value => ({
 	type: "ARTICLE_DETAIL",
-	value: data,
+	value,
 	ok: 1
 }))();
 export const update = article => asyncFormAction({
 	method: "PATCH",
 	path: "/api/article",
 	body: stringify(article)
-}, data => ({
+}, value => ({
 	type: "ARTICLE_DETAIL",
-	value: data,
+	value,
 	ok: 1
 }))();
 export const clearDraft = value => ({
