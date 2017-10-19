@@ -27,6 +27,7 @@ import {Time, copy} from "../../utils";
 })
 export default class Detail extends Component{
 	state = {
+		startY: 0,
 		isHold: 0
 	};
 	componentWillMount(){
@@ -79,21 +80,25 @@ export default class Detail extends Component{
 			sup_label,
 			sub_label,
 			favorite,
-			thumb,
+			thumb
 		} = this.props;
 		const supLabel = category[sup_label] || {sub: []};
 		return (
-			<article className="page detail with-footer" onScroll={
-				() => {
-					this.state.isHold || this.setState({
-						isHold: 1
-					});
+			<article className="page detail with-footer" onTouchStart={
+				({touches}) => {
+					this.state.startY = touches[0].pageY;
 				}
 			} onTouchEnd={
-				() => {
+				({changedTouches}) => {
 					this.setState({
-						isHold: 0
+						isHold: changedTouches[0].pageY < this.state.startY
 					});
+					const t = setTimeout(() => {
+						clearTimeout(t);
+						this.setState({
+							isHold: 0
+						});
+					}, 2000);
 				}
 			}>
 				<header>
