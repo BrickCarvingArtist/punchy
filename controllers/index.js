@@ -6,6 +6,12 @@ import article from "./article";
 import lottery from "./lottery";
 import me from "./me";
 import relationship from "./relationship";
+/**
+ * the entry of controllers
+ * @module Controllers/entry
+ * @param {Koa} app the instance of Koa
+ * @returns {undefined}
+ */
 export default async app => {
 	try{
 		await sequelize.authenticate();

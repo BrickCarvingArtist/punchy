@@ -1,8 +1,12 @@
 import {error} from "../../utils";
+/**
+ * authorization middleware
+ * @module Middlewares/authorize
+ * @param {Object} ctx Koa context
+ * @param {Function} next the next function
+ * @returns {undefined}
+ */
 export default () => async (ctx, next) => {
-	// type 请求类型
-	// true 接口
-	// false 页面
 	if(ctx.state.tel){
 		return next();
 	}

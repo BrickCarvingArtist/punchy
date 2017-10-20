@@ -25,7 +25,7 @@ import {Time, copy} from "../../utils";
 		...ownProps
 	};
 })
-export default class Detail extends Component{
+class Detail extends Component{
 	state = {
 		startY: 0,
 		isHold: 0

@@ -13,7 +13,8 @@
     "pregit:add": "yarn test",
     "git:add": "git add *",
     "eslint": "./node_modules/.bin/eslint ./",
-    "test": "./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/mocha",
+    "doc": "./node_modules/.bin/jsdoc ./ -c ./jsdoc.json"
   },
   "keywords": [],
   "author": "BrickCarvingArtist",
@@ -59,6 +60,7 @@
   "devDependencies": {
     "babel-eslint": "^8.0.1",
     "eslint": "^4.8.0",
+    "jsdoc": "^3.5.5",
     "mocha": "^3.5.2"
   },
   "repository": "https://github.com/BrickCarvingArtist/punchy.git",

@@ -1,6 +1,13 @@
 import {verify} from "jsonwebtoken";
 import {TOKEN_SECRET} from "../../configs";
 import {error} from "../../utils";
+/**
+ * token verification middleware
+ * @module Middlewares/verify_token
+ * @param {Object} ctx Koa context
+ * @param {Function} next the next function
+ * @returns {undefined}
+ */
 export default () => (ctx, next) => {
 	const sso_token = ctx.query.sso_token || ctx.cookies.get("sso_token");
 	if(!sso_token){
