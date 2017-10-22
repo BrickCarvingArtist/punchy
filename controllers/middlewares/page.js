@@ -9,6 +9,12 @@ import {matchRoutes} from "react-router-config";
 import {readFile, error} from "../../utils";
 import reducers from "../../front/reducers";
 import App, {routes} from "../../front/App";
+/**
+ * fetch data from routes' fetchData config
+ * @param {Object} store the redux store
+ * @param {String} path the request path
+ * @returns {Promise} request promises of pages' requirements from the path
+ */
 const fetchBranchData = (store, path) => {
 	const branch = matchRoutes(routes, path);
 	const promises = branch.map(({route, match}) => {
@@ -30,6 +36,10 @@ const pageJs = [
 	"/punchy/dependencies.js",
 	"/punchy/index.js"
 ].map(item => `<script src="${item}"></script>`).join("");
+/**
+ * the page renderer middleware uses react-server-render
+ * @returns {undefined}
+ */
 export default () => async (ctx, next) => {
 	const {path} = ctx;
 	try{
