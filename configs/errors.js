@@ -1,19 +1,25 @@
 import {ERROR as VALIDATE_ERROR} from "koa-ik-validity/table";
+/** 格式：来源方 模块 功能 类型
+ * @module configs/error
+ * @example 
+ * 来源方 模块 功能 类型
+ * 500   10  002  04
+ * @example 来源方
+ * 500+ node
+ * @example 模块
+ * 00 认证
+ * 01 借贷
+ * 02 用户
+ * 99 杂项
+ * @example 功能
+ * 000 注册
+ * 001 登录
+ * @example 类型
+ * 00 用户名不能为空
+ * 01 用户名长度为1-12位
+ * @example 
+ */
 export default {
-	// 格式：来源方 模块 功能 类型
-	// 例子： 500  10  002   04
-
-	// 来源方
-	// 500+ node
-
-	// 模块
-	// 00 认证
-	// 01 文章
-	// 10 抽奖
-	// 99 杂项
-
-	// 00 认证
-	// 001 token
 	5000000000: "加载首页失败",
 	// 002 来源header
 	5000000200: "来源header未检测到Authorization",
