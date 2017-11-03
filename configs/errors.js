@@ -17,7 +17,8 @@ import {ERROR as VALIDATE_ERROR} from "koa-ik-validity/table";
  * @example 类型
  * 00 用户名不能为空
  * 01 用户名长度为1-12位
- * @example 
+ * @example 完整code
+ * 5000000000 来自node服务器的认证模块的注册功能中用户名不能为空
  */
 export default {
 	5000000000: "加载首页失败",
